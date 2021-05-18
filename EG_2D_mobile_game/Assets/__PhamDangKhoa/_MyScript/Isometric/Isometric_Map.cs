@@ -1292,11 +1292,11 @@ public class Isometric_Map : MonoBehaviour
     #region Map Fence Manager
 
     /// <summary>
-    /// Get Fence Code from Map
+    /// Get Fence Code from Map for Create Code Map
     /// </summary>
     /// <param name="l_MapFenceCode"></param>
     /// <returns></returns>
-    public char Get_Map_FenceCode(List<char> l_MapFenceCode)
+    private char Get_Map_FenceCode(List<char> l_MapFenceCode)
     {
         //Check Code Fence
         bool b_U = false, b_D = false, b_L = false, b_R = false;
@@ -1373,6 +1373,12 @@ public class Isometric_Map : MonoBehaviour
         return c_FenceCode_Emty;
     }
 
+    /// <summary>
+    /// Find Index of Fence in Square from Map
+    /// </summary>
+    /// <param name="v2_Pos"></param>
+    /// <param name="c_FenceCode"></param>
+    /// <returns></returns>
     private int Get_Map_Fence_Layer(Vector2Int v2_Pos, char c_FenceCode)
     {
         for (int i = 0; i < l3_Map_FenceCode[v2_Pos.x][v2_Pos.y].Count; i++) 
@@ -1384,11 +1390,22 @@ public class Isometric_Map : MonoBehaviour
     }
 
     /// <summary>
+    /// Check if Fence Exist in Square from Map
+    /// </summary>
+    /// <param name="v2_Pos"></param>
+    /// <param name="c_FenceCode"></param>
+    /// <returns></returns>
+    public bool Get_Map_Fence_Check(Vector2Int v2_Pos, char c_FenceCode)
+    {
+        return (Get_Map_Fence_Layer(v2_Pos, c_FenceCode) != -1) ? true : false;
+    }
+
+    /// <summary>
     /// Fence Create
     /// </summary>
     /// <param name="v2_Pos"></param>
     /// <param name="lg_Prefab"></param>
-    public void Set_Map_Fence_Create(Vector2Int v2_Pos, List<GameObject> lg_Prefab, List<char> lg_Code)
+    private void Set_Map_Fence_Create(Vector2Int v2_Pos, List<GameObject> lg_Prefab, List<char> lg_Code)
     {
         for (int i = 0; i < lg_Prefab.Count; i++)
         {
@@ -1715,10 +1732,10 @@ public class Isometric_Map : MonoBehaviour
     public bool Get_Check_Fence_Up(Vector2Int v2_Pos)
     {
         //Pos (UP)
-        if (Get_Map_FenceCode(Get_Map_FenceCode(v2_Pos)) == Get_FenceCode(i_FenceCode_Up))
+        if (Get_Map_Fence_Check(v2_Pos, Get_FenceCode(i_FenceCode_Up)))
             return true;
         //Dir (DOWN)
-        if (Get_Map_FenceCode(Get_Map_FenceCode(v2_Pos, v2_DirUp)) == Get_FenceCode(i_FenceCode_Down))
+        if (Get_Map_Fence_Check(v2_Pos + v2_DirUp, Get_FenceCode(i_FenceCode_Down)))
             return true;
         return false;
     }
@@ -1731,10 +1748,10 @@ public class Isometric_Map : MonoBehaviour
     public bool Get_Check_Fence_Down(Vector2Int v2_Pos)
     {
         //Pos (DOWN)
-        if (Get_Map_FenceCode(Get_Map_FenceCode(v2_Pos)) == Get_FenceCode(i_FenceCode_Down))
+        if (Get_Map_Fence_Check(v2_Pos, Get_FenceCode(i_FenceCode_Down)))
             return true;
         //Dir (UP)
-        if (Get_Map_FenceCode(Get_Map_FenceCode(v2_Pos, v2_DirDown)) == Get_FenceCode(i_FenceCode_Up))
+        if (Get_Map_Fence_Check(v2_Pos + v2_DirDown, Get_FenceCode(i_FenceCode_Up)))
             return true;
         return false;
     }
@@ -1747,10 +1764,10 @@ public class Isometric_Map : MonoBehaviour
     public bool Get_Check_Fence_Left(Vector2Int v2_Pos)
     {
         //Pos (LEFT)
-        if (Get_Map_FenceCode(Get_Map_FenceCode(v2_Pos)) == Get_FenceCode(i_FenceCode_Left))
+        if (Get_Map_Fence_Check(v2_Pos, Get_FenceCode(i_FenceCode_Left)))
             return true;
         //Dir (RIGHT)
-        if (Get_Map_FenceCode(Get_Map_FenceCode(v2_Pos, v2_DirLeft)) == Get_FenceCode(i_FenceCode_Right))
+        if (Get_Map_Fence_Check(v2_Pos + v2_DirLeft, Get_FenceCode(i_FenceCode_Right)))
             return true;
         return false;
     }
@@ -1763,10 +1780,10 @@ public class Isometric_Map : MonoBehaviour
     public bool Get_Check_Fence_Right(Vector2Int v2_Pos)
     {
         //Pos (RIGHT)
-        if (Get_Map_FenceCode(Get_Map_FenceCode(v2_Pos)) == Get_FenceCode(i_FenceCode_Right))
+        if (Get_Map_Fence_Check(v2_Pos, Get_FenceCode(i_FenceCode_Right)))
             return true;
         //Dir (LEFT)
-        if (Get_Map_FenceCode(Get_Map_FenceCode(v2_Pos, v2_DirRight)) == Get_FenceCode(i_FenceCode_Left))
+        if (Get_Map_Fence_Check(v2_Pos + v2_DirRight, Get_FenceCode(i_FenceCode_Left)))
             return true;
         return false;
     }

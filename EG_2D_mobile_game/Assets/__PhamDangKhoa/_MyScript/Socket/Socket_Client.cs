@@ -56,7 +56,7 @@ public class Socket_Client : MonoBehaviour
         bool s_Check = cl_Client.Get_Data().Equals(s_DataCheck);
         if (!s_Data.Equals(""))
         {
-            Debug.Log("Socket: Read '" + s_DataCheck + "' <> '" + s_DataCheck + "' is " + s_Check);
+            Debug.Log("Socket: Read '" + s_DataCheck + "' <> '" + s_Data + "' is " + s_Check);
         }
         return s_Check;
     }

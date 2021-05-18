@@ -199,26 +199,34 @@ public class Isometric_Move : MonoBehaviour
 
         if (Input.GetKey(k_Up))
         {
-            i_x_Pressed = Set_Move_Up();
-            i_y_Pressed = 0;
+            Set_Move_Up();
+
+            //i_x_Pressed = Set_Move_Up();
+            //i_y_Pressed = 0;
         }
         else
         if (Input.GetKey(k_Down))
         {
-            i_x_Pressed = Set_Move_Down();
-            i_y_Pressed = 0;
+            Set_Move_Down();
+
+            //i_x_Pressed = Set_Move_Down();
+            //i_y_Pressed = 0;
         }
         else
         if (Input.GetKey(k_Left))
         {
-            i_x_Pressed = 0;
-            i_y_Pressed = Set_Move_Left();
+            Set_Move_Left();
+
+            //i_x_Pressed = 0;
+            //i_y_Pressed = Set_Move_Left();
         }
         else
         if (Input.GetKey(k_Right))
         {
-            i_x_Pressed = 0;
-            i_y_Pressed = Set_Move_Right();
+            Set_Move_Right();
+
+            //i_x_Pressed = 0;
+            //i_y_Pressed = Set_Move_Right();
         }
         else
         {
@@ -306,6 +314,14 @@ public class Isometric_Move : MonoBehaviour
         return false;
     }
 
+    public bool Get_CheckAllow_Move(Vector2Int v2_Dir)
+    {
+        return
+            Get_CheckAvoid_Ground(v2_Dir) ||
+            Get_CheckAvoid_Object(v2_Dir) ||
+            cl_Map.Get_Check_Fence(v2_PosSquareCurrent, v2_Dir);
+    }
+
     #endregion
 
     #region Control Move
@@ -313,25 +329,24 @@ public class Isometric_Move : MonoBehaviour
     /// <summary>
     /// Move Up (+1,0)
     /// </summary>
-    public int Set_Move_Up()
+    public void Set_Move_Up()
     {
         Set_Scale_Left();
 
-        if (Get_CheckAvoid_Ground(cl_Map.v2_DirUp) || 
-            Get_CheckAvoid_Object(cl_Map.v2_DirUp) ||
-            cl_Map.Get_Check_Fence_Up(v2_PosSquareCurrent))
+        if (Get_CheckAllow_Move(cl_Map.v2_DirUp))
         //Check if on the Square of Map is Avoid or have Fence at Up Dir
         {
-            return 0;
+            return;
+            //return 0;
         }
         if (Get_AllowControl())
         {
             v2_PosSquareMoveTo += cl_Map.v2_DirUp;
             f_TimeMove_Cur = f_TimeMove;
 
-            return 1;
+            //return 1;
         }
-        return 0;
+        //return 0;
     }
 
     /// <summary>
@@ -346,25 +361,24 @@ public class Isometric_Move : MonoBehaviour
     /// <summary>
     /// Move Down (-1,0)
     /// </summary>
-    public int Set_Move_Down()
+    public void Set_Move_Down()
     {
         Set_Scale_Right();
 
-        if (Get_CheckAvoid_Ground(cl_Map.v2_DirDown) || 
-            Get_CheckAvoid_Object(cl_Map.v2_DirDown) ||
-            cl_Map.Get_Check_Fence_Down(v2_PosSquareCurrent))
+        if (Get_CheckAllow_Move(cl_Map.v2_DirDown))
         //Check if on the Square of Map is Avoid or have Fence at Up Dir
         {
-            return 0;
+            return;
+            //return 0;
         }
         if (Get_AllowControl())
         {
             v2_PosSquareMoveTo += cl_Map.v2_DirDown;
             f_TimeMove_Cur = f_TimeMove;
 
-            return -1;
+            //return -1;
         }
-        return 0;
+        //return 0;
     }
 
     /// <summary>
@@ -379,25 +393,24 @@ public class Isometric_Move : MonoBehaviour
     /// <summary>
     /// Move Left (0,-1)
     /// </summary>
-    public int Set_Move_Left()
+    public void Set_Move_Left()
     {
         Set_Scale_Left();
 
-        if (Get_CheckAvoid_Ground(cl_Map.v2_DirLeft) || 
-            Get_CheckAvoid_Object(cl_Map.v2_DirLeft) ||
-            cl_Map.Get_Check_Fence_Left(v2_PosSquareCurrent))
+        if (Get_CheckAllow_Move(cl_Map.v2_DirLeft))
         //Check if on the Square of Map is Avoid
         {
-            return 0;
+            return;
+            //return 0;
         }
         if (Get_AllowControl())
         {
             v2_PosSquareMoveTo += cl_Map.v2_DirLeft;
             f_TimeMove_Cur = f_TimeMove;
 
-            return -1;
+            //return -1;
         }
-        return 0;
+        //return 0;
     }
 
     /// <summary>
@@ -412,25 +425,24 @@ public class Isometric_Move : MonoBehaviour
     /// <summary>
     /// Move Right (0,+1)
     /// </summary>
-    public int Set_Move_Right()
+    public void Set_Move_Right()
     {
         Set_Scale_Right();
 
-        if (Get_CheckAvoid_Ground(cl_Map.v2_DirRight) || 
-            Get_CheckAvoid_Object(cl_Map.v2_DirRight) ||
-            cl_Map.Get_Check_Fence_Right(v2_PosSquareCurrent))
+        if (Get_CheckAllow_Move(cl_Map.v2_DirRight))
         //Check if on the Square of Map is Avoid
         {
-            return 0;
+            return;
+            //return 0;
         }
         if (Get_AllowControl())
         {
             v2_PosSquareMoveTo += cl_Map.v2_DirRight;
             f_TimeMove_Cur = f_TimeMove;
 
-            return 1;
+            //return 1;
         }
-        return 0;
+        //return 0;
     }
 
     /// <summary>
