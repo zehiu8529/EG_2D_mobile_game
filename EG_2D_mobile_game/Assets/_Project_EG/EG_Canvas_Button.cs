@@ -10,6 +10,9 @@ public class EG_Canvas_Button : MonoBehaviour
     private Isometric_Map cl_Map;
 
     [SerializeField]
+    private GameObject g_Player;
+
+    private EG_Player_Poision cl_Poision;
     private Isometric_Move cl_Move;
 
     [Header("Data Set")]
@@ -46,6 +49,12 @@ public class EG_Canvas_Button : MonoBehaviour
     [SerializeField]
     private Sprite sp_Nothing;
 
+    private void Start()
+    {
+        cl_Move = g_Player.GetComponent<Isometric_Move>();
+        cl_Poision = g_Player.GetComponent<EG_Player_Poision>();
+    }
+
     private void Update()
     {
         Set_ButtonUI_Up();
@@ -56,9 +65,21 @@ public class EG_Canvas_Button : MonoBehaviour
 
     private void Set_ButtonUI_Up()
     {
-        if (cl_Move.Get_CheckAllow_Move(cl_Map.v2_DirUp))
+        if (cl_Move.Get_CheckAvoid_Ground(cl_Map.v2_DirUp))
         {
             g_Button_Up.GetComponent<Image>().sprite = sp_Nothing;
+        }
+        else
+        if (cl_Move.Get_CheckExist_Fence(cl_Map.v2_DirUp))
+        //Fence Check
+        {
+            g_Button_Up.GetComponent<Image>().sprite = sp_Nothing;
+        }
+        else
+        if (cl_Poision.Get_Check_Poision_Up())
+        //Poision on Table Check
+        {
+            g_Button_Up.GetComponent<Image>().sprite = sp_Action;
         }
         else
         {
@@ -68,9 +89,21 @@ public class EG_Canvas_Button : MonoBehaviour
 
     private void Set_ButtonUI_Down()
     {
-        if (cl_Move.Get_CheckAllow_Move(cl_Map.v2_DirDown))
+        if (cl_Move.Get_CheckAvoid_Ground(cl_Map.v2_DirDown))
         {
             g_Button_Down.GetComponent<Image>().sprite = sp_Nothing;
+        }
+        else
+        if (cl_Move.Get_CheckExist_Fence(cl_Map.v2_DirDown))
+        //Fence Check
+        {
+            g_Button_Down.GetComponent<Image>().sprite = sp_Nothing;
+        }
+        else
+        if (cl_Poision.Get_Check_Poision_Down())
+        //Poision on Table Check
+        {
+            g_Button_Down.GetComponent<Image>().sprite = sp_Action;
         }
         else
         {
@@ -80,9 +113,21 @@ public class EG_Canvas_Button : MonoBehaviour
 
     private void Set_ButtonUI_Left()
     {
-        if (cl_Move.Get_CheckAllow_Move(cl_Map.v2_DirLeft))
+        if (cl_Move.Get_CheckAvoid_Ground(cl_Map.v2_DirLeft))
         {
             g_Button_Left.GetComponent<Image>().sprite = sp_Nothing;
+        }
+        else
+        if (cl_Move.Get_CheckExist_Fence(cl_Map.v2_DirLeft))
+        //Fence Check
+        {
+            g_Button_Left.GetComponent<Image>().sprite = sp_Nothing;
+        }
+        else
+        if (cl_Poision.Get_Check_Poision_Left())
+        //Poision on Table Check
+        {
+            g_Button_Left.GetComponent<Image>().sprite = sp_Action;
         }
         else
         {
@@ -92,9 +137,21 @@ public class EG_Canvas_Button : MonoBehaviour
 
     private void Set_ButtonUI_Right()
     {
-        if (cl_Move.Get_CheckAllow_Move(cl_Map.v2_DirRight))
+        if (cl_Move.Get_CheckAvoid_Ground(cl_Map.v2_DirRight))
         {
             g_Button_Right.GetComponent<Image>().sprite = sp_Nothing;
+        }
+        else
+        if (cl_Move.Get_CheckExist_Fence(cl_Map.v2_DirRight))
+        //Fence Check
+        {
+            g_Button_Right.GetComponent<Image>().sprite = sp_Nothing;
+        }
+        else
+        if (cl_Poision.Get_Check_Poision_Right())
+        //Poision on Table Check
+        {
+            g_Button_Right.GetComponent<Image>().sprite = sp_Action;
         }
         else
         {

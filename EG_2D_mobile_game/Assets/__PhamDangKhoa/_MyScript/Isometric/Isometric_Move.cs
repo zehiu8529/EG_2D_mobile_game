@@ -60,7 +60,15 @@ public class Isometric_Move : MonoBehaviour
     /// </summary>
     [Header("Move")]
     [SerializeField]
-    private float f_TimeMove = 0.2f;
+    [Min(0.2f)]
+    private float f_TimeControlDelay = 0.2f;
+
+    /// <summary>
+    /// Percent of Time Move with Time Control Delay
+    /// </summary>
+    [SerializeField]
+    [Range(0.1f,1f)]
+    private float f_TimeMovePercent = 0.5f;
 
     /// <summary>
     /// Time Move Delay between Square
@@ -132,20 +140,12 @@ public class Isometric_Move : MonoBehaviour
     /// </summary>
     private float f_x_Scale;
 
-    /// <summary>
-    /// Is Keyboard Control this?
-    /// </summary>
-    private bool b_InputChanged = false;
-
-    private int i_x_Pressed = 0;
-    private int i_y_Pressed = 0;
-
     #endregion
 
     private void Start()
     {
         cl_Single = GetComponent<Isometric_Single>();
-
+        
         if (cl_Map == null)
         {
             if (s_Tag != "")
@@ -194,52 +194,25 @@ public class Isometric_Move : MonoBehaviour
     /// </summary>
     public void Set_KeyboardControl()
     {
-        var i_x_Pressed = 0;
-        var i_y_Pressed = 0;
-
         if (Input.GetKey(k_Up))
         {
             Set_Move_Up();
-
-            //i_x_Pressed = Set_Move_Up();
-            //i_y_Pressed = 0;
         }
         else
         if (Input.GetKey(k_Down))
         {
             Set_Move_Down();
-
-            //i_x_Pressed = Set_Move_Down();
-            //i_y_Pressed = 0;
         }
         else
         if (Input.GetKey(k_Left))
         {
             Set_Move_Left();
-
-            //i_x_Pressed = 0;
-            //i_y_Pressed = Set_Move_Left();
         }
         else
         if (Input.GetKey(k_Right))
         {
             Set_Move_Right();
-
-            //i_x_Pressed = 0;
-            //i_y_Pressed = Set_Move_Right();
         }
-        else
-        {
-            i_x_Pressed = 0;
-            i_y_Pressed = 0;
-        }
-
-        b_InputChanged =
-            this.i_x_Pressed != i_x_Pressed ||
-            this.i_y_Pressed != i_y_Pressed;
-
-        this.i_x_Pressed = i_x_Pressed;
-        this.i_y_Pressed = i_y_Pressed;
     }
 
     /// <summary>
@@ -262,13 +235,121 @@ public class Isometric_Move : MonoBehaviour
 
     public void Set_TimeMove(float f_TimeMove)
     {
-        this.f_TimeMove = f_TimeMove;
+        this.f_TimeControlDelay = f_TimeMove;
     }
 
     public float Get_TimeMove()
     {
-        return f_TimeMove;
+        return f_TimeControlDelay;
     }
+
+    #region Check Code
+
+    //Dir
+
+    /// <summary>
+    /// Get Dir Up
+    /// </summary>
+    /// <returns></returns>
+    public Vector2Int Get_Dir_Up()
+    {
+        return cl_Map.v2_DirUp;
+    }
+
+    /// <summary>
+    /// Get Dir Down
+    /// </summary>
+    /// <returns></returns>
+    public Vector2Int Get_Dir_Down()
+    {
+        return cl_Map.v2_DirDown;
+    }
+
+    /// <summary>
+    /// Get Dir Left
+    /// </summary>
+    /// <returns></returns>
+    public Vector2Int Get_Dir_Left()
+    {
+        return cl_Map.v2_DirLeft;
+    }
+
+    /// <summary>
+    /// Get Dir Right
+    /// </summary>
+    /// <returns></returns>
+    public Vector2Int Get_Dir_Right()
+    {
+        return cl_Map.v2_DirRight;
+    }
+
+    //Ground
+
+    /// <summary>
+    /// Get Ground Code From Dir
+    /// </summary>
+    /// <param name="v2_Dir"></param>
+    /// <returns></returns>
+    public char Get_Map_GroundCode(Vector2Int v2_Dir)
+    {
+        return cl_Map.Get_Code_Map_Ground(v2_PosSquareCurrent, v2_Dir);
+    }
+
+    /// <summary>
+    /// Check Ground Code From Dir
+    /// </summary>
+    /// <param name="v2_Dir"></param>
+    /// <param name="c_GroundCode"></param>
+    /// <returns></returns>
+    public bool Get_Check_Map_GroundCodeCheck(Vector2Int v2_Dir, char c_GroundCode)
+    {
+        return Get_Map_GroundCode(v2_Dir) == c_GroundCode;
+    }
+
+    /// <summary>
+    /// Get GameObject of Ground
+    /// </summary>
+    /// <param name="v2_Dir"></param>
+    /// <returns></returns>
+    public GameObject Get_GameObject_Map_Ground(Vector2Int v2_Dir)
+    {
+        return cl_Map.Get_GameObject_Map_Ground(v2_PosSquareCurrent, v2_Dir);
+    }
+
+    //Object
+
+    /// <summary>
+    /// Get Object Code from Dir
+    /// </summary>
+    /// <param name="v2_Dir"></param>
+    /// <returns></returns>
+    public char Get_Map_ObjectCode(Vector2Int v2_Dir)
+    {
+        return cl_Map.Get_Code_Map_Object(v2_PosSquareCurrent, v2_Dir);
+    }
+
+    /// <summary>
+    /// Check Object Code From Dir
+    /// </summary>
+    /// <param name="v2_Dir"></param>
+    /// <param name="c_ObjectCode"></param>
+    /// <returns></returns>
+    public bool Get_Check_Map_ObjectCodeCheck(Vector2Int v2_Dir, char c_ObjectCode)
+    {
+        return Get_Map_ObjectCode(v2_Dir) == c_ObjectCode;
+    }
+
+    /// <summary>
+    /// Get GameObject of Object
+    /// </summary>
+    /// <param name="v2_Dir"></param>
+    /// <returns></returns>
+    public GameObject Get_GameObject_Map_Object(Vector2Int v2_Dir)
+    {
+        return cl_Map.Get_GameObject_Map_Object(v2_PosSquareCurrent, v2_Dir);
+    }
+
+    #endregion
 
     #region Check Avoid
 
@@ -279,13 +360,13 @@ public class Isometric_Move : MonoBehaviour
     /// <returns>If True, Avoid Move to that Ground Square</returns>
     public bool Get_CheckAvoid_Ground(Vector2Int v2_Dir)
     {
-        if (cl_Map.Get_Map_GroundCode(v2_PosSquareCurrent, v2_Dir) == ' ')
+        if (Get_Map_GroundCode(v2_Dir) == ' ')
         {
-            return true;
+            return false;
         }
         for (int i = 0; i < l_GroundCodeAvoid.Count; i++)
         {
-            if(cl_Map.Get_Map_GroundCode(v2_PosSquareCurrent, v2_Dir) == l_GroundCodeAvoid[i])
+            if(Get_Map_GroundCode(v2_Dir) == l_GroundCodeAvoid[i])
             {
                 return true;
             }
@@ -300,13 +381,13 @@ public class Isometric_Move : MonoBehaviour
     /// <returns>If True, Avoid Move to that Ground Square</returns>
     public bool Get_CheckAvoid_Object(Vector2Int v2_Dir)
     {
-        if(cl_Map.Get_Map_ObjectCode(v2_PosSquareCurrent, v2_Dir) == ' ')
+        if(Get_Map_ObjectCode(v2_Dir) == ' ')
         {
             return true;
         }
         for (int i = 0; i < l_ObjectCodeAvoid.Count; i++)
         {
-            if (cl_Map.Get_Map_ObjectCode(v2_PosSquareCurrent, v2_Dir) == l_ObjectCodeAvoid[i])
+            if (Get_Map_ObjectCode(v2_Dir) == l_ObjectCodeAvoid[i])
             {
                 return true;
             }
@@ -314,17 +395,34 @@ public class Isometric_Move : MonoBehaviour
         return false;
     }
 
-    public bool Get_CheckAllow_Move(Vector2Int v2_Dir)
+    /// <summary>
+    /// Check if Fence stop Move
+    /// </summary>
+    /// <param name="v2_Dir"></param>
+    /// <returns></returns>
+    public bool Get_CheckExist_Fence(Vector2Int v2_Dir)
+    {
+        return cl_Map.Get_Check_Exist_Fence(v2_PosSquareCurrent, v2_Dir);
+    }
+
+    /// <summary>
+    /// Check if can Move to a Square that Dir
+    /// </summary>
+    /// <param name="v2_Dir"></param>
+    /// <returns></returns>
+    public bool Get_Check_NotAllow_Move(Vector2Int v2_Dir)
     {
         return
+            Get_CheckExist_Fence(v2_Dir) ||
             Get_CheckAvoid_Ground(v2_Dir) ||
-            Get_CheckAvoid_Object(v2_Dir) ||
-            cl_Map.Get_Check_Fence(v2_PosSquareCurrent, v2_Dir);
+            Get_CheckAvoid_Object(v2_Dir);
     }
 
     #endregion
 
     #region Control Move
+
+    //Dir
 
     /// <summary>
     /// Move Up (+1,0)
@@ -333,7 +431,7 @@ public class Isometric_Move : MonoBehaviour
     {
         Set_Scale_Left();
 
-        if (Get_CheckAllow_Move(cl_Map.v2_DirUp))
+        if (Get_Check_NotAllow_Move(cl_Map.v2_DirUp))
         //Check if on the Square of Map is Avoid or have Fence at Up Dir
         {
             return;
@@ -342,7 +440,7 @@ public class Isometric_Move : MonoBehaviour
         if (Get_AllowControl())
         {
             v2_PosSquareMoveTo += cl_Map.v2_DirUp;
-            f_TimeMove_Cur = f_TimeMove;
+            f_TimeMove_Cur = f_TimeControlDelay;
 
             //return 1;
         }
@@ -365,7 +463,7 @@ public class Isometric_Move : MonoBehaviour
     {
         Set_Scale_Right();
 
-        if (Get_CheckAllow_Move(cl_Map.v2_DirDown))
+        if (Get_Check_NotAllow_Move(cl_Map.v2_DirDown))
         //Check if on the Square of Map is Avoid or have Fence at Up Dir
         {
             return;
@@ -374,7 +472,7 @@ public class Isometric_Move : MonoBehaviour
         if (Get_AllowControl())
         {
             v2_PosSquareMoveTo += cl_Map.v2_DirDown;
-            f_TimeMove_Cur = f_TimeMove;
+            f_TimeMove_Cur = f_TimeControlDelay;
 
             //return -1;
         }
@@ -397,7 +495,7 @@ public class Isometric_Move : MonoBehaviour
     {
         Set_Scale_Left();
 
-        if (Get_CheckAllow_Move(cl_Map.v2_DirLeft))
+        if (Get_Check_NotAllow_Move(cl_Map.v2_DirLeft))
         //Check if on the Square of Map is Avoid
         {
             return;
@@ -406,7 +504,7 @@ public class Isometric_Move : MonoBehaviour
         if (Get_AllowControl())
         {
             v2_PosSquareMoveTo += cl_Map.v2_DirLeft;
-            f_TimeMove_Cur = f_TimeMove;
+            f_TimeMove_Cur = f_TimeControlDelay;
 
             //return -1;
         }
@@ -429,7 +527,7 @@ public class Isometric_Move : MonoBehaviour
     {
         Set_Scale_Right();
 
-        if (Get_CheckAllow_Move(cl_Map.v2_DirRight))
+        if (Get_Check_NotAllow_Move(cl_Map.v2_DirRight))
         //Check if on the Square of Map is Avoid
         {
             return;
@@ -438,7 +536,7 @@ public class Isometric_Move : MonoBehaviour
         if (Get_AllowControl())
         {
             v2_PosSquareMoveTo += cl_Map.v2_DirRight;
-            f_TimeMove_Cur = f_TimeMove;
+            f_TimeMove_Cur = f_TimeControlDelay;
 
             //return 1;
         }
@@ -453,6 +551,8 @@ public class Isometric_Move : MonoBehaviour
     {
         return v2_PosSquareCurrent + cl_Map.v2_DirRight;
     }
+
+    //Not Dir
 
     /// <summary>
     /// Move with Dir (x,y)
@@ -491,9 +591,12 @@ public class Isometric_Move : MonoBehaviour
     /// <param name="v2_PosSquareMoveTo"></param>
     public void Set_Move_PosMoveTo(Vector2Int v2_PosSquareMoveTo)
     {
+        if (!Get_AllowControl())
+            return;
+
         this.v2_PosSquareMoveTo = v2_PosSquareMoveTo;
 
-        f_TimeMove_Cur = f_TimeMove;
+        f_TimeMove_Cur = f_TimeControlDelay;
 
         if (this.v2_PosSquareMoveTo.x > v2_PosSquareMoveTo.x)
         {
@@ -590,7 +693,7 @@ public class Isometric_Move : MonoBehaviour
     /// <param name="f_x_MoveTo"></param>
     private void Set_Move_x(float f_x_MoveTo)
     {
-        float f_x_MoveNew = Mathf.SmoothDamp(cl_Single.Get_Pos().x, f_x_MoveTo, ref f_Velocity_x, f_TimeMove);
+        float f_x_MoveNew = Mathf.SmoothDamp(cl_Single.Get_Pos().x, f_x_MoveTo, ref f_Velocity_x, f_TimeControlDelay * f_TimeMovePercent);
         cl_Single.Set_Pos(f_x_MoveNew, cl_Single.Get_Pos().y);
     }
 
@@ -600,7 +703,7 @@ public class Isometric_Move : MonoBehaviour
     /// <param name="f_y_MoveTo"></param>
     private void Set_Move_y(float f_y_MoveTo)
     {
-        float f_y_MoveNew = Mathf.SmoothDamp(cl_Single.Get_Pos().y, f_y_MoveTo, ref f_Velocity_y, f_TimeMove);
+        float f_y_MoveNew = Mathf.SmoothDamp(cl_Single.Get_Pos().y, f_y_MoveTo, ref f_Velocity_y, f_TimeControlDelay * f_TimeMovePercent);
         cl_Single.Set_Pos(cl_Single.Get_Pos().x, f_y_MoveNew);
     }
 
@@ -644,37 +747,6 @@ public class Isometric_Move : MonoBehaviour
                 this.transform.localScale.y,
                 this.transform.localScale.z);
         }
-    }
-
-    #endregion
-
-    #region Last Frame Control
-
-    /// <summary>
-    /// Get Last Frame Input Changed?
-    /// </summary>
-    /// <returns></returns>
-    public bool Get_InputChanged()
-    {
-        return b_InputChanged;
-    }
-
-    /// <summary>
-    /// Get Last Frame Input X Changed
-    /// </summary>
-    /// <returns>Get "+1" is Move Right, else "-1" is Move Left, else "0" is Stop Move</returns>
-    public int Get_X_Pressed()
-    {
-        return i_x_Pressed;
-    }
-
-    /// <summary>
-    /// Get Last Frame Input Z Changed
-    /// </summary>
-    /// <returns>Get "+1" is Move Forward, else "-1" is Move Backward, else "0" is Stop Move</returns>
-    public int Get_Y_Pressed()
-    {
-        return i_y_Pressed;
     }
 
     #endregion

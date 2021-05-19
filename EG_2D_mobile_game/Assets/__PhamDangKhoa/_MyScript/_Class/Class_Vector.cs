@@ -203,7 +203,7 @@ public class Class_Vector
     /// </summary>
     /// <param name="v2_Pos"></param>
     /// <returns>Use for 'Get_Isometric_TransformPosition()'</returns>
-    public Vector3Int Get_Pos_ForIsometric(Vector2Int v2_Pos)
+    public Vector3Int Get_Isometric_FixedDepth(Vector2Int v2_Pos)
     {
         return (Vector3Int)v2_Pos + new Vector3Int(0, 0, v2_Pos.x * -1 + v2_Pos.y);
     }
@@ -215,7 +215,7 @@ public class Class_Vector
     /// <returns>Use for 'Get_Isometric_TransformPosition()'</returns>
     public Vector3 Get_Isometric_FixedDepth(Vector2 v2_Pos)
     {
-        return (Vector3)v2_Pos + new Vector3(0, 0, (v2_Pos.x * -1 + v2_Pos.y));
+        return (Vector3)v2_Pos + new Vector3(0, 0, v2_Pos.x * -1 + v2_Pos.y);
     }
 
     /// <summary>
@@ -262,10 +262,10 @@ public class Class_Vector
         return new Vector3(v3_Pos.x + v3_Pos.y, 0.5f * (v3_Pos.y - v3_Pos.x), v3_Pos.z);
     }
 
-    public Vector3 Get_Pos_IsometricToXY(Vector3 v)
-    {
-        return new Vector3(0.5f * v.x - v.y, 0.5f * v.x + v.y, v.z);
-    }
+    //public Vector3 Get_Pos_IsometricToXY(Vector3 v)
+    //{
+    //    return new Vector3(0.5f * v.x - v.y, 0.5f * v.x + v.y, v.z);
+    //}
 
     //===5: Vector and VectorInt
 

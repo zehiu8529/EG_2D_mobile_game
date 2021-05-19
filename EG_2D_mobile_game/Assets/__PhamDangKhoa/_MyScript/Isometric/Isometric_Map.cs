@@ -307,7 +307,7 @@ public class Isometric_Map : MonoBehaviour
         //First Load Map if not NULL
         if(s_LoadMap != "")
         {
-            Set_Map(s_LoadMap);
+            Set_Act_Map_Create(s_LoadMap);
         }
     }
 
@@ -510,7 +510,7 @@ public class Isometric_Map : MonoBehaviour
     /// </summary>
     /// <param name="s_FenceDirCode"></param>
     /// <returns></returns>
-    public List<GameObject> Get_FenceInSquare(char c_FenceCodeInSquare)
+    public List<GameObject> Get_List_FenceInSquare(char c_FenceCodeInSquare)
     {
         List<GameObject> l_FenceInSquare = new List<GameObject>();
 
@@ -621,7 +621,7 @@ public class Isometric_Map : MonoBehaviour
     /// </summary>
     /// <param name="s_FenceDirCode"></param>
     /// <returns></returns>
-    public List<char> Get_FenceCodeInSquare(char c_FenceCodeInSquare)
+    public List<char> Get_List_FenceCodeInSquare(char c_FenceCodeInSquare)
     {
         List<char> l_FenceInSquare = new List<char>();
 
@@ -733,7 +733,7 @@ public class Isometric_Map : MonoBehaviour
     /// </summary>
     /// <param name="i_FenceCodeIndex">[-1:Emty][0:UP][1:DOWN][2:LEFT][3:RIGHT]</param>
     /// <returns></returns>
-    public char Get_FenceCode(int i_FenceCodeIndex)
+    public char Get_Code_Fence(int i_FenceCodeIndex)
     {
         if(i_FenceCodeIndex == i_FenceCode_Emty)
         {
@@ -767,7 +767,7 @@ public class Isometric_Map : MonoBehaviour
     /// <returns></returns>
     public Sprite Get_Sprite_FenceList(int i_FenceCodeIndex)
     {
-        List<GameObject> l_FenceInSquare = Get_FenceInSquare(Get_FenceCode(i_FenceCodeIndex));
+        List<GameObject> l_FenceInSquare = Get_List_FenceInSquare(Get_Code_Fence(i_FenceCodeIndex));
 
         return l_FenceInSquare[0].GetComponent<SpriteRenderer>().sprite;
     }
@@ -780,7 +780,7 @@ public class Isometric_Map : MonoBehaviour
     /// Get Code from Map (Save Map and Spawm)
     /// </summary>
     /// <returns></returns>
-    public string Get_Map()
+    public string Get_Code_Map()
     {
         //Ground Code
         string s_MapCode = "";
@@ -811,7 +811,7 @@ public class Isometric_Map : MonoBehaviour
         {
             for (int j = 0; j < v2_MapSize.y; j++)
             {
-                s_MapCode += Get_Map_FenceCode(l3_Map_FenceCode[i][j]);
+                s_MapCode += Get_Code_Map_Fence(l3_Map_FenceCode[i][j]);
                 
             }
         }
@@ -834,7 +834,7 @@ public class Isometric_Map : MonoBehaviour
     /// Set Map from Code (Read Map and Spawm)
     /// </summary>
     /// <param name="s_MapCode"></param>
-    public void Set_Map(string s_MapCode)
+    public void Set_Act_Map_Create(string s_MapCode)
     {
         int i_Read = -1;
 
@@ -1058,7 +1058,7 @@ public class Isometric_Map : MonoBehaviour
     /// </summary>
     /// <param name="v2_Pos"></param>
     /// <returns></returns>
-    public GameObject Get_Map_Ground(Vector2Int v2_Pos)
+    public GameObject Get_GameObject_Map_Ground(Vector2Int v2_Pos)
     {
         if (!Get_Check_InsideMap(v2_Pos))
             return null;
@@ -1071,7 +1071,7 @@ public class Isometric_Map : MonoBehaviour
     /// <param name="v2_Pos"></param>
     /// <param name="v2_Dir"></param>
     /// <returns></returns>
-    public GameObject Get_Map_Ground(Vector2Int v2_Pos, Vector2Int v2_Dir)
+    public GameObject Get_GameObject_Map_Ground(Vector2Int v2_Pos, Vector2Int v2_Dir)
     {
         if (!Get_Check_InsideMap(v2_Pos, v2_Dir))
             return null;
@@ -1085,7 +1085,7 @@ public class Isometric_Map : MonoBehaviour
     /// </summary>
     /// <param name="v2_Pos">Pos to Get Code on Map</param>
     /// <returns>If out Limit, return ' ' (Space)</returns>
-    public char Get_Map_GroundCode(Vector2Int v2_Pos)
+    public char Get_Code_Map_Ground(Vector2Int v2_Pos)
     {
         if (Get_Check_InsideMap(v2_Pos))
             return l2_Map_GroundCode[v2_Pos.x][v2_Pos.y];
@@ -1097,7 +1097,7 @@ public class Isometric_Map : MonoBehaviour
     /// </summary>
     /// <param name="v2_Pos">Pos to Get Code on Map</param>
     /// <returns>If out Limit, return ' ' (Space)</returns>
-    public char Get_Map_GroundCode(Vector2Int v2_Pos, Vector2Int v2_Dir)
+    public char Get_Code_Map_Ground(Vector2Int v2_Pos, Vector2Int v2_Dir)
     {
         if (Get_Check_InsideMap(v2_Pos, v2_Dir))
             return l2_Map_GroundCode[v2_Pos.x + v2_Dir.x][v2_Pos.y + v2_Dir.y];
@@ -1241,7 +1241,7 @@ public class Isometric_Map : MonoBehaviour
     /// </summary>
     /// <param name="v2_Pos"></param>
     /// <returns></returns>
-    public GameObject Get_Map_Object(Vector2Int v2_Pos)
+    public GameObject Get_GameObject_Map_Object(Vector2Int v2_Pos)
     {
         if (!Get_Check_InsideMap(v2_Pos))
             return null;
@@ -1254,7 +1254,7 @@ public class Isometric_Map : MonoBehaviour
     /// <param name="v2_Pos"></param>
     /// <param name="v2_Dir"></param>
     /// <returns></returns>
-    public GameObject Get_Map_Object(Vector2Int v2_Pos, Vector2Int v2_Dir)
+    public GameObject Get_GameObject_Map_Object(Vector2Int v2_Pos, Vector2Int v2_Dir)
     {
         if (!Get_Check_InsideMap(v2_Pos, v2_Dir))
             return null;
@@ -1268,7 +1268,7 @@ public class Isometric_Map : MonoBehaviour
     /// </summary>
     /// <param name="v2_Pos">Pos to Get Code on Map</param>
     /// <returns>If out Limit, return ' ' (Space)</returns>
-    public char Get_Map_ObjectCode(Vector2Int v2_Pos)
+    public char Get_Code_Map_Object(Vector2Int v2_Pos)
     {
         if (Get_Check_InsideMap(v2_Pos))
             return l2_Map_ObjectCode[v2_Pos.x][v2_Pos.y];
@@ -1280,7 +1280,7 @@ public class Isometric_Map : MonoBehaviour
     /// </summary>
     /// <param name="v2_Pos">Pos to Get Code on Map</param>
     /// <returns>If out Limit, return ' ' (Space)</returns>
-    public char Get_Map_ObjectCode(Vector2Int v2_Pos, Vector2Int v2_Dir)
+    public char Get_Code_Map_Object(Vector2Int v2_Pos, Vector2Int v2_Dir)
     {
         if (Get_Check_InsideMap(v2_Pos, v2_Dir))
             return l2_Map_ObjectCode[v2_Pos.x + v2_Dir.x][v2_Pos.y + v2_Dir.y];
@@ -1296,7 +1296,7 @@ public class Isometric_Map : MonoBehaviour
     /// </summary>
     /// <param name="l_MapFenceCode"></param>
     /// <returns></returns>
-    private char Get_Map_FenceCode(List<char> l_MapFenceCode)
+    private char Get_Code_Map_Fence(List<char> l_MapFenceCode)
     {
         //Check Code Fence
         bool b_U = false, b_D = false, b_L = false, b_R = false;
@@ -1379,7 +1379,7 @@ public class Isometric_Map : MonoBehaviour
     /// <param name="v2_Pos"></param>
     /// <param name="c_FenceCode"></param>
     /// <returns></returns>
-    private int Get_Map_Fence_Layer(Vector2Int v2_Pos, char c_FenceCode)
+    private int Get_Index_Map_Fence(Vector2Int v2_Pos, char c_FenceCode)
     {
         for (int i = 0; i < l3_Map_FenceCode[v2_Pos.x][v2_Pos.y].Count; i++) 
         {
@@ -1395,9 +1395,9 @@ public class Isometric_Map : MonoBehaviour
     /// <param name="v2_Pos"></param>
     /// <param name="c_FenceCode"></param>
     /// <returns></returns>
-    public bool Get_Map_Fence_Check(Vector2Int v2_Pos, char c_FenceCode)
+    public bool Get_Check_Map_Exist_Fence(Vector2Int v2_Pos, char c_FenceCode)
     {
-        return (Get_Map_Fence_Layer(v2_Pos, c_FenceCode) != -1) ? true : false;
+        return (Get_Index_Map_Fence(v2_Pos, c_FenceCode) != -1) ? true : false;
     }
 
     /// <summary>
@@ -1449,7 +1449,7 @@ public class Isometric_Map : MonoBehaviour
         if (c_FenceCodeToEmty == c_FenceCode_Emty)
             return;
 
-        int i_FenceLayer = Get_Map_Fence_Layer(v2_Pos, c_FenceCodeToEmty);
+        int i_FenceLayer = Get_Index_Map_Fence(v2_Pos, c_FenceCodeToEmty);
 
         if (i_FenceLayer != -1)
         {
@@ -1472,16 +1472,16 @@ public class Isometric_Map : MonoBehaviour
         if (!Get_Check_InsideMap(v2_Pos))
             return;
 
-        char c_FenceCode = Get_FenceCode(i_FenceCodeIndex);
+        char c_FenceCode = Get_Code_Fence(i_FenceCodeIndex);
 
         if (c_FenceCode == c_FenceCode_Emty)
             return;
 
-        int i_FenceLayer = Get_Map_Fence_Layer(v2_Pos, c_FenceCode);
+        int i_FenceLayer = Get_Index_Map_Fence(v2_Pos, c_FenceCode);
 
         if(i_FenceLayer == -1)
         {
-            Set_Map_Fence_Create(v2_Pos, Get_FenceInSquare(c_FenceCode), Get_FenceCodeInSquare(c_FenceCode));
+            Set_Map_Fence_Create(v2_Pos, Get_List_FenceInSquare(c_FenceCode), Get_List_FenceCodeInSquare(c_FenceCode));
         }
     }
 
@@ -1496,16 +1496,16 @@ public class Isometric_Map : MonoBehaviour
         if (!Get_Check_InsideMap(v2_Pos+ v2_Dir))
             return;
 
-        char c_FenceCode = Get_FenceCode(i_FenceCodeIndex);
+        char c_FenceCode = Get_Code_Fence(i_FenceCodeIndex);
 
         if (c_FenceCode == c_FenceCode_Emty)
             return;
 
-        int i_FenceLayer = Get_Map_Fence_Layer(v2_Pos + v2_Dir, c_FenceCode);
+        int i_FenceLayer = Get_Index_Map_Fence(v2_Pos + v2_Dir, c_FenceCode);
 
         if (i_FenceLayer == -1)
         {
-            Set_Map_Fence_Create(v2_Pos + v2_Dir, Get_FenceInSquare(c_FenceCode), Get_FenceCodeInSquare(c_FenceCode));
+            Set_Map_Fence_Create(v2_Pos + v2_Dir, Get_List_FenceInSquare(c_FenceCode), Get_List_FenceCodeInSquare(c_FenceCode));
         }
     }
 
@@ -1524,11 +1524,11 @@ public class Isometric_Map : MonoBehaviour
         if (c_FenceCode == c_FenceCode_Emty)
             return;
 
-        int i_FenceLayer = Get_Map_Fence_Layer(v2_Pos, c_FenceCode);
+        int i_FenceLayer = Get_Index_Map_Fence(v2_Pos, c_FenceCode);
 
         if (i_FenceLayer == -1)
         {
-            Set_Map_Fence_Create(v2_Pos, Get_FenceInSquare(c_FenceCode), Get_FenceCodeInSquare(c_FenceCode));
+            Set_Map_Fence_Create(v2_Pos, Get_List_FenceInSquare(c_FenceCode), Get_List_FenceCodeInSquare(c_FenceCode));
         }
     }
 
@@ -1546,11 +1546,11 @@ public class Isometric_Map : MonoBehaviour
         if (c_FenceCode == c_FenceCode_Emty)
             return;
 
-        int i_FenceLayer = Get_Map_Fence_Layer(v2_Pos + v2_Dir, c_FenceCode);
+        int i_FenceLayer = Get_Index_Map_Fence(v2_Pos + v2_Dir, c_FenceCode);
 
         if (i_FenceLayer == -1)
         {
-            Set_Map_Fence_Create(v2_Pos + v2_Dir, Get_FenceInSquare(c_FenceCode), Get_FenceCodeInSquare(c_FenceCode));
+            Set_Map_Fence_Create(v2_Pos + v2_Dir, Get_List_FenceInSquare(c_FenceCode), Get_List_FenceCodeInSquare(c_FenceCode));
         }
     }
 
@@ -1561,7 +1561,7 @@ public class Isometric_Map : MonoBehaviour
     /// </summary>
     /// <param name="v2_Pos"></param>
     /// <returns></returns>
-    public List<GameObject> Get_Map_Fence(Vector2Int v2_Pos)
+    public List<GameObject> Get_GameObject_Map_Fence(Vector2Int v2_Pos)
     {
         if (!Get_Check_InsideMap(v2_Pos))
             return new List<GameObject>();
@@ -1574,7 +1574,7 @@ public class Isometric_Map : MonoBehaviour
     /// <param name="v2_Pos"></param>
     /// <param name="v2_Dir"></param>
     /// <returns></returns>
-    public List<GameObject> Get_Map_Fence(Vector2Int v2_Pos, Vector2Int v2_Dir)
+    public List<GameObject> Get_GameObject_Map_Fence(Vector2Int v2_Pos, Vector2Int v2_Dir)
     {
         if (!Get_Check_InsideMap(v2_Pos, v2_Dir))
             return new List<GameObject>();
@@ -1588,7 +1588,7 @@ public class Isometric_Map : MonoBehaviour
     /// </summary>
     /// <param name="v2_Pos"></param>
     /// <returns></returns>
-    public List<char> Get_Map_FenceCode(Vector2Int v2_Pos)
+    public List<char> Get_Code_Map_Fence(Vector2Int v2_Pos)
     {
         if (!Get_Check_InsideMap(v2_Pos))
             return new List<char>();
@@ -1601,7 +1601,7 @@ public class Isometric_Map : MonoBehaviour
     /// <param name="v2_Pos"></param>
     /// <param name="v2_Dir"></param>
     /// <returns></returns>
-    public List<char> Get_Map_FenceCode(Vector2Int v2_Pos, Vector2Int v2_Dir)
+    public List<char> Get_Code_Map_Fence(Vector2Int v2_Pos, Vector2Int v2_Dir)
     {
         if (!Get_Check_InsideMap(v2_Pos, v2_Dir))
             return new List<char>();
@@ -1728,14 +1728,14 @@ public class Isometric_Map : MonoBehaviour
     /// Check is Up Dir have Fence?
     /// </summary>
     /// <param name="v2_Pos"></param>
-    /// <returns>If TRUE, Square can be Move in</returns>
-    public bool Get_Check_Fence_Up(Vector2Int v2_Pos)
+    /// <returns>If FALSE, Square can be Move in</returns>
+    public bool Get_Check_Exist_Fence_Up(Vector2Int v2_Pos)
     {
         //Pos (UP)
-        if (Get_Map_Fence_Check(v2_Pos, Get_FenceCode(i_FenceCode_Up)))
+        if (Get_Check_Map_Exist_Fence(v2_Pos, Get_Code_Fence(i_FenceCode_Up)))
             return true;
         //Dir (DOWN)
-        if (Get_Map_Fence_Check(v2_Pos + v2_DirUp, Get_FenceCode(i_FenceCode_Down)))
+        if (Get_Check_Map_Exist_Fence(v2_Pos + v2_DirUp, Get_Code_Fence(i_FenceCode_Down)))
             return true;
         return false;
     }
@@ -1744,14 +1744,14 @@ public class Isometric_Map : MonoBehaviour
     /// Check is Down Dir have Fence?
     /// </summary>
     /// <param name="v2_Pos"></param>
-    /// <returns>If TRUE, Square can be Move in</returns>
-    public bool Get_Check_Fence_Down(Vector2Int v2_Pos)
+    /// <returns>If FALSE, Square can be Move in</returns>
+    public bool Get_Check_Exist_Fence_Down(Vector2Int v2_Pos)
     {
         //Pos (DOWN)
-        if (Get_Map_Fence_Check(v2_Pos, Get_FenceCode(i_FenceCode_Down)))
+        if (Get_Check_Map_Exist_Fence(v2_Pos, Get_Code_Fence(i_FenceCode_Down)))
             return true;
         //Dir (UP)
-        if (Get_Map_Fence_Check(v2_Pos + v2_DirDown, Get_FenceCode(i_FenceCode_Up)))
+        if (Get_Check_Map_Exist_Fence(v2_Pos + v2_DirDown, Get_Code_Fence(i_FenceCode_Up)))
             return true;
         return false;
     }
@@ -1761,13 +1761,13 @@ public class Isometric_Map : MonoBehaviour
     /// </summary>
     /// <param name="v2_Pos"></param>
     /// <returns></returns>
-    public bool Get_Check_Fence_Left(Vector2Int v2_Pos)
+    public bool Get_Check_Exist_Fence_Left(Vector2Int v2_Pos)
     {
         //Pos (LEFT)
-        if (Get_Map_Fence_Check(v2_Pos, Get_FenceCode(i_FenceCode_Left)))
+        if (Get_Check_Map_Exist_Fence(v2_Pos, Get_Code_Fence(i_FenceCode_Left)))
             return true;
         //Dir (RIGHT)
-        if (Get_Map_Fence_Check(v2_Pos + v2_DirLeft, Get_FenceCode(i_FenceCode_Right)))
+        if (Get_Check_Map_Exist_Fence(v2_Pos + v2_DirLeft, Get_Code_Fence(i_FenceCode_Right)))
             return true;
         return false;
     }
@@ -1776,14 +1776,14 @@ public class Isometric_Map : MonoBehaviour
     /// Check is Right Dir have Fence?
     /// </summary>
     /// <param name="v2_Pos"></param>
-    /// <returns></returns>
-    public bool Get_Check_Fence_Right(Vector2Int v2_Pos)
+    /// <returns>If FALSE, Square can be Move in</returns>
+    public bool Get_Check_Exist_Fence_Right(Vector2Int v2_Pos)
     {
         //Pos (RIGHT)
-        if (Get_Map_Fence_Check(v2_Pos, Get_FenceCode(i_FenceCode_Right)))
+        if (Get_Check_Map_Exist_Fence(v2_Pos, Get_Code_Fence(i_FenceCode_Right)))
             return true;
         //Dir (LEFT)
-        if (Get_Map_Fence_Check(v2_Pos + v2_DirRight, Get_FenceCode(i_FenceCode_Left)))
+        if (Get_Check_Map_Exist_Fence(v2_Pos + v2_DirRight, Get_Code_Fence(i_FenceCode_Left)))
             return true;
         return false;
     }
@@ -1793,45 +1793,33 @@ public class Isometric_Map : MonoBehaviour
     /// </summary>
     /// <param name="v2_Pos"></param>
     /// <param name="v2_Dir"></param>
-    /// <returns>If TRUE, Square can be Move in</returns>
-    public bool Get_Check_Fence(Vector2Int v2_Pos, Vector2Int v2_Dir)
+    /// <returns>If FALSE, Square can be Move in</returns>
+    public bool Get_Check_Exist_Fence(Vector2Int v2_Pos, Vector2Int v2_Dir)
     {
         if (v2_Dir == v2_DirUp)
         {
-            if (Get_Check_Fence_Up(v2_Pos))
-            {
-                return true;
-            }
+            return Get_Check_Exist_Fence_Up(v2_Pos);
         }
         else
         if (v2_Dir == v2_DirDown)
         {
-            if (Get_Check_Fence_Down(v2_Pos))
-            {
-                return true;
-            }
+            return Get_Check_Exist_Fence_Down(v2_Pos);
         }
         else
         if (v2_Dir == v2_DirLeft)
         {
-            if (Get_Check_Fence_Left(v2_Pos))
-            {
-                return true;
-            }
+            return Get_Check_Exist_Fence_Left(v2_Pos);
         }
         else
         if (v2_Dir == v2_DirRight)
         {
-            if (Get_Check_Fence_Right(v2_Pos))
-            {
-                return true;
-            }
+            return Get_Check_Exist_Fence_Right(v2_Pos);
         }
         else
         {
             Debug.LogError("Get_Check_Fence: Dir not correct to check Fence!");
         }
-        return false;
+        return true;
     }
 
     #endregion
@@ -1862,7 +1850,7 @@ public class Isometric_Map : MonoBehaviour
     /// <param name="g_Prefab">Object like "Player", "Enermy", "Box", etc...</param>
     /// <param name="v2_Pos"></param>
     /// <returns>Get GameObject Created to Manager by other Script</returns>
-    public GameObject Set_Spawm(GameObject g_Prefab, Vector2Int v2_Pos)
+    public GameObject Set_Spawm_Create(GameObject g_Prefab, Vector2Int v2_Pos)
     {
         GameObject g_Object = cl_Object.Set_Prepab_Create(g_Prefab, this.transform);
         g_Object.GetComponent<Isometric_Single>().Set_Pos(v2_Pos);
@@ -1884,7 +1872,7 @@ public class Isometric_Map : MonoBehaviour
     /// <param name="i_Pos_x"></param>
     /// <param name="i_Pos_y"></param>
     /// <returns>Get GameObject Created to Manager by other Script</returns>
-    public GameObject Set_Spawm(GameObject g_Prefab, int i_Pos_x, int i_Pos_y)
+    public GameObject Set_Spawm_Create(GameObject g_Prefab, int i_Pos_x, int i_Pos_y)
     {
         GameObject g_Object = cl_Object.Set_Prepab_Create(g_Prefab, this.transform);
         g_Object.GetComponent<Isometric_Single>().Set_Pos(new Vector2(i_Pos_x, i_Pos_y));
@@ -1903,7 +1891,7 @@ public class Isometric_Map : MonoBehaviour
     /// Get List of Spawm Point
     /// </summary>
     /// <returns></returns>
-    public List<Vector2Int> Get_SpawmList()
+    public List<Vector2Int> Get_List_SpawmPoint()
     {
         return l_Spawm;
     }
@@ -1913,7 +1901,7 @@ public class Isometric_Map : MonoBehaviour
     /// </summary>
     /// <param name="i_IndexInList"></param>
     /// <returns></returns>
-    public Vector2Int Get_Spawm(int i_IndexInList)
+    public Vector2Int Get_SpawmPoint(int i_IndexInList)
     {
         return l_Spawm[i_IndexInList];
     }
@@ -1922,7 +1910,7 @@ public class Isometric_Map : MonoBehaviour
     /// Get Count of List of Spawm Point
     /// </summary>
     /// <returns></returns>
-    public int Get_SpawmListCount()
+    public int Get_Count_SpawmList()
     {
         return l_Spawm.Count;
     }

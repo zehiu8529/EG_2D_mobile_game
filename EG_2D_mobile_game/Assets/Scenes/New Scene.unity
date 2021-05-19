@@ -357,9 +357,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   s_Tag: ClientManager
-  b_LocalHost: 0
+  b_LocalHost: 1
   s_Host: 192.168.100.38
-  Port: 49155
+  Port: 49153
 --- !u!4 &573616143
 Transform:
   m_ObjectHideFlags: 0

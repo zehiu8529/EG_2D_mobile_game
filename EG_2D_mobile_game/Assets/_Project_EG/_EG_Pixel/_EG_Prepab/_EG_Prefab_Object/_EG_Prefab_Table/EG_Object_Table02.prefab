@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3385430312957717842}
   - component: {fileID: 3385430312957717844}
   - component: {fileID: 9205364875975983756}
+  - component: {fileID: -5572139410048744495}
   m_Layer: 0
   m_Name: EG_Object_Table02
   m_TagString: Untagged
@@ -48,7 +49,6 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -73,7 +73,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 2684963067835530835, guid: 80c1432a16c715141a131c81a91cacfe, type: 3}
+  m_Sprite: {fileID: 2684963067835530835, guid: 80c1432a16c715141a131c81a91cacfe,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -115,8 +116,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88b51ca1839d85a47a182808b3636847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  s_Tag: IsometricMap
+  cl_Map: {fileID: 0}
   v2_Pos: {x: 0, y: 0}
   v2_Offset: {x: 0, y: 0}
   b_isObject: 1
   f_Centre: 1
   f_Depth: 0
+--- !u!114 &-5572139410048744495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3385430312957717841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1164ded7b2d53a4189f6ed9b71d1faf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  i_PosionAdd_Blue: 1
+  i_PoisionAdd_Red: 1
+  i_PoisionAdd_Green: 1

@@ -16,8 +16,8 @@ public class Class_FileIO
 
     public Class_FileIO()
     {
-        FileSet_Write_Clear();
-        FileSet_Read_Clear();
+        Set_Act_Write_Clear();
+        Set_Act_Read_Clear();
     }
 
     /// <summary>
@@ -75,7 +75,7 @@ public class Class_FileIO
     /// <summary>
     /// Clear Data to Write
     /// </summary>
-    public void FileSet_Write_Clear()
+    public void Set_Act_Write_Clear()
     //Clear Data to Write
     {
         s_TextRead = "";
@@ -85,7 +85,7 @@ public class Class_FileIO
     /// Add Data to Write
     /// </summary>
     /// <param name="s_Add"></param>
-    public void FileSet_Write_Add(string s_Add)
+    public void Set_Act_Write_Add(string s_Add)
     //Add Data to Write
     {
         if (s_TextRead.Length != 0)
@@ -97,7 +97,7 @@ public class Class_FileIO
     /// Add Data to Write
     /// </summary>
     /// <param name="s_Add"></param>
-    public void FileSet_Write_Add(int s_Add)
+    public void Set_Act_Write_Add(int s_Add)
     //Add Data to Write
     {
         if (s_TextRead.Length != 0)
@@ -109,7 +109,7 @@ public class Class_FileIO
     /// Add Data to Write
     /// </summary>
     /// <param name="s_Add"></param>
-    public void FileSet_Write_Add(float s_Add)
+    public void Set_Act_Write_Add(float s_Add)
     //Add Data to Write
     {
         if (s_TextRead.Length != 0)
@@ -121,7 +121,7 @@ public class Class_FileIO
     /// Add Data to Write
     /// </summary>
     /// <param name="s_Add"></param>
-    public void FileSet_Write_Add(double s_Add)
+    public void Set_Act_Write_Add(double s_Add)
     //Add Data to Write
     {
         if (s_TextRead.Length != 0)
@@ -133,7 +133,7 @@ public class Class_FileIO
     /// Start Write to File
     /// </summary>
     /// <param name="s_Link"></param>
-    public void FileActive_Write_Start(string s_Link)
+    public void Set_Act_Write_Start(string s_Link)
     //Start Write to File
     {
         using (FileStream myFile = File.Create(s_Link))
@@ -145,7 +145,7 @@ public class Class_FileIO
             }
             catch
             {
-                Debug.LogError("FileActive_Write_Start(" + s_Link + ")");
+                Debug.LogError("Set_Act_Write_Start(" + s_Link + ")");
             }
         }
     }
@@ -158,7 +158,7 @@ public class Class_FileIO
     /// <summary>
     /// Clear Data to Read
     /// </summary>
-    public void FileSet_Read_Clear()
+    public void Set_Act_Read_Clear()
     //Clear Data to Read
     {
         ls_TextInput = new List<string>();
@@ -169,7 +169,7 @@ public class Class_FileIO
     /// Start Read from File
     /// </summary>
     /// <param name="s_Link"></param>
-    public void FileActive_Read_Start(string s_Link)
+    public void Set_Act_Read_Start(string s_Link)
     //Start Read from File
     {
         try
@@ -186,7 +186,7 @@ public class Class_FileIO
         }
         catch
         {
-            Debug.LogError("FileActive_Read_Start(" + s_Link + ")");
+            Debug.LogError("Set_Act_Read_Start(" + s_Link + ")");
         }
     }
 
@@ -194,7 +194,7 @@ public class Class_FileIO
     /// Read Data after Read from File
     /// </summary>
     /// <returns></returns>
-    public string FileGet_Read_Auto_String()
+    public string Get_Read_Auto_String()
     //Read Data after Read from File
     {
         i_InputRun++;
@@ -205,7 +205,7 @@ public class Class_FileIO
     /// Read Data after Read from File
     /// </summary>
     /// <returns></returns>
-    public int FileGet_Read_Auto_Int()
+    public int Get_Read_Auto_Int()
     //Read Data after Read from File
     {
         i_InputRun++;
@@ -216,7 +216,7 @@ public class Class_FileIO
     /// Read Data after Read from File
     /// </summary>
     /// <returns></returns>
-    public float FileGet_Read_Auto_Float()
+    public float Get_Read_Auto_Float()
     //Read Data after Read from File
     {
         i_InputRun++;
@@ -227,7 +227,7 @@ public class Class_FileIO
     /// Read Data after Read from File
     /// </summary>
     /// <returns></returns>
-    public double FileGet_Read_Auto_Double()
+    public double Get_Read_Auto_Double()
     //Read Data after Read from File
     {
         i_InputRun++;
@@ -238,7 +238,7 @@ public class Class_FileIO
     /// Get Index on Auto Read
     /// </summary>
     /// <returns></returns>
-    public int FileGet_Read_AutoPresent()
+    public int Get_Read_AutoPresent()
     //Get Index on Auto Read
     {
         return i_InputRun;
@@ -249,7 +249,7 @@ public class Class_FileIO
     /// </summary>
     /// <param name="i_Index"></param>
     /// <returns></returns>
-    public string FileGet_Read_Index(int i_Index)
+    public string Get_Read_Index(int i_Index)
     //Read Data after Read from File
     {
         if (i_Index < ls_TextInput.Count)
@@ -261,7 +261,7 @@ public class Class_FileIO
     /// Get All Data line after Read from File
     /// </summary>
     /// <returns></returns>
-    public List<string> FileGet_Read_List()
+    public List<string> Get_Read_List()
     //Read Data after Read from File
     {
         return ls_TextInput;

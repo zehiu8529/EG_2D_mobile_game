@@ -24,7 +24,6 @@ public class Class_Eye
     /// <param name="l_Tarket"></param>
     /// <returns></returns>
     public bool Get_LineCast_Check(Vector3 v3_Start, Vector3 v3_End, LayerMask l_Tarket)
-    //LineCast Vec Check
     {
         bool b_Hit = false;
         RaycastHit ray_Hit = new RaycastHit();
@@ -42,7 +41,6 @@ public class Class_Eye
     /// <param name="l_Tarket"></param>
     /// <returns></returns>
     public RaycastHit Get_LineCast_RaycastHit(Vector3 v3_Start, Vector3 v3_End, LayerMask l_Tarket)
-    //LineCast Vec Raycast
     {
         bool b_Hit = false;
         RaycastHit ray_Hit = new RaycastHit();
@@ -60,7 +58,6 @@ public class Class_Eye
     /// <param name="l_Tarket"></param>
     /// <returns></returns>
     public bool Get_LineCast_Check_LayerMask(Vector3 v3_Start, Vector3 v3_End, LayerMask l_Tarket)
-    //LineCast Vec Check
     {
         if (Get_LineCast_Check(v3_Start, v3_End, l_Tarket))
         {
@@ -80,7 +77,6 @@ public class Class_Eye
     /// <param name="l_Tarket"></param>
     /// <returns></returns>
     public bool Get_RayCast_Dir_Check(Vector3 v3_Start, Vector3 v3_Forward, float f_Distance, LayerMask l_Tarket)
-    //Raycast Dir Check
     {
         bool b_Hit = false;
         RaycastHit ray_Hit = new RaycastHit();
@@ -99,7 +95,6 @@ public class Class_Eye
     /// <param name="l_Tarket"></param>
     /// <returns></returns>
     public RaycastHit Get_RayCast_Dir_RaycastHit(Vector3 v3_Start, Vector3 v3_Forward, float f_Distance, LayerMask l_Tarket)
-    //Raycast Dir Raycast
     {
         bool b_Hit = false;
         RaycastHit ray_Hit = new RaycastHit();
@@ -118,7 +113,6 @@ public class Class_Eye
     /// <param name="l_Tarket"></param>
     /// <returns></returns>
     public bool Get_RayCast_Vec_Check(Vector3 v3_Start, Vector3 v3_End, float f_Distance, LayerMask l_Tarket)
-    //Raycast Vec Check
     {
         bool b_Hit = false;
         RaycastHit ray_Hit = new RaycastHit();
@@ -138,7 +132,6 @@ public class Class_Eye
     /// <param name="l_Tarket"></param>
     /// <returns></returns>
     public RaycastHit Get_RayCast_Vec_RaycastHit(Vector3 v3_Start, Vector3 v3_End, float f_Distance, LayerMask l_Tarket)
-    //Raycast Vec Check
     {
         bool b_Hit = false;
         RaycastHit ray_Hit = new RaycastHit();
@@ -158,7 +151,6 @@ public class Class_Eye
     /// <param name="l_Barrier"></param>
     /// <returns></returns>
     public bool Get_RayCast_Vec_Check_LayerMask(Vector3 v3_Start, Vector3 v3_End, LayerMask l_Tarket, LayerMask l_Barrier)
-    //Raycast Vec Check
     {
         Class_Vector cl_Vector = new Class_Vector();
         if (Get_RayCast_Vec_Check(v3_Start, v3_End, cl_Vector.Get_Distance(v3_Start, v3_End), l_Barrier))
@@ -185,7 +177,6 @@ public class Class_Eye
     /// <param name="l_Barrier"></param>
     /// <returns></returns>
     public bool Get_RayCast_Vec_Check_LayerMask(Vector3 v3_Start, Vector3 v3_End, float f_Distance, LayerMask l_Tarket, LayerMask l_Barrier)
-    //Raycast Vec Check
     {
         if (Get_RayCast_Vec_Check(v3_Start, v3_End, f_Distance, l_Barrier))
         {
@@ -214,7 +205,6 @@ public class Class_Eye
     /// <param name="l_Tarket"></param>
     /// <returns></returns>
     public bool Get_BoxCast_Dir_Check(Vector3 v3_Start, Vector3 v3_Size, Vector3 v3_Forward, Vector3 v3_Rotation, float f_Distance, LayerMask l_Tarket)
-    //Boxcast Dir Check
     {
         bool b_Hit = false;
         RaycastHit ray_Hit = new RaycastHit();
@@ -236,7 +226,6 @@ public class Class_Eye
     /// <param name="l_Tarket"></param>
     /// <returns></returns>
     public RaycastHit Get_BoxCast_Dir_RaycastHit(Vector3 v3_Start, Vector3 v3_Size, Vector3 v3_Forward, Vector3 v3_Rotation, float f_Distance, LayerMask l_Tarket)
-    //Boxcast Dir Check
     {
         bool b_Hit = false;
         RaycastHit ray_Hit = new RaycastHit();
@@ -258,7 +247,6 @@ public class Class_Eye
     /// <param name="l_Tarket"></param>
     /// <returns></returns>
     public bool Get_BoxCast_Vec_Check(Vector3 v3_Start, Vector3 v3_Size, Vector3 v3_End, Vector3 v3_Rotation, float f_Distance, LayerMask l_Tarket)
-    //Boxcast Vec Check
     {
         bool b_Hit = false;
         RaycastHit ray_Hit = new RaycastHit();
@@ -281,7 +269,6 @@ public class Class_Eye
     /// <param name="l_Tarket"></param>
     /// <returns></returns>
     public RaycastHit Get_BoxCast_Vec_RaycastHit(Vector3 v3_Start, Vector3 v3_Size, Vector3 v3_End, Vector3 v3_Rotation, float f_Distance, LayerMask l_Tarket)
-    //Boxcast Vec Check
     {
         bool b_Hit = false;
         RaycastHit ray_Hit = new RaycastHit();
@@ -305,7 +292,6 @@ public class Class_Eye
     /// <param name="l_Barrier"></param>
     /// <returns></returns>
     public bool Get_BoxCast_Vec_Check_LayerMask(Vector3 v3_Start, Vector3 v3_Size, Vector3 v3_End, Vector3 v3_Rotation, float f_Distance, LayerMask l_Tarket, LayerMask l_Barrier)
-    //Boxcast Vec Check
     {
         if (Get_BoxCast_Vec_Check(v3_Start, v3_Size, v3_End, v3_Rotation, f_Distance, l_Barrier))
         {
@@ -332,7 +318,6 @@ public class Class_Eye
     /// <param name="l_Barrier"></param>
     /// <returns></returns>
     public bool Get_BoxCast_Vec_Check_LayerMask(Vector3 v3_Start, Vector3 v3_Size, Vector3 v3_End, Vector3 v3_Rotation, LayerMask l_Tarket, LayerMask l_Barrier)
-    //Boxcast Vec Check
     {
         Class_Vector cl_Vector = new Class_Vector();
         if (Get_BoxCast_Vec_Check(v3_Start, v3_Size, v3_End, v3_Rotation, cl_Vector.Get_Distance(v3_Start, v3_End), l_Barrier))
@@ -361,7 +346,6 @@ public class Class_Eye
     /// <param name="l_Tarket"></param>
     /// <returns></returns>
     public bool Get_SphereCast_Dir_Check(Vector3 v3_Start, float f_Radius, Vector3 v3_Forward, float f_Distance, LayerMask l_Tarket)
-    //Spherecast Dir Check
     {
         bool b_Hit = false;
         RaycastHit ray_Hit = new RaycastHit();
@@ -381,7 +365,6 @@ public class Class_Eye
     /// <param name="l_Tarket"></param>
     /// <returns></returns>
     public RaycastHit Get_SphereCast_Dir_RaycastHit(Vector3 v3_Start, float f_Radius, Vector3 v3_Forward, float f_Distance, LayerMask l_Tarket)
-    //Spherecast Dir Check
     {
         bool b_Hit = false;
         RaycastHit ray_Hit = new RaycastHit();
@@ -401,7 +384,6 @@ public class Class_Eye
     /// <param name="l_Tarket"></param>
     /// <returns></returns>
     public bool Get_SphereCast_Vec_Check(Vector3 v3_Start, float f_Radius, Vector3 v3_End, float f_Distance, LayerMask l_Tarket)
-    //Spherecast Vec Check
     {
         bool b_Hit = false;
         RaycastHit ray_Hit = new RaycastHit();
@@ -422,7 +404,6 @@ public class Class_Eye
     /// <param name="l_Tarket"></param>
     /// <returns></returns>
     public RaycastHit Get_SphereCast_Vec_RaycastHit(Vector3 v3_Start, float f_Radius, Vector3 v3_End, float f_Distance, LayerMask l_Tarket)
-    //Spherecast Vec Check
     {
         bool b_Hit = false;
         RaycastHit ray_Hit = new RaycastHit();
@@ -444,7 +425,6 @@ public class Class_Eye
     /// <param name="l_Barrier"></param>
     /// <returns></returns>
     public bool Get_SphereCast_Vec_Check_LayerMask(Vector3 v3_Start, float f_Radius, Vector3 v3_End, float f_Distance, LayerMask l_Tarket, LayerMask l_Barrier)
-    //Spherecast Vec Check
     {
         if (Get_SphereCast_Vec_Check(v3_Start, f_Radius, v3_End, f_Distance, l_Barrier))
         {
@@ -470,7 +450,6 @@ public class Class_Eye
     /// <param name="l_Barrier"></param>
     /// <returns></returns>
     public bool Get_SphereCast_Vec_Check_LayerMask(Vector3 v3_Start, float f_Radius, Vector3 v3_End, LayerMask l_Tarket, LayerMask l_Barrier)
-    //Spherecast Vec Check
     {
         Class_Vector cl_Vector = new Class_Vector();
         if (Get_SphereCast_Vec_Check(v3_Start, f_Radius, v3_End, cl_Vector.Get_Distance(v3_Start, v3_End), l_Barrier))

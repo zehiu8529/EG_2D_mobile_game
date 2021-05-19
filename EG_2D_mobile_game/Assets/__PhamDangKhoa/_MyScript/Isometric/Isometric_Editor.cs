@@ -314,10 +314,10 @@ public class Isometric_Editor : MonoBehaviour
                     break;
                 case 2:
                     //Fence
-                    cl_Map.Set_Map_Fence_Add(v2_Current, cl_Map.Get_FenceCode(i_Choice));
+                    cl_Map.Set_Map_Fence_Add(v2_Current, cl_Map.Get_Code_Fence(i_Choice));
                     break;
             }
-            s_MapSave = cl_Map.Get_Map();
+            s_MapSave = cl_Map.Get_Code_Map();
         }
 
         //Remove
@@ -337,10 +337,10 @@ public class Isometric_Editor : MonoBehaviour
                     break;
                 case 2:
                     //Fence
-                    cl_Map.Set_Map_Fence_Remove(v2_Current, cl_Map.Get_FenceCode(i_Choice));
+                    cl_Map.Set_Map_Fence_Remove(v2_Current, cl_Map.Get_Code_Fence(i_Choice));
                     break;
             }
-            s_MapSave = cl_Map.Get_Map();
+            s_MapSave = cl_Map.Get_Code_Map();
         }
 
         //Spawm
@@ -357,7 +357,7 @@ public class Isometric_Editor : MonoBehaviour
             {
                 Set_SpawmDebug();
             }
-            s_MapSave = cl_Map.Get_Map();
+            s_MapSave = cl_Map.Get_Code_Map();
         }
     }
 
