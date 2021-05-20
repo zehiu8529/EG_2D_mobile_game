@@ -1,19 +1,10 @@
 fileFormatVersion: 2
-guid: e743e8cbb74dbcd4693473bedb64ca4e
+guid: 5f1372b4789d9ff4f90a566e74fe9f35
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7827704470829575550
-    second: EG_UI_Poision_0
-  - first:
-      213: -1606112655042869709
-    second: EG_UI_Poision_1
-  - first:
-      213: 1765771385554244001
-    second: EG_UI_Poision_2
-  - first:
-      213: -7242969422278713301
-    second: EG_UI_Poision_3
+      213: 4263381006090844963
+    second: EG_UI_BagPannel_0
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -123,13 +114,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: EG_UI_Poision_0
+      name: EG_UI_BagPannel_0
       rect:
         serializedVersion: 2
         x: 5
         y: 5
-        width: 64
-        height: 64
+        width: 128
+        height: 360
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -137,71 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e7da8864eb791ac60800000000000000
-      internalID: 7827704470829575550
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: EG_UI_Poision_1
-      rect:
-        serializedVersion: 2
-        x: 74
-        y: 5
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 33609eebc01f5b9e0800000000000000
-      internalID: -1606112655042869709
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: EG_UI_Poision_2
-      rect:
-        serializedVersion: 2
-        x: 143
-        y: 5
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1a1928e38b7418810800000000000000
-      internalID: 1765771385554244001
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: EG_UI_Poision_3
-      rect:
-        serializedVersion: 2
-        x: 212
-        y: 5
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b20af027fadcb7b90800000000000000
-      internalID: -7242969422278713301
+      spriteID: 32b313acf629a2b30800000000000000
+      internalID: 4263381006090844963
       vertices: []
       indices: 
       edges: []
@@ -209,7 +137,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: de4ce5fea89fc83459acc003cf48f681
+    spriteID: 9a4ba90ac5b5dc342a8f8a9e32b27807
     internalID: 0
     vertices: []
     indices: 

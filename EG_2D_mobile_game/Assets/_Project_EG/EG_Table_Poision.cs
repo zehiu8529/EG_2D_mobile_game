@@ -30,12 +30,12 @@ public class EG_Table_Poision : MonoBehaviour
             a_Animator.SetTrigger("Take");
             b_PoisionEmty_Cur = b_PoisionEmty;
         }
-        else
-        if (b_PoisionEmty_Cur && b_PoisionEmty_Cur != b_PoisionEmty)
-        {
-            a_Animator.SetTrigger("Fill");
-            b_PoisionEmty_Cur = b_PoisionEmty;
-        }
+        //else
+        //if (b_PoisionEmty_Cur && b_PoisionEmty_Cur != b_PoisionEmty)
+        //{
+        //    a_Animator.SetTrigger("Fill");
+        //    b_PoisionEmty_Cur = b_PoisionEmty;
+        //}
     }
 
     public void Set_Act_PoisionTake(out int i_PoisionAdd_Blue, out int i_OisionAdd_Red, out int i_PoisionAdd_Green)
@@ -49,10 +49,24 @@ public class EG_Table_Poision : MonoBehaviour
         }
         else
         {
-            i_PoisionAdd_Blue = -this.i_PosionAdd_Blue;
-            i_OisionAdd_Red = -this.i_PoisionAdd_Red;
-            i_PoisionAdd_Green = -this.i_PoisionAdd_Green;
-            b_PoisionEmty = false;
+            //i_PoisionAdd_Blue = -this.i_PosionAdd_Blue;
+            //i_OisionAdd_Red = -this.i_PoisionAdd_Red;
+            //i_PoisionAdd_Green = -this.i_PoisionAdd_Green;
+            //b_PoisionEmty = false;
+
+            i_PoisionAdd_Blue = 0;
+            i_OisionAdd_Red = 0;
+            i_PoisionAdd_Green = 0;
+
         }
+    }
+
+    /// <summary>
+    /// Check if Poision is Emty?
+    /// </summary>
+    /// <returns>if TRUE, it Emty!</returns>
+    public bool Get_PoisionEmty()
+    {
+        return b_PoisionEmty;
     }
 }

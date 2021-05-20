@@ -137,4 +137,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   i_PosionAdd_Blue: 1
   i_PoisionAdd_Red: 1
-  i_PoisionAdd_Green: 1
+  i_PoisionAdd_Green: 0

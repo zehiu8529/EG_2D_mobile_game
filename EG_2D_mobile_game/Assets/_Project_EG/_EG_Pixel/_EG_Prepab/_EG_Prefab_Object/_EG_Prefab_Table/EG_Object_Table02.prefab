@@ -135,6 +135,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1164ded7b2d53a4189f6ed9b71d1faf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  i_PosionAdd_Blue: 1
+  i_PosionAdd_Blue: 0
   i_PoisionAdd_Red: 1
   i_PoisionAdd_Green: 1

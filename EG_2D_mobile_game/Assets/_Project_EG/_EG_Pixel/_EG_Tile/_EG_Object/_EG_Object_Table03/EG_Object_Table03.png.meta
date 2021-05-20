@@ -47,7 +47,6 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
-  vTOnly: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -79,12 +78,9 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
-  flipbookRows: 1
-  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
-  ignorePngGamma: 0
   applyGammaDecoding: 0
   platformSettings:
   - serializedVersion: 3
@@ -227,7 +223,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 5
-        y: 5
+        y: 10
         width: 64
         height: 64
       alignment: 0
@@ -248,7 +244,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 74
-        y: 5
+        y: 10
         width: 64
         height: 64
       alignment: 0
@@ -269,7 +265,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 143
-        y: 5
+        y: 10
         width: 64
         height: 64
       alignment: 0
@@ -290,7 +286,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 212
-        y: 5
+        y: 10
         width: 64
         height: 64
       alignment: 0
@@ -309,7 +305,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 7fc271346ee47b54caedc9eece95735e
+    spriteID: 2427f9408cabde746ac4e2837185a3d0
     internalID: 0
     vertices: []
     indices: 
