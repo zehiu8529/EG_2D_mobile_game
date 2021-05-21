@@ -1,10 +1,13 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net.Sockets;
 using UnityEngine;
 
 public class Socket_ClientManager : MonoBehaviour
 {
+    #region Public Varible
+
     [Header("Client Manager Tag")]
     [SerializeField]
     private string s_Tag = "ClientManager";
@@ -31,16 +34,41 @@ public class Socket_ClientManager : MonoBehaviour
     /// Port on Server
     /// </summary>
     [SerializeField]
-    private Int32 Port = 5056;
+    private Int32 i_Port = 5056;
 
-    internal Boolean socketReady = false;
+    #endregion
 
-    private TcpClient mySocket;
-    private NetworkStream theStream;
-    private StreamWriter theWriter;
-    private StreamReader theReader;
+    #region Private Varible
+
+    //Socket
+
+    /// <summary>
+    /// Socket Connect OK?
+    /// </summary>
+    internal Boolean b_SocketStart = false;
+
+    private TcpClient tcp_Socket;
+    private NetworkStream net_Stream;
+    private StreamWriter st_Writer;
+    private StreamReader st_Reader;
 
     private string s_ReadData = "";
+
+    //Data
+
+    /// <summary>
+    /// Step = 0 to Start
+    /// </summary>
+    private int i_Step = -1;
+
+    /// <summary>
+    /// Stack of Data get from Server
+    /// </summary>
+    [Header("Data Get from Server")]
+    [SerializeField]
+    private List<string> l_Data;
+
+    #endregion
 
     private void Awake()
     {
@@ -52,32 +80,20 @@ public class Socket_ClientManager : MonoBehaviour
 
     private void Start()
     {
-        mySocket = new TcpClient();
+        tcp_Socket = new TcpClient();
 
-        if (socketReady)
+        if (b_SocketStart)
         {
             Debug.Log("Client: Socket on!");
         }
+
+        l_Data = new List<string>();
     }
 
     private void Update()
     {
-        if (!socketReady)
-        {
-            Set_SocketReady();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Set_Socket_Write("Exit");
-            Set_Socket_Close();
-        }
-
-        s_ReadData = Get_Socket_Read();
-        if (!s_ReadData.Equals(""))
-        {
-            Debug.Log("Client: Get '" + s_ReadData + "'");
-        }
+        Set_Socket_Start();
+        Set_Socket_Auto_Read();
     }
 
     private void OnDestroy()
@@ -87,37 +103,44 @@ public class Socket_ClientManager : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        if (mySocket != null && mySocket.Connected)
-            mySocket.Close();
+        if (tcp_Socket != null && tcp_Socket.Connected)
+            tcp_Socket.Close();
     }
+
+    //Ready And Start
 
     /// <summary>
     /// Set Socket Ready
     /// </summary>
-    private void Set_SocketReady()
+    public void Set_Socket_Start()
     {
-        try
+        if (!b_SocketStart)
         {
-            if (b_LocalHost)
+            try
             {
-                mySocket.Connect(s_LocalHost, Port);
+                if (b_LocalHost)
+                {
+                    tcp_Socket.Connect(s_LocalHost, i_Port);
+                }
+                else
+                {
+                    tcp_Socket.Connect(s_Host, i_Port);
+                }
+                net_Stream = tcp_Socket.GetStream();
+                net_Stream.ReadTimeout = 1;
+                st_Writer = new StreamWriter(net_Stream);
+                st_Reader = new StreamReader(net_Stream);
+                b_SocketStart = true;
+                Debug.LogWarning("Client: Socket Start!");
             }
-            else
+            catch (Exception e)
             {
-                mySocket.Connect(s_Host, Port);
+                Debug.LogError("Client: Socket error '" + e + "'");
             }
-            theStream = mySocket.GetStream();
-            theStream.ReadTimeout = 1;
-            theWriter = new StreamWriter(theStream);
-            theReader = new StreamReader(theStream);
-            socketReady = true;
-            Debug.Log("Client: Socket Send!");
-        }
-        catch (Exception e)
-        {
-            Debug.Log("Client: Socket error '" + e + "'");
         }
     }
+    
+    //Write
 
     /// <summary>
     /// Sent Data to Server
@@ -125,13 +148,15 @@ public class Socket_ClientManager : MonoBehaviour
     /// <param name="s_Data"></param>
     public void Set_Socket_Write(string s_Data)
     {
-        if (!socketReady)
+        if (!b_SocketStart)
             return;
         String foo = s_Data + "\r\n";
-        theWriter.Write(foo);
-        theWriter.Flush();
+        st_Writer.Write(foo);
+        st_Writer.Flush();
         Debug.Log("Client: Send '" + s_Data + "'");
     }
+
+    //Read
 
     /// <summary>
     /// Get Data from Server
@@ -139,28 +164,51 @@ public class Socket_ClientManager : MonoBehaviour
     /// <returns></returns>
     private String Get_Socket_Read()
     {
-        if (!socketReady)
+        if (!b_SocketStart)
             return "";
-        if (theStream.DataAvailable)
-            return theReader.ReadLine();
+        if (net_Stream.DataAvailable)
+            return st_Reader.ReadLine();
         return "";
     }
 
     /// <summary>
-    /// Close Connect to Server
+    /// Get Data Auto from Server
     /// </summary>
-    private void Set_Socket_Close()
+    private void Set_Socket_Auto_Read()
     {
-        if (!socketReady)
-            return;
-        theWriter.Close();
-        theReader.Close();
-        mySocket.Close();
-        socketReady = false;
+        s_ReadData = Get_Socket_Read();
+        if (!s_ReadData.Equals(""))
+        {
+            l_Data.Add(s_ReadData);
+            Debug.Log("Client: Get '" + s_ReadData + "'");
+        }
     }
 
+    /// <summary>
+    /// Get Data Read from Server in Local
+    /// </summary>
+    /// <returns></returns>
     public string Get_Data()
     {
-        return s_ReadData;
+        string s_DataGet = l_Data[0];
+        l_Data.RemoveAt(0);
+        return s_DataGet;
+    }
+
+    //Close
+
+    /// <summary>
+    /// Close Connect to Server
+    /// </summary>
+    public void Set_Socket_Close()
+    {
+        if (!b_SocketStart)
+            return;
+        st_Writer.Close();
+        st_Reader.Close();
+        tcp_Socket.Close();
+        b_SocketStart = false;
+        Set_Socket_Write("Exit");
+        Debug.LogWarning("Client: Socket Close!");
     }
 }
