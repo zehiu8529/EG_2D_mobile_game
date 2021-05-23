@@ -1,28 +1,52 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class KeyCode_UI : MonoBehaviour
-//Add on GameObject Button UI
+/// <summary>
+/// Hightlight Button when Pressed Key
+/// </summary>
+public class Button_Hightlight : MonoBehaviour
 {
+    /// <summary>
+    /// Button Keycode
+    /// </summary>
     [Header("Keyboard")]
     public KeyCode k_ButtonPress;
-    public bool b_ButtonActive = true;
-    //If True, Button can be switch between "Primary" and "Active" state
-    public bool b_LockButton = false;
-    //Lock Button
 
+    /// <summary>
+    /// If True, Button can be switch between "Primary" and "Active" state
+    /// </summary>
+    public bool b_ButtonActive = true;
+
+    /// <summary>
+    /// Lock Button
+    /// </summary>
+    public bool b_LockButton = false;
+
+    /// <summary>
+    /// Color Primary when in 'Normal State'
+    /// </summary>
     [Header("Color")]
     public Color c_Color_ButtonPrimary = Color.white;
-    //Color Primary
-    public Color c_Color_ButtonActive = Color.green;
-    //Color Button Up
-    public Color c_Color_ButtonHold = Color.yellow;
-    //Color Button Hold
-    public Color c_Color_ButtonLock = Color.red;
-    //Color Button Lock
 
+    /// <summary>
+    /// Color when Button Up and in 'Active State'
+    /// </summary>
+    public Color c_Color_ButtonActive = Color.green;
+
+    /// <summary>
+    /// Color when Button Hold
+    /// </summary>
+    public Color c_Color_ButtonHold = Color.yellow;
+
+    /// <summary>
+    /// Color when in 'Lock state'
+    /// </summary>
+    public Color c_Color_ButtonLock = Color.red;
+
+    /// <summary>
+    /// Is Button in 'Active State'?
+    /// </summary>
     private bool b_ActiveState = false;
-    //Button on Choice
 
     private SpriteRenderer s_SpriteRenderer;
     private Image i_Image;
@@ -94,40 +118,62 @@ public class KeyCode_UI : MonoBehaviour
         {
             i_Image.color = c_ColorSet;
         }
+        else
+        {
+            Debug.LogError("Set_ColorToComponent: Not found 'SpriteRenderer' of 'Image' Component!");
+        }
     }
 
+    /// <summary>
+    /// Set Lock Button
+    /// </summary>
+    /// <param name="b_LockButton"></param>
     public void Set_LockButton(bool b_LockButton)
-    //Set Lock Button
     {
         this.b_LockButton = b_LockButton;
     }
 
+    /// <summary>
+    /// Get Lock Button
+    /// </summary>
+    /// <returns></returns>
     public bool Get_LockButton()
-    //Get Lock Button
     {
         return b_LockButton;
     }
 
+    /// <summary>
+    /// Get Button Choice
+    /// </summary>
+    /// <returns></returns>
     public bool Get_ButtonChoice()
-    //Get Button Choice
     {
         return b_ActiveState;
     }
 
+    /// <summary>
+    /// Set Button Choice Primary
+    /// </summary>
+    /// <param name="b_ActiveState"></param>
     public void Set_ButtonChoice(bool b_ActiveState)
-    //Set Button Choice Primary
     {
         this.b_ActiveState = b_ActiveState;
     }
 
+    /// <summary>
+    /// Get Button Allow Chance
+    /// </summary>
+    /// <returns></returns>
     public bool Get_ButtonActive()
-    //Get Button Allow Chance
     {
         return b_ButtonActive;
     }
 
+    /// <summary>
+    /// Set Button Allow Chance
+    /// </summary>
+    /// <param name="b_ButtonActive"></param>
     public void Set_ButtonActive(bool b_ButtonActive)
-    //Set Button Allow Chance
     {
         this.b_ButtonActive = b_ButtonActive;
     }

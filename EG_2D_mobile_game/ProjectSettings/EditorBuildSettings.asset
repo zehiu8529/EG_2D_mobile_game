@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/__PhamDangKhoa/_MyScript/_Scene/Sample_FileIO/Sample_FileIO.unity
+    guid: 60d2d3b4bce7fbc4a96a0a53772ec71e
   m_configObjects: {}
