@@ -107,7 +107,7 @@ public class Isometric_MapRenderer : MonoBehaviour
     /// </remarks>
     [Header("Emty Code")]
     [SerializeField]
-    private char c_EmtyCode = ' ';
+    private char c_EmtyCode = '~';
 
     #endregion
 
@@ -140,6 +140,27 @@ public class Isometric_MapRenderer : MonoBehaviour
             return null;
         }
         return l_Ground[i_GroundListIndex];
+    }
+
+    /// <summary>
+    /// Get Isometric GameObject from List Ground
+    /// </summary>
+    /// <param name="c_GroundCode"></param>
+    /// <returns></returns>
+    public GameObject Get_GameObject_Ground(char c_GroundCode)
+    {
+        if (c_GroundCode == Get_EmtyCode())
+            return null;
+
+        for (int i = 0; i < Get_CountList_Ground(); i++)
+        {
+            if (Get_SingleCode_Ground(i) == c_GroundCode)
+            {
+                return Get_GameObject_Ground(i);
+            }
+        }
+        Debug.LogError("Get_GameObject_Ground: Not Found Code!");
+        return null;
     }
 
     /// <summary>
@@ -191,6 +212,27 @@ public class Isometric_MapRenderer : MonoBehaviour
     }
 
     /// <summary>
+    /// Get Isometric GameObject from List Object
+    /// </summary>
+    /// <param name="c_ObjectCode"></param>
+    /// <returns></returns>
+    public GameObject Get_GameObject_Object(char c_ObjectCode)
+    {
+        if (c_ObjectCode == Get_EmtyCode())
+            return null;
+
+        for (int i = 0; i < Get_CountList_Object(); i++)
+        {
+            if (Get_SingleCode_Object(i) == c_ObjectCode)
+            {
+                return Get_GameObject_Object(i);
+            }
+        }
+        Debug.LogError("Get_GameObject_Object: Not Found Code!");
+        return null;
+    }
+
+    /// <summary>
     /// Get Isometric Square Code from List Object
     /// </summary>
     /// <param name="i_ObjectListIndex"></param>
@@ -236,6 +278,27 @@ public class Isometric_MapRenderer : MonoBehaviour
             return null;
         }
         return l_Fence_Up[i_FenceUpListIndex];
+    }
+
+    /// <summary>
+    /// Get Isometric GameObject from List Fence Up
+    /// </summary>
+    /// <param name="c_FenceUpCode"></param>
+    /// <returns></returns>
+    public GameObject Get_GameObject_Fence_Up(char c_FenceUpCode)
+    {
+        if (c_FenceUpCode == Get_EmtyCode())
+            return null;
+
+        for (int i = 0; i < Get_CountList_Fence_Up(); i++)
+        {
+            if (Get_SingleCode_Fence_Up(i) == c_FenceUpCode)
+            {
+                return Get_GameObject_Fence_Up(i);
+            }
+        }
+        Debug.LogError("Get_GameObject_Fence_Up: Not Found Code!");
+        return null;
     }
 
     /// <summary>
@@ -287,6 +350,27 @@ public class Isometric_MapRenderer : MonoBehaviour
     }
 
     /// <summary>
+    /// Get Isometric GameObject from List Fence Down
+    /// </summary>
+    /// <param name="c_FenceUpCode"></param>
+    /// <returns></returns>
+    public GameObject Get_GameObject_Fence_Down(char c_FenceDownCode)
+    {
+        if (c_FenceDownCode == Get_EmtyCode())
+            return null;
+
+        for (int i = 0; i < Get_CountList_Fence_Down(); i++)
+        {
+            if (Get_SingleCode_Fence_Down(i) == c_FenceDownCode)
+            {
+                return Get_GameObject_Fence_Down(i);
+            }
+        }
+        Debug.LogError("Get_GameObject_Fence_Down: Not Found Code!");
+        return null;
+    }
+
+    /// <summary>
     /// Get Isometric Square Code from List Fence Down
     /// </summary>
     /// <param name="i_FenceDownListIndex"></param>
@@ -335,6 +419,27 @@ public class Isometric_MapRenderer : MonoBehaviour
     }
 
     /// <summary>
+    /// Get Isometric GameObject from List Fence Left
+    /// </summary>
+    /// <param name="c_FenceUpCode"></param>
+    /// <returns></returns>
+    public GameObject Get_GameObject_Fence_Left(char c_FenceLeftCode)
+    {
+        if (c_FenceLeftCode == Get_EmtyCode())
+            return null;
+
+        for (int i = 0; i < Get_CountList_Fence_Left(); i++)
+        {
+            if (Get_SingleCode_Fence_Left(i) == c_FenceLeftCode)
+            {
+                return Get_GameObject_Fence_Left(i);
+            }
+        }
+        Debug.LogError("Get_GameObject_Fence_Left: Not Found Code!");
+        return null;
+    }
+
+    /// <summary>
     /// Get Isometric Square Code from List Fence Left
     /// </summary>
     /// <param name="i_FenceLeftListIndex"></param>
@@ -380,6 +485,27 @@ public class Isometric_MapRenderer : MonoBehaviour
             return null;
         }
         return l_Fence_Right[i_FenceRightListIndex];
+    }
+
+    /// <summary>
+    /// Get Isometric GameObject from List Fence Right
+    /// </summary>
+    /// <param name="c_FenceUpCode"></param>
+    /// <returns></returns>
+    public GameObject Get_GameObject_Fence_Right(char c_FenceRightCode)
+    {
+        if (c_FenceRightCode == Get_EmtyCode())
+            return null;
+
+        for (int i = 0; i < Get_CountList_Fence_Right(); i++)
+        {
+            if (Get_SingleCode_Fence_Right(i) == c_FenceRightCode)
+            {
+                return Get_GameObject_Fence_Right(i);
+            }
+        }
+        Debug.LogError("Get_GameObject_Fence_Right: Not Found Code!");
+        return null;
     }
 
     /// <summary>

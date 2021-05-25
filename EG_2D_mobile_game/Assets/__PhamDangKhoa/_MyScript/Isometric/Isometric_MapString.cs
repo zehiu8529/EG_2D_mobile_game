@@ -77,6 +77,13 @@ public class Isometric_MapString : MonoBehaviour
     [SerializeField]
     private string s_Map_Fence_Right = "";
 
+    /// <summary>
+    /// List of Spawm Point(s)
+    /// </summary>
+    [Header("Spawm Point")]
+    [SerializeField]
+    private List<Vector2Int> l_SpawmPoint;
+
     #endregion
 
     #region Ground Code Manager

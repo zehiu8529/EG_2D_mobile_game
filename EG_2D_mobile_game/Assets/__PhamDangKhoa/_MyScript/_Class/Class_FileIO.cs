@@ -51,6 +51,21 @@ public class Class_FileIO
     }
 
     /// <summary>
+    /// Use this for WINDOW when Input/Output File
+    /// </summary>
+    /// <remarks>
+    /// Get [Application.dataPath + s_Name + ((s_Type != null) ? "_" : "") + s_Type + "." + s_FileExten]
+    /// </remarks>
+    /// <param name="s_Name"></param>
+    /// <param name="s_Type"></param>
+    /// <param name="s_FileExten"></param>
+    /// <returns></returns>
+    public string Get_FileLink_Application_DataPath(string s_Folder, string s_Name, string s_Type, string s_FileExten)
+    {
+        return Application.dataPath + "\\" + s_Folder + "\\" + s_Name + ((s_Type != null) ? "_" : "") + s_Type + "." + s_FileExten;
+    }
+
+    /// <summary>
     /// Use this for ANDROID when Input/Output File
     /// </summary>
     /// <remarks>
@@ -63,6 +78,22 @@ public class Class_FileIO
     public string Get_FileLink_Application_PersistentDataPath(string s_Name, string s_Type, string s_FileExten)
     {
         return Application.persistentDataPath + s_Name + ((s_Type != null) ? "_" : "") + s_Type + "." + s_FileExten;
+    }
+
+    /// <summary>
+    /// Use this for ANDROID when Input/Output File
+    /// </summary>
+    /// <remarks>
+    /// Get [Application.persistentDataPath + s_Name + ((s_Type != null) ? "_" : "") + s_Type + "." + s_FileExten]
+    /// </remarks>
+    /// <param name="s_Folder"></param>
+    /// <param name="s_Name"></param>
+    /// <param name="s_Type"></param>
+    /// <param name="s_FileExten"></param>
+    /// <returns></returns>
+    public string Get_FileLink_Application_PersistentDataPath(string s_Folder, string s_Name, string s_Type, string s_FileExten)
+    {
+        return Application.persistentDataPath + "\\" + s_Folder + "\\" + s_Name + ((s_Type != null) ? "_" : "") + s_Type + "." + s_FileExten;
     }
 
     /// <summary>

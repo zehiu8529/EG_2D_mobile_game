@@ -24,17 +24,24 @@ public class Isometric_MapManager : MonoBehaviour
     #region Public Varible
 
     /// <summary>
-    /// Isomtric Map X Length Dir UP and DOWN
+    /// Tag for other Isometric Object to Find
+    /// </summary>
+    [Header("Isometric Map Tag")]
+    [SerializeField]
+    private string s_Tag = "IsometricMap";
+
+    /// <summary>
+    /// Isomtric Map X Length Dir UP and DOWN and Y Lenght Dir LEFT and RIGHT
     /// </summary>
     [Header("Size Map Code")]
     [SerializeField]
-    private int i_Map_X = 9;
+    private Vector2Int v2_MapSize = new Vector2Int(9, 9);
 
     /// <summary>
-    /// Isomtric Map Y Length Dir LEFT and RIGHT
+    /// Pos Offset for Map (With Offset(0,0), Start in Isometric Square(0,0))
     /// </summary>
     [SerializeField]
-    private int i_Map_Y = 9;
+    private Vector2 v2_Offset = new Vector2();
 
     #endregion
 
@@ -52,6 +59,11 @@ public class Isometric_MapManager : MonoBehaviour
     /// </summary>
     private Isometric_MapRenderer cl_MapRenderer;
 
+    /// <summary>
+    /// Working on GameObject and Prepab
+    /// </summary>
+    private Class_Object cl_Object;
+
     //List Code
 
     /// <summary>
@@ -67,207 +79,312 @@ public class Isometric_MapManager : MonoBehaviour
     /// <summary>
     /// Matrix of Fence UP Code
     /// </summary>
-    private List<List<char>> l2_Map_Fence_UpCode;
+    private List<List<char>> l2_Map_FenceUpCode;
 
     /// <summary>
     /// Matrix of Fence DOWN Code
     /// </summary>
-    private List<List<char>> l2_Map_Fence_DownCode;
+    private List<List<char>> l2_Map_FenceDownCode;
 
     /// <summary>
     /// Matrix of Fence LEFT Code
     /// </summary>
-    private List<List<char>> l2_Map_Fence_LeftCode;
+    private List<List<char>> l2_Map_FenceLeftCode;
 
     /// <summary>
     /// Matrix of FENCE RIGHT Code
     /// </summary>
-    private List<List<char>> l2_Map_Fence_RightCode;
+    private List<List<char>> l2_Map_FenceRightCode;
 
     //List GameObject
 
-    //...
+    /// <summary>
+    /// Matrix of GROUND
+    /// </summary>
+    private List<List<GameObject>> l2_Map_Ground;
+
+    /// <summary>
+    /// Matrix of OBJECT
+    /// </summary>
+    private List<List<GameObject>> l2_Map_Object;
+
+    /// <summary>
+    /// Matrix of FENCE UP
+    /// </summary>
+    private List<List<GameObject>> l2_Map_FenceUp;
+
+    /// <summary>
+    /// Matrix of FENCE DOWN
+    /// </summary>
+    private List<List<GameObject>> l2_Map_FenceDown;
+
+    /// <summary>
+    /// Matrix of FENCE LEFT
+    /// </summary>
+    private List<List<GameObject>> l2_Map_FenceLeft;
+
+    /// <summary>
+    /// Matrix of FENCE RIGHT
+    /// </summary>
+    private List<List<GameObject>> l2_Map_FenceRight;
+
+    //Step
+
+    private const int i_Step_WaitStill = -1;
+    private const int i_Step_GenerateMap = 0;
+    private const int i_Step_CurrentMap = 1;
+    private const int i_Step_AutoOffset = 2;
+
+    /// <summary>
+    /// Step Working on Map
+    /// </summary>
+    private int i_Step = i_Step_WaitStill;
 
     #endregion
+
+    private void Awake()
+    {
+        if (s_Tag != "")
+        {
+            this.tag = s_Tag;
+        }
+    }
 
     private void Start()
     {
         cl_MapString = GetComponent<Isometric_MapString>();
 
         cl_MapRenderer = GetComponent<Isometric_MapRenderer>();
+
+        cl_Object = new Class_Object();
+    }
+
+    private void Update()
+    {
+        //Working on Step
+        Set_Map_Auto_Generate();
+        Set_Map_Auto_FromCurrentMapCode();
+        //Set_Map_Auto_Offset();
+        //Working on Step
     }
 
     #region Map Manager
 
+    //Public
+
     /// <summary>
-    /// Set Size of MATRIX MAP CODE
+    /// Start Map Working
     /// </summary>
-    /// <param name="i_MapXCount"></param>
-    /// <param name="i_MapYCount"></param>
-    public void Set_MapCodeMatrix_Size(int i_MapXCount, int i_MapYCount)
+    public void Set_Map_StartGenerate()
     {
-        this.i_Map_X = i_MapXCount;
-        this.i_Map_Y = i_MapYCount;
+        i_Step = i_Step_GenerateMap;
     }
 
-    //Public (Set Map Code from Current Map Code Matrix)
+    /// <summary>
+    /// Set Map Size
+    /// </summary>
+    /// <param name="v2_MapSize"></param>
+    public void Set_Map_MapSize(Vector2Int v2_MapSize)
+    {
+        this.v2_MapSize = v2_MapSize;
+    }
+
+    /// <summary>
+    /// Stop Map Working and Remove All Map
+    /// </summary>
+    public void Set_Map_Remove()
+    {
+        i_Step = i_Step_WaitStill;
+
+        for (int i = 0; i < v2_MapSize.x; i++)
+        {
+            for (int j = 0; j < v2_MapSize.y; j++)
+            {
+                Set_GameObject_Remove(l2_Map_Ground[i][j]);
+                Set_GameObject_Remove(l2_Map_Object[i][j]);
+                Set_GameObject_Remove(l2_Map_FenceUp[i][j]);
+                Set_GameObject_Remove(l2_Map_FenceDown[i][j]);
+                Set_GameObject_Remove(l2_Map_FenceLeft[i][j]);
+                Set_GameObject_Remove(l2_Map_FenceRight[i][j]);
+
+                Set_MatrixCode_Ground(new Vector2Int(i, j), cl_MapRenderer.Get_EmtyCode());
+                Set_MatrixCode_Object(new Vector2Int(i, j), cl_MapRenderer.Get_EmtyCode());
+                Set_MatrixCode_Fence_Up(new Vector2Int(i, j), cl_MapRenderer.Get_EmtyCode());
+                Set_MatrixCode_Fence_Down(new Vector2Int(i, j), cl_MapRenderer.Get_EmtyCode());
+                Set_MatrixCode_Fence_Left(new Vector2Int(i, j), cl_MapRenderer.Get_EmtyCode());
+                Set_MatrixCode_Fence_Right(new Vector2Int(i, j), cl_MapRenderer.Get_EmtyCode());
+            }
+        }
+    }
 
     /// <summary>
     /// Set MAP CODE of GROUND, OBJECT and FENCE from MAP CODE MATRIX to Get
     /// </summary>
     public void Set_MapCode_FromMapCodeMatrix()
     {
-        Set_MapCodeMatrix_ToMapCodeGround();
-        Get_MapCodeMatrix_ToMapCodeObject();
-        Get_MapCodeMatrix_ToMapCodeFence_Up();
-        Get_MapCodeMatrix_ToMapCodeFence_Down();
-        Get_MapCodeMatrix_ToMapCodeFence_Left();
-        Get_MapCodeMatrix_ToMapCodeFence_Right();
-    }
-
-    //Public (Set Map Code Matrix from Map Code)
-
-    /// <summary>
-    /// Set MAP CODE Generating from GROUND, OBJECT and FENCE CODE
-    /// </summary>
-    /// <remarks>
-    /// Map Code Exist in current
-    /// </remarks>
-    public void Set_MapCodeMatrix_FromMapCode()
-    {
-        Set_MapCodeMatrix_ToEmty();
-        Set_MapCodeMatrix_FromMapCodeGround();
-        Set_MapCodeMatrix_FromMapCodeObject();
-        Set_MapCodeMatrix_FromMapCodeFence_Up();
-        Set_MapCodeMatrix_FromMapCodeFence_Down();
-        Set_MapCodeMatrix_FromMapCodeFence_Left();
-        Set_MapCodeMatrix_FromMapCodeFence_Right();
+        Set_MatrixCode_ToMapCodeGround();
+        Set_MatrixCode_ToMapCodeObject();
+        Set_MatrixCode_ToMapCodeFence_Up();
+        Set_MatrixCode_ToMapCodeFence_Down();
+        Set_MatrixCode_ToMapCodeFence_Left();
+        Set_MatrixCode_ToMapCodeFence_Right();
     }
 
     /// <summary>
-    /// Set MAP CODE Generating from GROUND, OBJECT and FENCE CODE to Generating MATRIX MAP CODE
+    /// Check if Map is Generated Done
     /// </summary>
-    /// <param name="s_MapGroundCode"></param>
-    /// <param name="s_MapObjectCode"></param>
-    /// <param name="s_MapFenceUpCode"></param>
-    /// <param name="s_MapFenceDownCode"></param>
-    /// <param name="s_MapFenceLeftCode"></param>
-    /// <param name="s_MapFenceRightCode"></param>
-    public void Set_MapCodeMatrix_FromMapCode(string s_MapGroundCode, string s_MapObjectCode, string s_MapFenceUpCode, string s_MapFenceDownCode, string s_MapFenceLeftCode, string s_MapFenceRightCode)
+    /// <returns></returns>
+    public bool Get_Map_DoneGenerate()
     {
-        cl_MapString.Set_MapCode_Ground(s_MapGroundCode);
-        cl_MapString.Set_MapCode_Object(s_MapObjectCode);
-        cl_MapString.Set_MapCode_Fence_Up(s_MapFenceUpCode);
-        cl_MapString.Set_MapCode_Fence_Down(s_MapFenceDownCode);
-        cl_MapString.Set_MapCode_Fence_Left(s_MapFenceLeftCode);
-        cl_MapString.Set_MapCode_Fence_Right(s_MapFenceRightCode);
-
-        Set_MapCodeMatrix_FromMapCode();
+        return i_Step == i_Step_AutoOffset;
     }
 
     /// <summary>
-    /// Set MAP CODE Generating from GROUND, OBJECT and FENCE CODE to Generating MATRIX MAP CODE
+    /// Get Offset
     /// </summary>
-    /// <param name="cl_MapCode"></param>
-    public void Set_MapCodeMatrix_FromMapCode(Isometric_MapString cl_MapCode)
+    /// <returns></returns>
+    public Vector2 Get_Offset()
     {
-        cl_MapString.Set_MapCode_Ground(cl_MapCode.Get_MapCode_Ground());
-        cl_MapString.Set_MapCode_Object(cl_MapCode.Get_MapCode_Object());
-        cl_MapString.Set_MapCode_Fence_Up(cl_MapCode.Get_MapCode_Fence_Up());
-        cl_MapString.Set_MapCode_Fence_Down(cl_MapCode.Get_MapCode_Fence_Down());
-        cl_MapString.Set_MapCode_Fence_Left(cl_MapCode.Get_MapCode_Fence_Left());
-        cl_MapString.Set_MapCode_Fence_Right(cl_MapCode.Get_MapCode_Fence_Right());
-
-        Set_MapCodeMatrix_FromMapCode();
+        return this.v2_Offset;
     }
 
     /// <summary>
-    /// Set MAP CODE Generating from GROUND, OBJECT and FENCE CODE to Generating MATRIX MAP CODE
+    /// Get Map Size
     /// </summary>
-    /// <remarks>
-    /// Map Code Exist in File
-    /// </remarks>
-    /// <param name="s_MapCodeFileName"></param>
-    public void Set_MapCodeMatrix_FromFile_Android(string s_MapCodeFileName)
+    /// <returns></returns>
+    public Vector2Int Get_MapSize()
     {
-        Class_FileIO cl_File = new Class_FileIO();
-        string s_File = cl_File.Get_FileLink_Application_PersistentDataPath(s_MapCodeFileName, "", ".isomap");
-
-        cl_File.Set_Act_Write_Clear();
-        cl_File.Set_Act_Read_Start(s_File);
-
-        int i_MapXCount = cl_File.Get_Read_Auto_Int();
-        int i_MapYCount = cl_File.Get_Read_Auto_Int();
-        Set_MapCodeMatrix_Size(i_MapXCount, i_MapYCount);
-
-        cl_MapString.Set_MapCode_Ground(cl_File.Get_Read_Auto_String());
-        cl_MapString.Set_MapCode_Object(cl_File.Get_Read_Auto_String());
-        cl_MapString.Set_MapCode_Fence_Up(cl_File.Get_Read_Auto_String());
-        cl_MapString.Set_MapCode_Fence_Down(cl_File.Get_Read_Auto_String());
-        cl_MapString.Set_MapCode_Fence_Left(cl_File.Get_Read_Auto_String());
-        cl_MapString.Set_MapCode_Fence_Right(cl_File.Get_Read_Auto_String());
-
-        Set_MapCodeMatrix_FromMapCode();
+        return v2_MapSize;
     }
 
-    //Private
+    //Private (Working on Step)
 
     /// <summary>
-    /// Set MATRIX MAP CODE Size BEFORE Generating MAP
+    /// Generating MAP before Set Matrix Map Code from Map Code or Remove Map
     /// </summary>
-    /// <remarks>
-    /// CLEAR ALL or CREATE NEW the Map Code
-    /// </remarks>
-    /// <param name="i_Map_X">Dir UP and DOWN</param>
-    /// <param name="i_Map_Y">Dir LEFT and RIGHT</param>
-    private void Set_MapCodeMatrix_ToEmty()
+    private void Set_Map_Auto_Generate()
     {
-        Set_Map_Emty();
+        if (i_Step != i_Step_GenerateMap)
+        {
+            return;
+        }
 
-        for (int i_Y = 0; i_Y < this.i_Map_Y; i_Y++)
+        l2_Map_GroundCode = new List<List<char>>();
+        l2_Map_ObjectCode = new List<List<char>>();
+        l2_Map_FenceUpCode = new List<List<char>>();
+        l2_Map_FenceDownCode = new List<List<char>>();
+        l2_Map_FenceLeftCode = new List<List<char>>();
+        l2_Map_FenceRightCode = new List<List<char>>();
+
+        l2_Map_Ground = new List<List<GameObject>>();
+        l2_Map_Object = new List<List<GameObject>>();
+        l2_Map_FenceUp = new List<List<GameObject>>();
+        l2_Map_FenceDown = new List<List<GameObject>>();
+        l2_Map_FenceLeft = new List<List<GameObject>>();
+        l2_Map_FenceRight = new List<List<GameObject>>();
+
+        for (int i = 0; i < v2_MapSize.x; i++)
         {
             l2_Map_GroundCode.Add(new List<char>());
             l2_Map_ObjectCode.Add(new List<char>());
-            l2_Map_Fence_UpCode.Add(new List<char>());
-            l2_Map_Fence_DownCode.Add(new List<char>());
-            l2_Map_Fence_LeftCode.Add(new List<char>());
-            l2_Map_Fence_RightCode.Add(new List<char>());
+            l2_Map_FenceUpCode.Add(new List<char>());
+            l2_Map_FenceDownCode.Add(new List<char>());
+            l2_Map_FenceLeftCode.Add(new List<char>());
+            l2_Map_FenceRightCode.Add(new List<char>());
 
-            for (int i_X = 0; i_X < this.i_Map_X; i_X++)
+            l2_Map_Ground.Add(new List<GameObject>());
+            l2_Map_Object.Add(new List<GameObject>());
+            l2_Map_FenceUp.Add(new List<GameObject>());
+            l2_Map_FenceDown.Add(new List<GameObject>());
+            l2_Map_FenceLeft.Add(new List<GameObject>());
+            l2_Map_FenceRight.Add(new List<GameObject>());
+
+            for (int j = 0; j < v2_MapSize.y; j++)
             {
-                l2_Map_GroundCode[i_Y].Add(cl_MapRenderer.Get_EmtyCode());
-                l2_Map_ObjectCode[i_Y].Add(cl_MapRenderer.Get_EmtyCode());
-                l2_Map_Fence_UpCode[i_Y].Add(cl_MapRenderer.Get_EmtyCode());
-                l2_Map_Fence_DownCode[i_Y].Add(cl_MapRenderer.Get_EmtyCode());
-                l2_Map_Fence_LeftCode[i_Y].Add(cl_MapRenderer.Get_EmtyCode());
-                l2_Map_Fence_RightCode[i_Y].Add(cl_MapRenderer.Get_EmtyCode());
+                l2_Map_GroundCode[i].Add(cl_MapRenderer.Get_EmtyCode());
+                l2_Map_ObjectCode[i].Add(cl_MapRenderer.Get_EmtyCode());
+                l2_Map_FenceUpCode[i].Add(cl_MapRenderer.Get_EmtyCode());
+                l2_Map_FenceDownCode[i].Add(cl_MapRenderer.Get_EmtyCode());
+                l2_Map_FenceLeftCode[i].Add(cl_MapRenderer.Get_EmtyCode());
+                l2_Map_FenceRightCode[i].Add(cl_MapRenderer.Get_EmtyCode());
+
+                l2_Map_Ground[i].Add(null);
+                l2_Map_Object[i].Add(null);
+                l2_Map_FenceUp[i].Add(null);
+                l2_Map_FenceDown[i].Add(null);
+                l2_Map_FenceLeft[i].Add(null);
+                l2_Map_FenceRight[i].Add(null);
+            }
+        }
+
+        i_Step = i_Step_CurrentMap;
+    }
+
+    /// <summary>
+    /// Set MATRIX MAP CODE Generating from GROUND, OBJECT and FENCE CODE from Map Code and Map Size Exist in current
+    /// </summary>
+    private void Set_Map_Auto_FromCurrentMapCode()
+    {
+        if (i_Step != i_Step_CurrentMap)
+        {
+            return;
+        }
+
+        Set_MatrixCode_FromMapCodeGround();
+        Set_MatrixCode_FromMapCodeObject();
+        Set_MatrixCode_FromMapCodeFence_Up();
+        Set_MatrixCode_FromMapCodeFence_Down();
+        Set_MatrixCode_FromMapCodeFence_Left();
+        Set_MatrixCode_FromMapCodeFence_Right();
+
+        i_Step = i_Step_AutoOffset;
+    }
+
+    /// <summary>
+    /// Set Auto Offset of Map
+    /// </summary>
+    private void Set_Map_Auto_Offset()
+    {
+        if (i_Step != i_Step_AutoOffset)
+        {
+            return;
+        }
+
+        for (int i = 0; i < v2_MapSize.x; i++)
+        {
+            for (int j = 0; j < v2_MapSize.y; j++)
+            {
+                if (Get_MatrixCode_Ground(new Vector2Int(i, j)) != cl_MapRenderer.Get_EmtyCode())
+                {
+                    Get_GameObject_Ground(new Vector2Int(i, j)).GetComponent<Isometric_Single>().Set_Offset(this.v2_Offset);
+                }
+                if (Get_MatrixCode_Object(new Vector2Int(i, j)) != cl_MapRenderer.Get_EmtyCode())
+                {
+                    Get_GameObject_Object(new Vector2Int(i, j)).GetComponent<Isometric_Single>().Set_Offset(this.v2_Offset);
+                }
+                if (Get_MatrixCode_Fence_Up(new Vector2Int(i, j)) != cl_MapRenderer.Get_EmtyCode())
+                {
+                    Get_GameObject_Fence_Up(new Vector2Int(i, j)).GetComponent<Isometric_Single>().Set_Offset(this.v2_Offset);
+                }
+                if (Get_MatrixCode_Fence_Down(new Vector2Int(i, j)) != cl_MapRenderer.Get_EmtyCode())
+                {
+                    Get_GameObject_Fence_Down(new Vector2Int(i, j)).GetComponent<Isometric_Single>().Set_Offset(this.v2_Offset);
+                }
+                if (Get_MatrixCode_Fence_Left(new Vector2Int(i, j)) != cl_MapRenderer.Get_EmtyCode())
+                {
+                    Get_GameObject_Fence_Left(new Vector2Int(i, j)).GetComponent<Isometric_Single>().Set_Offset(this.v2_Offset);
+                }
+                if (Get_MatrixCode_Fence_Right(new Vector2Int(i, j)) != cl_MapRenderer.Get_EmtyCode())
+                {
+                    Get_GameObject_Fence_Right(new Vector2Int(i, j)).GetComponent<Isometric_Single>().Set_Offset(this.v2_Offset);
+                }
             }
         }
     }
 
-    /// <summary>
-    /// CLEAR ALL or CREATE NEW the Map Code
-    /// </summary>
-    private void Set_Map_Emty()
-    {
-        l2_Map_GroundCode = new List<List<char>>();
-        l2_Map_ObjectCode = new List<List<char>>();
-        l2_Map_Fence_UpCode = new List<List<char>>();
-        l2_Map_Fence_DownCode = new List<List<char>>();
-        l2_Map_Fence_LeftCode = new List<List<char>>();
-        l2_Map_Fence_RightCode = new List<List<char>>();
-
-        cl_MapString.Set_MapCode_Ground("");
-        cl_MapString.Set_MapCode_Object("");
-        cl_MapString.Set_MapCode_Fence_Up("");
-        cl_MapString.Set_MapCode_Fence_Down("");
-        cl_MapString.Set_MapCode_Fence_Left("");
-        cl_MapString.Set_MapCode_Fence_Right("");
-    }
-
     #endregion
 
-    //Code
+    #region Code
 
     #region Ground Code Manager
 
@@ -276,23 +393,45 @@ public class Isometric_MapManager : MonoBehaviour
     /// <summary>
     /// Set Code to a SQUARE of GROUND Map Code
     /// </summary>
-    /// <param name="i_X">Dir UP and DOWN</param>
-    /// <param name="i_Y">Dir LEFT and RIGHT</param>
-    /// <param name="c_Code"></param>
-    public void Set_MapCodeMatrix_Ground(int i_X, int i_Y, char c_Code)
+    /// <param name="v2_Pos.x">Dir UP and DOWN</param>
+    /// <param name="v2_Pos.y">Dir LEFT and RIGHT</param>
+    /// <param name="c_GroundCode"></param>
+    public void Set_MatrixCode_Ground(Vector2Int v2_Pos, char c_GroundCode)
     {
-        l2_Map_GroundCode[i_X][i_Y] = c_Code;
+        if (!Get_Check_InsideMap(v2_Pos))
+            return;
+
+        Set_GameObject_Remove(l2_Map_Ground[v2_Pos.x][v2_Pos.y]);
+
+        l2_Map_GroundCode[v2_Pos.x][v2_Pos.y] = c_GroundCode;
+
+        GameObject g_Prefab = cl_MapRenderer.Get_GameObject_Ground(c_GroundCode);
+
+        l2_Map_Ground[v2_Pos.x][v2_Pos.y] = Set_GameObject_Create(v2_Pos, g_Prefab, false);
     }
 
     /// <summary>
     /// Get Code from a SQUARE of GROUND Map Code
     /// </summary>
-    /// <param name="i_X">Dir UP and DOWN</param>
-    /// <param name="i_Y">Dir LEFT and RIGHT</param>
+    /// <param name="v2_Pos.x">Dir UP and DOWN</param>
+    /// <param name="v2_Pos.y">Dir LEFT and RIGHT</param>
     /// <returns></returns>
-    public char Get_MapCodeMatrix_Ground(int i_X, int i_Y)
+    public char Get_MatrixCode_Ground(Vector2Int v2_Pos)
     {
-        return l2_Map_GroundCode[i_X][i_Y];
+        if (!Get_Check_InsideMap(v2_Pos))
+            return cl_MapRenderer.Get_EmtyCode();
+
+        return l2_Map_GroundCode[v2_Pos.x][v2_Pos.y];
+    }
+
+    /// <summary>
+    /// Get Isometric GameObject on GROUND Map
+    /// </summary>
+    /// <param name="v2_Pos"></param>
+    /// <returns></returns>
+    public GameObject Get_GameObject_Ground(Vector2Int v2_Pos)
+    {
+        return l2_Map_Ground[v2_Pos.x][v2_Pos.y];
     }
 
     //Private
@@ -300,14 +439,14 @@ public class Isometric_MapManager : MonoBehaviour
     /// <summary>
     /// Get MAP CODE of GROUND
     /// </summary>
-    private void Set_MapCodeMatrix_ToMapCodeGround()
+    private void Set_MatrixCode_ToMapCodeGround()
     {
         string s_Map_Ground = "";
-        for (int i_Y = 0; i_Y < this.i_Map_Y; i_Y++)
+        for (int i = 0; i < v2_MapSize.x; i++)
         {
-            for (int i_X = 0; i_X < this.i_Map_X; i_X++)
+            for (int j = 0; j < v2_MapSize.y; j++)
             {
-                s_Map_Ground += l2_Map_GroundCode[i_Y][i_X];
+                s_Map_Ground += l2_Map_GroundCode[i][j];
             }
         }
         cl_MapString.Set_MapCode_Ground(s_Map_Ground);
@@ -316,15 +455,22 @@ public class Isometric_MapManager : MonoBehaviour
     /// <summary>
     /// Set MAP GROUND CODE from GROUND CODE
     /// </summary>
-    private void Set_MapCodeMatrix_FromMapCodeGround()
+    private void Set_MatrixCode_FromMapCodeGround()
     {
-        int i_CodeIndex = -1;
-        for (int i_Y = 0; i_Y < this.i_Map_Y; i_Y++)
+        if (cl_MapString.Get_MapCode_Ground().Length != v2_MapSize.x * v2_MapSize.y)
         {
-            for (int i_X = 0; i_X < this.i_Map_X; i_X++)
+            //Debug.LogError("Set_MatrixCode_FromMapCodeGround: Map Code not fixed to Map Size!");
+            return;
+        }
+
+        int i_CodeIndex = -1;
+        for (int i = 0; i < v2_MapSize.x; i++)
+        {
+            for (int j = 0; j < v2_MapSize.y; j++)
             {
                 i_CodeIndex++;
-                l2_Map_GroundCode[i_Y][i_X] = cl_MapString.Get_MapCode_Ground()[i_CodeIndex];
+
+                Set_MatrixCode_Ground(new Vector2Int(i, j), cl_MapString.Get_MapCode_Ground()[i_CodeIndex]);
             }
         }
     }
@@ -338,23 +484,45 @@ public class Isometric_MapManager : MonoBehaviour
     /// <summary>
     /// Set Code to a SQUARE of OBJECT Map Code
     /// </summary>
-    /// <param name="i_X">Dir UP and DOWN</param>
-    /// <param name="i_Y">Dir LEFT and RIGHT</param>
-    /// <param name="c_Code"></param>
-    public void Set_MapCodeMatrix_Object(int i_X, int i_Y, char c_Code)
+    /// <param name="v2_Pos.x">Dir UP and DOWN</param>
+    /// <param name="v2_Pos.y">Dir LEFT and RIGHT</param>
+    /// <param name="c_ObjectCode"></param>
+    public void Set_MatrixCode_Object(Vector2Int v2_Pos, char c_ObjectCode)
     {
-        l2_Map_ObjectCode[i_X][i_Y] = c_Code;
+        if (!Get_Check_InsideMap(v2_Pos))
+            return;
+
+        Set_GameObject_Remove(l2_Map_Object[v2_Pos.x][v2_Pos.y]);
+
+        l2_Map_ObjectCode[v2_Pos.x][v2_Pos.y] = c_ObjectCode;
+
+        GameObject g_Prefab = cl_MapRenderer.Get_GameObject_Object(c_ObjectCode);
+
+        l2_Map_Object[v2_Pos.x][v2_Pos.y] = Set_GameObject_Create(v2_Pos, g_Prefab, true);
     }
 
     /// <summary>
     /// Get Code from a SQUARE of OBJECT Map Code
     /// </summary>
-    /// <param name="i_X">Dir UP and DOWN</param>
-    /// <param name="i_Y">Dir LEFT and RIGHT</param>
+    /// <param name="v2_Pos.x">Dir UP and DOWN</param>
+    /// <param name="v2_Pos.y">Dir LEFT and RIGHT</param>
     /// <returns></returns>
-    public char Get_MapCodeMatrix_Object(int i_X, int i_Y)
+    public char Get_MatrixCode_Object(Vector2Int v2_Pos)
     {
-        return l2_Map_ObjectCode[i_X][i_Y];
+        if (!Get_Check_InsideMap(v2_Pos))
+            return cl_MapRenderer.Get_EmtyCode();
+
+        return l2_Map_ObjectCode[v2_Pos.x][v2_Pos.y];
+    }
+
+    /// <summary>
+    /// Get Isometric GameObject on OBJECT Map
+    /// </summary>
+    /// <param name="v2_Pos"></param>
+    /// <returns></returns>
+    public GameObject Get_GameObject_Object(Vector2Int v2_Pos)
+    {
+        return l2_Map_Object[v2_Pos.x][v2_Pos.y];
     }
 
     //Private
@@ -362,14 +530,14 @@ public class Isometric_MapManager : MonoBehaviour
     /// <summary>
     /// Get MAP CODE of OBJECT
     /// </summary>
-    private void Get_MapCodeMatrix_ToMapCodeObject()
+    private void Set_MatrixCode_ToMapCodeObject()
     {
         string s_Map_Object = "";
-        for (int i_Y = 0; i_Y < this.i_Map_Y; i_Y++)
+        for (int i = 0; i < v2_MapSize.x; i++)
         {
-            for (int i_X = 0; i_X < this.i_Map_X; i_X++)
+            for (int j = 0; j < v2_MapSize.y; j++)
             {
-                s_Map_Object += l2_Map_ObjectCode[i_Y][i_X];
+                s_Map_Object += l2_Map_ObjectCode[i][j];
             }
         }
         cl_MapString.Set_MapCode_Object(s_Map_Object);
@@ -378,15 +546,22 @@ public class Isometric_MapManager : MonoBehaviour
     /// <summary>
     /// Set MAP OBJECT CODE from OBJECT CODE
     /// </summary>
-    private void Set_MapCodeMatrix_FromMapCodeObject()
+    private void Set_MatrixCode_FromMapCodeObject()
     {
-        int i_CodeIndex = -1;
-        for (int i_Y = 0; i_Y < this.i_Map_Y; i_Y++)
+        if (cl_MapString.Get_MapCode_Object().Length != v2_MapSize.x * v2_MapSize.y)
         {
-            for (int i_X = 0; i_X < this.i_Map_X; i_X++)
+            //Debug.LogError("Set_MatrixCode_FromMapCodeObject: Map Code not fixed to Map Size!");
+            return;
+        }
+
+        int i_CodeIndex = -1;
+        for (int i = 0; i < v2_MapSize.x; i++)
+        {
+            for (int j = 0; j < v2_MapSize.y; j++)
             {
                 i_CodeIndex++;
-                l2_Map_ObjectCode[i_Y][i_X] = cl_MapString.Get_MapCode_Object()[i_CodeIndex];
+
+                Set_MatrixCode_Object(new Vector2Int(i, j), cl_MapString.Get_MapCode_Object()[i_CodeIndex]);
             }
         }
     }
@@ -400,23 +575,45 @@ public class Isometric_MapManager : MonoBehaviour
     /// <summary>
     /// Set Code to a SQUARE of FENCE UP Map Code
     /// </summary>
-    /// <param name="i_X">Dir UP and DOWN</param>
-    /// <param name="i_Y">Dir LEFT and RIGHT</param>
-    /// <param name="c_Code"></param>
-    public void Set_MapCodeMatrix_Fence_Up(int i_X, int i_Y, char c_Code)
+    /// <param name="v2_Pos.x">Dir UP and DOWN</param>
+    /// <param name="v2_Pos.y">Dir LEFT and RIGHT</param>
+    /// <param name="c_FenceUpCode"></param>
+    public void Set_MatrixCode_Fence_Up(Vector2Int v2_Pos, char c_FenceUpCode)
     {
-        l2_Map_Fence_UpCode[i_X][i_Y] = c_Code;
+        if (!Get_Check_InsideMap(v2_Pos))
+            return;
+
+        Set_GameObject_Remove(l2_Map_FenceUp[v2_Pos.x][v2_Pos.y]);
+
+        l2_Map_FenceUpCode[v2_Pos.x][v2_Pos.y] = c_FenceUpCode;
+
+        GameObject g_Prefab = cl_MapRenderer.Get_GameObject_Fence_Up(c_FenceUpCode);
+
+        l2_Map_FenceUp[v2_Pos.x][v2_Pos.y] = Set_GameObject_Create(v2_Pos, g_Prefab, true);
     }
 
     /// <summary>
     /// Get Code from a SQUARE of FENCE UP Map Code
     /// </summary>
-    /// <param name="i_X">Dir UP and DOWN</param>
-    /// <param name="i_Y">Dir LEFT and RIGHT</param>
+    /// <param name="v2_Pos.x">Dir UP and DOWN</param>
+    /// <param name="v2_Pos.y">Dir LEFT and RIGHT</param>
     /// <returns></returns>
-    public char Get_MapCodeMatrix_Fence_Up(int i_X, int i_Y)
+    public char Get_MatrixCode_Fence_Up(Vector2Int v2_Pos)
     {
-        return l2_Map_Fence_UpCode[i_X][i_Y];
+        if (!Get_Check_InsideMap(v2_Pos))
+            return cl_MapRenderer.Get_EmtyCode();
+
+        return l2_Map_FenceUpCode[v2_Pos.x][v2_Pos.y];
+    }
+
+    /// <summary>
+    /// Get Isometric GameObject on FENCE UP Map
+    /// </summary>
+    /// <param name="v2_Pos"></param>
+    /// <returns></returns>
+    public GameObject Get_GameObject_Fence_Up(Vector2Int v2_Pos)
+    {
+        return l2_Map_FenceUp[v2_Pos.x][v2_Pos.y];
     }
 
     //Private
@@ -424,14 +621,14 @@ public class Isometric_MapManager : MonoBehaviour
     /// <summary>
     /// Get MAP CODE of FENCE UP
     /// </summary>
-    private void Get_MapCodeMatrix_ToMapCodeFence_Up()
+    private void Set_MatrixCode_ToMapCodeFence_Up()
     {
         string s_Map_Fence_Up = "";
-        for (int i_Y = 0; i_Y < this.i_Map_Y; i_Y++)
+        for (int i = 0; i < v2_MapSize.x; i++)
         {
-            for (int i_X = 0; i_X < this.i_Map_X; i_X++)
+            for (int j = 0; j < v2_MapSize.y; j++)
             {
-                s_Map_Fence_Up += l2_Map_Fence_UpCode[i_Y][i_X];
+                s_Map_Fence_Up += l2_Map_FenceUpCode[i][j];
             }
         }
         cl_MapString.Set_MapCode_Fence_Up(s_Map_Fence_Up);
@@ -440,15 +637,22 @@ public class Isometric_MapManager : MonoBehaviour
     /// <summary>
     /// Set MAP FENCE UP CODE from FENCE UP CODE
     /// </summary>
-    private void Set_MapCodeMatrix_FromMapCodeFence_Up()
+    private void Set_MatrixCode_FromMapCodeFence_Up()
     {
-        int i_CodeIndex = -1;
-        for (int i_Y = 0; i_Y < this.i_Map_Y; i_Y++)
+        if (cl_MapString.Get_MapCode_Fence_Up().Length != v2_MapSize.x * v2_MapSize.y)
         {
-            for (int i_X = 0; i_X < this.i_Map_X; i_X++)
+            //Debug.LogError("Set_MatrixCode_FromMapCodeFence_Up: Map Code not fixed to Map Size!");
+            return;
+        }
+
+        int i_CodeIndex = -1;
+        for (int i = 0; i < v2_MapSize.x; i++)
+        {
+            for (int j = 0; j < v2_MapSize.y; j++)
             {
                 i_CodeIndex++;
-                l2_Map_Fence_UpCode[i_Y][i_X] = cl_MapString.Get_MapCode_Fence_Up()[i_CodeIndex];
+
+                Set_MatrixCode_Fence_Up(new Vector2Int(i, j), cl_MapString.Get_MapCode_Fence_Up()[i_CodeIndex]);
             }
         }
     }
@@ -462,23 +666,45 @@ public class Isometric_MapManager : MonoBehaviour
     /// <summary>
     /// Set Code to a SQUARE of FENCE DOWN Map Code
     /// </summary>
-    /// <param name="i_X">Dir UP and DOWN</param>
-    /// <param name="i_Y">Dir LEFT and RIGHT</param>
-    /// <param name="c_Code"></param>
-    public void Set_MapCodeMatrix_Fence_Down(int i_X, int i_Y, char c_Code)
+    /// <param name="v2_Pos.x">Dir UP and DOWN</param>
+    /// <param name="v2_Pos.y">Dir LEFT and RIGHT</param>
+    /// <param name="c_FenceDownCode"></param>
+    public void Set_MatrixCode_Fence_Down(Vector2Int v2_Pos, char c_FenceDownCode)
     {
-        l2_Map_Fence_DownCode[i_X][i_Y] = c_Code;
+        if (!Get_Check_InsideMap(v2_Pos))
+            return;
+
+        Set_GameObject_Remove(l2_Map_FenceDown[v2_Pos.x][v2_Pos.y]);
+
+        l2_Map_FenceDownCode[v2_Pos.x][v2_Pos.y] = c_FenceDownCode;
+
+        GameObject g_Prefab = cl_MapRenderer.Get_GameObject_Fence_Down(c_FenceDownCode);
+
+        l2_Map_FenceDown[v2_Pos.x][v2_Pos.y] = Set_GameObject_Create(v2_Pos, g_Prefab, true);
     }
 
     /// <summary>
     /// Get Code from a SQUARE of FENCE DOWN Map Code
     /// </summary>
-    /// <param name="i_X">Dir UP and DOWN</param>
-    /// <param name="i_Y">Dir LEFT and RIGHT</param>
+    /// <param name="v2_Pos.x">Dir UP and DOWN</param>
+    /// <param name="v2_Pos.y">Dir LEFT and RIGHT</param>
     /// <returns></returns>
-    public char Get_MapCodeMatrix_Fence_Down(int i_X, int i_Y)
+    public char Get_MatrixCode_Fence_Down(Vector2Int v2_Pos)
     {
-        return l2_Map_Fence_DownCode[i_X][i_Y];
+        if (!Get_Check_InsideMap(v2_Pos))
+            return cl_MapRenderer.Get_EmtyCode();
+
+        return l2_Map_FenceDownCode[v2_Pos.x][v2_Pos.y];
+    }
+
+    /// <summary>
+    /// Get Isometric GameObject on FENCE UP Map
+    /// </summary>
+    /// <param name="v2_Pos"></param>
+    /// <returns></returns>
+    public GameObject Get_GameObject_Fence_Down(Vector2Int v2_Pos)
+    {
+        return l2_Map_FenceDown[v2_Pos.x][v2_Pos.y];
     }
 
     //Private
@@ -486,14 +712,14 @@ public class Isometric_MapManager : MonoBehaviour
     /// <summary>
     /// Get MAP CODE of FENCE DOWN
     /// </summary>
-    private void Get_MapCodeMatrix_ToMapCodeFence_Down()
+    private void Set_MatrixCode_ToMapCodeFence_Down()
     {
         string s_Map_Fence_Down = "";
-        for (int i_Y = 0; i_Y < this.i_Map_Y; i_Y++)
+        for (int i = 0; i < v2_MapSize.x; i++)
         {
-            for (int i_X = 0; i_X < this.i_Map_X; i_X++)
+            for (int j = 0; j < v2_MapSize.y; j++)
             {
-                s_Map_Fence_Down += l2_Map_Fence_DownCode[i_Y][i_X];
+                s_Map_Fence_Down += l2_Map_FenceDownCode[i][j];
             }
         }
         cl_MapString.Set_MapCode_Fence_Down(s_Map_Fence_Down);
@@ -502,15 +728,22 @@ public class Isometric_MapManager : MonoBehaviour
     /// <summary>
     /// Set MAP FENCE DOWN CODE from FENCE DOWN CODE
     /// </summary>
-    private void Set_MapCodeMatrix_FromMapCodeFence_Down()
+    private void Set_MatrixCode_FromMapCodeFence_Down()
     {
-        int i_CodeIndex = -1;
-        for (int i_Y = 0; i_Y < this.i_Map_Y; i_Y++)
+        if (cl_MapString.Get_MapCode_Fence_Down().Length != v2_MapSize.x * v2_MapSize.y)
         {
-            for (int i_X = 0; i_X < this.i_Map_X; i_X++)
+            //Debug.LogError("Set_MatrixCode_FromMapCodeFence_Down: Map Code not fixed to Map Size!");
+            return;
+        }
+
+        int i_CodeIndex = -1;
+        for (int i = 0; i < v2_MapSize.x; i++)
+        {
+            for (int j = 0; j < v2_MapSize.y; j++)
             {
                 i_CodeIndex++;
-                l2_Map_Fence_DownCode[i_Y][i_X] = cl_MapString.Get_MapCode_Fence_Down()[i_CodeIndex];
+
+                Set_MatrixCode_Fence_Down(new Vector2Int(i, j), cl_MapString.Get_MapCode_Fence_Down()[i_CodeIndex]);
             }
         }
     }
@@ -524,23 +757,45 @@ public class Isometric_MapManager : MonoBehaviour
     /// <summary>
     /// Set Code to a SQUARE of FENCE LEFT Map Code
     /// </summary>
-    /// <param name="i_X">Dir UP and DOWN</param>
-    /// <param name="i_Y">Dir LEFT and RIGHT</param>
-    /// <param name="c_Code"></param>
-    public void Set_MapCodeMatrix_Fence_Left(int i_X, int i_Y, char c_Code)
+    /// <param name="v2_Pos.x">Dir UP and DOWN</param>
+    /// <param name="v2_Pos.y">Dir LEFT and RIGHT</param>
+    /// <param name="c_FenceLeftCode"></param>
+    public void Set_MatrixCode_Fence_Left(Vector2Int v2_Pos, char c_FenceLeftCode)
     {
-        l2_Map_Fence_LeftCode[i_X][i_Y] = c_Code;
+        if (!Get_Check_InsideMap(v2_Pos))
+            return;
+
+        Set_GameObject_Remove(l2_Map_FenceLeft[v2_Pos.x][v2_Pos.y]);
+
+        l2_Map_FenceLeftCode[v2_Pos.x][v2_Pos.y] = c_FenceLeftCode;
+
+        GameObject g_Prefab = cl_MapRenderer.Get_GameObject_Fence_Left(c_FenceLeftCode);
+
+        l2_Map_FenceLeft[v2_Pos.x][v2_Pos.y] = Set_GameObject_Create(v2_Pos, g_Prefab, true);
     }
 
     /// <summary>
     /// Get Code from a SQUARE of FENCE LEFT Map Code
     /// </summary>
-    /// <param name="i_X">Dir UP and DOWN</param>
-    /// <param name="i_Y">Dir LEFT and RIGHT</param>
+    /// <param name="v2_Pos.x">Dir UP and DOWN</param>
+    /// <param name="v2_Pos.y">Dir LEFT and RIGHT</param>
     /// <returns></returns>
-    public char Get_MapCodeMatrix_Fence_Left(int i_X, int i_Y)
+    public char Get_MatrixCode_Fence_Left(Vector2Int v2_Pos)
     {
-        return l2_Map_Fence_LeftCode[i_X][i_Y];
+        if (!Get_Check_InsideMap(v2_Pos))
+            return cl_MapRenderer.Get_EmtyCode();
+
+        return l2_Map_FenceLeftCode[v2_Pos.x][v2_Pos.y];
+    }
+
+    /// <summary>
+    /// Get Isometric GameObject on FENCE LEFT Map
+    /// </summary>
+    /// <param name="v2_Pos"></param>
+    /// <returns></returns>
+    public GameObject Get_GameObject_Fence_Left(Vector2Int v2_Pos)
+    {
+        return l2_Map_FenceLeft[v2_Pos.x][v2_Pos.y];
     }
 
     //Private
@@ -548,14 +803,14 @@ public class Isometric_MapManager : MonoBehaviour
     /// <summary>
     /// Get MAP CODE of FENCE LEFT
     /// </summary>
-    private void Get_MapCodeMatrix_ToMapCodeFence_Left()
+    private void Set_MatrixCode_ToMapCodeFence_Left()
     {
         string s_Map_Fence_Left = "";
-        for (int i_Y = 0; i_Y < this.i_Map_Y; i_Y++)
+        for (int i = 0; i < v2_MapSize.x; i++)
         {
-            for (int i_X = 0; i_X < this.i_Map_X; i_X++)
+            for (int j = 0; j < v2_MapSize.y; j++)
             {
-                s_Map_Fence_Left += l2_Map_Fence_LeftCode[i_Y][i_X];
+                s_Map_Fence_Left += l2_Map_FenceLeftCode[i][j];
             }
         }
         cl_MapString.Set_MapCode_Fence_Left(s_Map_Fence_Left);
@@ -564,15 +819,22 @@ public class Isometric_MapManager : MonoBehaviour
     /// <summary>
     /// Set MAP FENCE LEFT CODE from FENCE LEFT CODE
     /// </summary>
-    private void Set_MapCodeMatrix_FromMapCodeFence_Left()
+    private void Set_MatrixCode_FromMapCodeFence_Left()
     {
-        int i_CodeIndex = -1;
-        for (int i_Y = 0; i_Y < this.i_Map_Y; i_Y++)
+        if (cl_MapString.Get_MapCode_Fence_Down().Length != v2_MapSize.x * v2_MapSize.y)
         {
-            for (int i_X = 0; i_X < this.i_Map_X; i_X++)
+            //Debug.LogError("Set_MatrixCode_FromMapCodeFence_Left: Map Code not fixed to Map Size!");
+            return;
+        }
+
+        int i_CodeIndex = -1;
+        for (int i = 0; i < v2_MapSize.x; i++)
+        {
+            for (int j = 0; j < v2_MapSize.y; j++)
             {
                 i_CodeIndex++;
-                l2_Map_Fence_LeftCode[i_Y][i_X] = cl_MapString.Get_MapCode_Fence_Left()[i_CodeIndex];
+
+                Set_MatrixCode_Fence_Left(new Vector2Int(i, j), cl_MapString.Get_MapCode_Fence_Left()[i_CodeIndex]);
             }
         }
     }
@@ -586,23 +848,45 @@ public class Isometric_MapManager : MonoBehaviour
     /// <summary>
     /// Set Code to a SQUARE of FENCE RIGHT Map Code
     /// </summary>
-    /// <param name="i_X">Dir UP and DOWN</param>
-    /// <param name="i_Y">Dir LEFT and RIGHT</param>
-    /// <param name="c_Code"></param>
-    public void Set_MapCodeMatrix_Fence_Right(int i_X, int i_Y, char c_Code)
+    /// <param name="v2_Pos.x">Dir UP and DOWN</param>
+    /// <param name="v2_Pos.y">Dir LEFT and RIGHT</param>
+    /// <param name="c_FenceRightCode"></param>
+    public void Set_MatrixCode_Fence_Right(Vector2Int v2_Pos, char c_FenceRightCode)
     {
-        l2_Map_Fence_RightCode[i_X][i_Y] = c_Code;
+        if (!Get_Check_InsideMap(v2_Pos))
+            return;
+
+        Set_GameObject_Remove(l2_Map_FenceRight[v2_Pos.x][v2_Pos.y]);
+
+        l2_Map_FenceRightCode[v2_Pos.x][v2_Pos.y] = c_FenceRightCode;
+
+        GameObject g_Prefab = cl_MapRenderer.Get_GameObject_Fence_Right(c_FenceRightCode);
+
+        l2_Map_FenceRight[v2_Pos.x][v2_Pos.y] = Set_GameObject_Create(v2_Pos, g_Prefab, true);
     }
 
     /// <summary>
     /// Get Code from a SQUARE of FENCE RIGHT Map Code
     /// </summary>
-    /// <param name="i_X">Dir UP and DOWN</param>
-    /// <param name="i_Y">Dir LEFT and RIGHT</param>
+    /// <param name="v2_Pos.x">Dir UP and DOWN</param>
+    /// <param name="v2_Pos.y">Dir LEFT and RIGHT</param>
     /// <returns></returns>
-    public char Get_MapCodeMatrix_Fence_Right(int i_X, int i_Y)
+    public char Get_MatrixCode_Fence_Right(Vector2Int v2_Pos)
     {
-        return l2_Map_Fence_RightCode[i_X][i_Y];
+        if (!Get_Check_InsideMap(v2_Pos))
+            return cl_MapRenderer.Get_EmtyCode();
+
+        return l2_Map_FenceRightCode[v2_Pos.x][v2_Pos.y];
+    }
+
+    /// <summary>
+    /// Get Isometric GameObject on FENCE RIGHT Map
+    /// </summary>
+    /// <param name="v2_Pos"></param>
+    /// <returns></returns>
+    public GameObject Get_GameObject_Fence_Right(Vector2Int v2_Pos)
+    {
+        return l2_Map_FenceRight[v2_Pos.x][v2_Pos.y];
     }
 
     //Private
@@ -610,14 +894,14 @@ public class Isometric_MapManager : MonoBehaviour
     /// <summary>
     /// Get MAP CODE of FENCE RIGHT
     /// </summary>
-    private void Get_MapCodeMatrix_ToMapCodeFence_Right()
+    private void Set_MatrixCode_ToMapCodeFence_Right()
     {
         string s_Map_Fence_Right = "";
-        for (int i_Y = 0; i_Y < this.i_Map_Y; i_Y++)
+        for (int i = 0; i < v2_MapSize.x; i++)
         {
-            for (int i_X = 0; i_X < this.i_Map_X; i_X++)
+            for (int j = 0; j < v2_MapSize.y; j++)
             {
-                s_Map_Fence_Right += l2_Map_Fence_RightCode[i_Y][i_X];
+                s_Map_Fence_Right += l2_Map_FenceRightCode[i][j];
             }
         }
         cl_MapString.Set_MapCode_Fence_Right(s_Map_Fence_Right);
@@ -626,22 +910,128 @@ public class Isometric_MapManager : MonoBehaviour
     /// <summary>
     /// Set MAP FENCE RIGHT CODE from FENCE RIGHT CODE
     /// </summary>
-    private void Set_MapCodeMatrix_FromMapCodeFence_Right()
+    private void Set_MatrixCode_FromMapCodeFence_Right()
     {
-        int i_CodeIndex = -1;
-        for (int i_Y = 0; i_Y < this.i_Map_Y; i_Y++)
+        if (cl_MapString.Get_MapCode_Fence_Right().Length != v2_MapSize.x * v2_MapSize.y)
         {
-            for (int i_X = 0; i_X < this.i_Map_X; i_X++)
+            //Debug.LogError("Set_MatrixCode_FromMapCodeFence_Right: Map Code not fixed to Map Size!");
+            return;
+        }
+
+        int i_CodeIndex = -1;
+        for (int i = 0; i < v2_MapSize.x; i++)
+        {
+            for (int j = 0; j < v2_MapSize.y; j++)
             {
                 i_CodeIndex++;
-                l2_Map_Fence_RightCode[i_Y][i_X] = cl_MapString.Get_MapCode_Fence_Right()[i_CodeIndex];
+
+                Set_MatrixCode_Fence_Right(new Vector2Int(i, j), cl_MapString.Get_MapCode_Fence_Right()[i_CodeIndex]);
             }
         }
     }
 
     #endregion
 
-    //GameObject
+    #endregion
 
-    //...
+    #region GameObject
+
+    /// <summary>
+    /// Create Isometric GameObject
+    /// </summary>
+    /// <param name="v2_Pos"></param>
+    /// <param name="g_Prefab"></param>
+    /// <param name="b_isObject"></param>
+    private GameObject Set_GameObject_Create(Vector2Int v2_Pos, GameObject g_Prefab, bool b_isObject)
+    {
+        if (g_Prefab == null)
+        {
+            Debug.LogWarning("Set_GameObject_Create: Prefab Emty!");
+            return null;
+        }
+
+        GameObject g_GameObject = cl_Object.Set_Prepab_Create(g_Prefab, this.transform);
+
+        g_GameObject.GetComponent<Isometric_Single>().Set_Pos(v2_Pos);
+        g_GameObject.GetComponent<Isometric_Single>().Set_Offset(v2_Offset);
+        g_GameObject.GetComponent<Isometric_Single>().Set_isObject(b_isObject);
+        g_GameObject.SetActive(true);
+
+        return g_GameObject;
+    }
+
+    /// <summary>
+    /// Remove Isometric GameObject
+    /// </summary>
+    /// <param name="v2_Pos"></param>
+    private void Set_GameObject_Remove(GameObject g_Prefab)
+    {
+        cl_Object.Set_Destroy_GameObject(g_Prefab);
+    }
+
+    #endregion
+
+    #region Limit Check
+
+    /// <summary>
+    /// Check if Pos is In Limit
+    /// </summary>
+    /// <param name="v2_Pos">Check this Pos if Out Limit (Ex: Get_Pos + Get_DirForward)</param>
+    /// <returns></returns>
+    public bool Get_Check_InsideMap(Vector2Int v2_Pos)
+    {
+        if (v2_Pos.x >= v2_MapSize.x || v2_Pos.x < 0)
+            return false;
+        if (v2_Pos.y >= v2_MapSize.y || v2_Pos.y < 0)
+            return false;
+        return true;
+    }
+
+    /// <summary>
+    /// Check if Pos is In Limit
+    /// </summary>
+    /// <param name="v2_Pos">Start Check from Current Pos (Ex: Get_Pos)</param>
+    /// <param name="v2_Dir">Check to Dir from Current Pos (Ex: Get_DirForward)</param>
+    /// <returns></returns>
+    public bool Get_Check_InsideMap(Vector2Int v2_Pos, Vector2Int v2_Dir)
+    {
+        if (v2_Pos.x + v2_Dir.x >= v2_MapSize.x || v2_Pos.x + v2_Dir.x < 0)
+            return false;
+        if (v2_Pos.y + v2_Dir.y >= v2_MapSize.y || v2_Pos.y + v2_Dir.y < 0)
+            return false;
+        return true;
+    }
+
+    #endregion
+
+    #region Dir
+
+    /// <summary>
+    /// Dir(-1, 0) on Isometric Square
+    /// </summary>
+    [HideInInspector]
+    public Vector2Int v2_DirUp = new Vector2Int(-1, 0);
+
+    /// <summary>
+    /// Dir(+1, 0) on Isometric Square
+    /// </summary>
+    /// <returns></returns>
+    [HideInInspector]
+    public Vector2Int v2_DirDown = new Vector2Int(1, 0);
+
+    /// <summary>
+    /// Dir(0, -1) on Isometric Square
+    /// </summary>
+    /// <returns></returns>
+    [HideInInspector]
+    public Vector2Int v2_DirLeft = new Vector2Int(0, -1);
+
+    /// <summary>
+    /// Dir(0, +1) on Isometric Square
+    /// </summary>
+    /// <returns></returns>
+    [HideInInspector]
+    public Vector2Int v2_DirRight = new Vector2Int(0, 1);
+
+    #endregion
 }

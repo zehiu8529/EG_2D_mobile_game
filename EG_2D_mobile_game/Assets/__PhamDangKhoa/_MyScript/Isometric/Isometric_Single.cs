@@ -23,7 +23,7 @@ public class Isometric_Single : MonoBehaviour
     /// Map
     /// </summary>
     [SerializeField]
-    private Isometric_Map cl_Map;
+    private Isometric_MapManager cl_Map;
 
     /// <summary>
     /// Pos on Map this Object
@@ -71,11 +71,11 @@ public class Isometric_Single : MonoBehaviour
         {
             if (s_Tag != "")
             {
-                cl_Map = GameObject.FindGameObjectWithTag(s_Tag).GetComponent<Isometric_Map>();
+                cl_Map = GameObject.FindGameObjectWithTag(s_Tag).GetComponent<Isometric_MapManager>();
 
                 if (cl_Map == null)
                 {
-                    Debug.LogError("Not found 'Isometric Map Object' with tag: " + s_Tag);
+                    Debug.LogError(this.name + ": Not found 'MapManager GameObject' with tag: " + s_Tag);
                 }
             }
         }
