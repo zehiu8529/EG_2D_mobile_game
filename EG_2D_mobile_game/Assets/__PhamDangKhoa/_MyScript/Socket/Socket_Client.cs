@@ -37,7 +37,7 @@ public class Socket_Client : MonoBehaviour
     /// <returns></returns>
     public string Get_Socket_Read()
     {
-        string s_Data = cl_Client.Get_Data();
+        string s_Data = cl_Client.Get_Socket_Queue_Read();
         if (!s_Data.Equals(""))
         {
             Debug.Log("Socket: Read '" + s_Data + "'");
@@ -52,8 +52,8 @@ public class Socket_Client : MonoBehaviour
     /// <returns></returns>
     public bool Get_Socket_Read(string s_DataCheck)
     {
-        string s_Data = cl_Client.Get_Data();
-        bool s_Check = cl_Client.Get_Data().Equals(s_DataCheck);
+        string s_Data = cl_Client.Get_Socket_Queue_Read();
+        bool s_Check = s_Data.Equals(s_DataCheck);
         if (!s_Data.Equals(""))
         {
             Debug.Log("Socket: Read '" + s_DataCheck + "' <> '" + s_Data + "' is " + s_Check);
@@ -69,6 +69,6 @@ public class Socket_Client : MonoBehaviour
     /// <param name="s_Data"></param>
     public void Set_Socket_Write(string s_Data)
     {
-        cl_Client.Set_Socket_Write(s_Data);
+        cl_Client.Set_Socket_Write(true, s_Data);
     }
 }
