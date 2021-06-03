@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(Rigid3D_Component))]
+[RequireComponent(typeof(Control3D_Rigidbody))]
 
 public class Control3D_MoveRotation : MonoBehaviour
 //Move Control Surface (X & Z & Rotation)
 {
-    private Rigid3D_Component cs_Rigid;
+    private Control3D_Rigidbody cs_Rigid;
 
     [Header("Keyboard")]
     public KeyCode k_MoveUp = KeyCode.UpArrow;
@@ -56,7 +56,7 @@ public class Control3D_MoveRotation : MonoBehaviour
 
     void Awake()
     {
-        cs_Rigid = GetComponent<Rigid3D_Component>();
+        cs_Rigid = GetComponent<Control3D_Rigidbody>();
         a_Animator = GetComponent<Animator>();
     }
 
@@ -138,7 +138,7 @@ public class Control3D_MoveRotation : MonoBehaviour
         Gizmos.color = Color.black;
 
         Class_Vector cl_Vector = new Class_Vector();
-        Rigid3D_Component cs_Rigid = GetComponent<Rigid3D_Component>();
+        Control3D_Rigidbody cs_Rigid = GetComponent<Control3D_Rigidbody>();
 
         Gizmos.DrawLine(
             transform.position,

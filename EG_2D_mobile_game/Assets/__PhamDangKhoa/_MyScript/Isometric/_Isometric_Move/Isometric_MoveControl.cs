@@ -383,4 +383,13 @@ public class Isometric_MoveControl : MonoBehaviour
     {
         return i_Face == 1;
     }
+
+    /// <summary>
+    /// Get Pos Move To
+    /// </summary>
+    /// <returns></returns>
+    public Vector2Int Get_PosMoveTo()
+    {
+        return v2_PosMoveTo;
+    }
 }

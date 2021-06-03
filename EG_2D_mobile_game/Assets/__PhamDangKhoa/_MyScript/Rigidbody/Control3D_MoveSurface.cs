@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(Rigid3D_Component))]
+[RequireComponent(typeof(Control3D_Rigidbody))]
 
 public class Control3D_MoveSurface : MonoBehaviour
 //Move Control Surface (X & Z)
@@ -81,7 +81,7 @@ public class Control3D_MoveSurface : MonoBehaviour
     /// <summary>
     /// Use "Move" of this Script
     /// </summary>
-    private Rigid3D_Component cs_Rigid;
+    private Control3D_Rigidbody cs_Rigid;
 
     /// <summary>
     /// Get Button Control X
@@ -113,7 +113,7 @@ public class Control3D_MoveSurface : MonoBehaviour
 
     private void Awake()
     {
-        cs_Rigid = GetComponent<Rigid3D_Component>();
+        cs_Rigid = GetComponent<Control3D_Rigidbody>();
     }
 
     private void Update()

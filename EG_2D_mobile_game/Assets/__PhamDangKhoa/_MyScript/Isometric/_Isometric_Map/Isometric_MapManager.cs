@@ -43,6 +43,9 @@ public class Isometric_MapManager : MonoBehaviour
     [SerializeField]
     private Vector2 v2_Offset = new Vector2();
 
+    [SerializeField]
+    private bool b_StartGenerate = true;
+
     #endregion
 
     #region Private Varible
@@ -162,6 +165,11 @@ public class Isometric_MapManager : MonoBehaviour
         cl_MapRenderer = GetComponent<Isometric_MapRenderer>();
 
         cl_Object = new Class_Object();
+
+        if (b_StartGenerate)
+        {
+            Set_Map_StartGenerate(false);
+        }
     }
 
     private void Update()

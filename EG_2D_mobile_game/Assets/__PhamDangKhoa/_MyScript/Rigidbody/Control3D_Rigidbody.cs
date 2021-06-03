@@ -4,7 +4,7 @@
 /// Control Velocity GameObject in 3D
 /// </summary>
 [RequireComponent(typeof(Rigidbody))]
-public class Rigid3D_Component : MonoBehaviour
+public class Control3D_Rigidbody : MonoBehaviour
 {
     /// <summary>
     /// Use Script Auto Set at Start

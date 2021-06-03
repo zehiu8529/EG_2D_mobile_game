@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(Rigid3D_Component))]
+[RequireComponent(typeof(Control3D_Rigidbody))]
 
 public class Control3D_MovePlatform : MonoBehaviour
 //Move Control Platform (X)
 {
-    private Rigid3D_Component cs_Rigid;
+    private Control3D_Rigidbody cs_Rigid;
     //Use "Move" of this Script
 
     [Header("Keyboard")]
@@ -36,7 +36,7 @@ public class Control3D_MovePlatform : MonoBehaviour
 
     private void Awake()
     {
-        cs_Rigid = GetComponent<Rigid3D_Component>();
+        cs_Rigid = GetComponent<Control3D_Rigidbody>();
     }
 
     private void Update()

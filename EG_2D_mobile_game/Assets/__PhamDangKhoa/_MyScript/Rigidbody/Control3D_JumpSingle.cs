@@ -4,7 +4,7 @@
 /// Jump Single Time at Once
 /// </summary>
 [RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(Rigid3D_Component))]
+[RequireComponent(typeof(Control3D_Rigidbody))]
 public class Control3D_JumpSingle : MonoBehaviour
 //Control Player Jump
 {
@@ -42,13 +42,13 @@ public class Control3D_JumpSingle : MonoBehaviour
     /// <summary>
     /// Control Velocity GameObject in 3D
     /// </summary>
-    private Rigid3D_Component cs_Rigid;
+    private Control3D_Rigidbody cs_Rigid;
 
     #endregion
 
     private void Start()
     {
-        cs_Rigid = GetComponent<Rigid3D_Component>();
+        cs_Rigid = GetComponent<Control3D_Rigidbody>();
     }
 
     private void Update()

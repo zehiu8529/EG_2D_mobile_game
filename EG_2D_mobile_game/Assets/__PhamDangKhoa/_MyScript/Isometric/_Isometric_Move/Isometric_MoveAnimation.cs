@@ -53,16 +53,13 @@ public class Isometric_MoveAnimation : MonoBehaviour
 
     private void Update()
     {
-        if (cl_Move.Get_Moving())
+        if (a_Animator != null)
         {
-            if (a_Animator != null)
+            if (cl_Move.Get_Moving())
             {
                 a_Animator.SetBool(s_Boolean_Move, true);
             }
-        }
-        else
-        {
-            if (a_Animator != null)
+            else
             {
                 a_Animator.SetBool(s_Boolean_Move, false);
             }
