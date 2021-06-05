@@ -15,6 +15,9 @@ public class Isometric_CheckGround : MonoBehaviour
     [SerializeField]
     private string s_Tag = "IsometricMap";
 
+    /// <summary>
+    /// Get MapManager GameObject
+    /// </summary>
     [SerializeField]
     private GameObject g_MapManager;
 
@@ -41,11 +44,6 @@ public class Isometric_CheckGround : MonoBehaviour
             if (s_Tag != "")
             {
                 g_MapManager = GameObject.FindGameObjectWithTag(s_Tag);
-
-                if (g_MapManager == null)
-                {
-                    Debug.LogError(this.name + ": Not found 'MapManager GameObject' with tag: " + s_Tag);
-                }
             }
         }
 
@@ -68,4 +66,22 @@ public class Isometric_CheckGround : MonoBehaviour
         }
         return true;
     }
+
+    /// <summary>
+    /// Check Square Avoid or Accept to Move in?
+    /// </summary>
+    /// <param name="v2_Pos"></param>
+    /// <returns>If TRUE >> GROUND ACCEPT</returns>
+    public bool Get_Check_Ground_Accept(Vector2Int v2_Pos)
+    {
+        for (int i = 0; i < l_Ground.Count; i++)
+        {
+            if (cl_MapManager_MapManager.Get_MatrixCode_Ground(v2_Pos) == l_Ground[i].GetComponent<Isometric_Single>().Get_SingleCode())
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }

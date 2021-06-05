@@ -363,7 +363,6 @@ GameObject:
   - component: {fileID: 133099637}
   - component: {fileID: 133099640}
   - component: {fileID: 133099639}
-  - component: {fileID: 133099638}
   m_Layer: 5
   m_Name: MoveRight
   m_TagString: Untagged
@@ -392,36 +391,6 @@ RectTransform:
   m_AnchoredPosition: {x: 55, y: 55}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &133099638
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 133099636}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4abf86b541f9dcb47b3ee8928a007ad0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  b_AfterHoldTime: 0
-  f_HoldTime: 1
-  c_Color_NotHold: {r: 1, g: 1, b: 1, a: 1}
-  c_Color_Hold: {r: 1, g: 0, b: 0, a: 0}
-  Event_HoldClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: Set_Move_Right
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &133099639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -465,8 +434,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: Button_TablePoision_Right
+      - m_Target: {fileID: 1944267479}
+        m_MethodName: Button_Right
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1606,7 +1575,7 @@ RectTransform:
   - {fileID: 1347474918}
   - {fileID: 1778787001}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1624,7 +1593,6 @@ GameObject:
   - component: {fileID: 592903369}
   - component: {fileID: 592903372}
   - component: {fileID: 592903371}
-  - component: {fileID: 592903370}
   m_Layer: 5
   m_Name: MoveUp
   m_TagString: Untagged
@@ -1653,36 +1621,6 @@ RectTransform:
   m_AnchoredPosition: {x: -55, y: 55}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &592903370
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 592903368}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4abf86b541f9dcb47b3ee8928a007ad0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  b_AfterHoldTime: 0
-  f_HoldTime: 1
-  c_Color_NotHold: {r: 1, g: 1, b: 1, a: 1}
-  c_Color_Hold: {r: 1, g: 0, b: 0, a: 0}
-  Event_HoldClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: Set_Move_Up
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &592903371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1726,8 +1664,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: Button_TablePoision_Up
+      - m_Target: {fileID: 1944267479}
+        m_MethodName: Button_Up
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2237,7 +2175,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 0
+        m_CallState: 2
       - m_Target: {fileID: 882434032}
         m_MethodName: Button_SocketCanvas
         m_Mode: 1
@@ -2390,7 +2328,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &882434032
 MonoBehaviour:
@@ -2649,7 +2587,6 @@ GameObject:
   - component: {fileID: 922870523}
   - component: {fileID: 922870526}
   - component: {fileID: 922870525}
-  - component: {fileID: 922870524}
   m_Layer: 5
   m_Name: MoveDown
   m_TagString: Untagged
@@ -2678,36 +2615,6 @@ RectTransform:
   m_AnchoredPosition: {x: 55, y: -55}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &922870524
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 922870522}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4abf86b541f9dcb47b3ee8928a007ad0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  b_AfterHoldTime: 0
-  f_HoldTime: 1
-  c_Color_NotHold: {r: 1, g: 1, b: 1, a: 1}
-  c_Color_Hold: {r: 1, g: 0, b: 0, a: 0}
-  Event_HoldClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: Set_Move_Down
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &922870525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2751,8 +2658,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: Button_TablePoision_Down
+      - m_Target: {fileID: 1944267479}
+        m_MethodName: Button_Down
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2861,8 +2768,8 @@ GameObject:
   - component: {fileID: 974773405}
   - component: {fileID: 974773404}
   m_Layer: 0
-  m_Name: IsometricMapManager
-  m_TagString: Untagged
+  m_Name: MapManager
+  m_TagString: IsometricMap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2938,7 +2845,8 @@ MonoBehaviour:
   s_Map_Fence_Down: ~DDDDDDD~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   s_Map_Fence_Left: ~~~~~~~~~~~~~~~~~L~~~~~~~~L~~~~~~~~L~~~~~~~~L~~~~~~~~L~~~~~~~~L~~~~~~~~L~~~~~~~~~
   s_Map_Fence_Right: ~~~~~~~~~R~~~~~~~~R~~~~~~~~R~~~~~~~~R~~~~~~~~R~~~~~~~~R~~~~~~~~R~~~~~~~~~~~~~~~~~
-  l_SpawmPoint: []
+  l_SpawmPoint:
+  - {x: 1, y: 1}
 --- !u!4 &974773407
 Transform:
   m_ObjectHideFlags: 0
@@ -2951,7 +2859,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1026594741
 GameObject:
@@ -3183,7 +3091,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1115803568
 GameObject:
@@ -3486,7 +3394,6 @@ GameObject:
   - component: {fileID: 1423826118}
   - component: {fileID: 1423826121}
   - component: {fileID: 1423826120}
-  - component: {fileID: 1423826119}
   m_Layer: 5
   m_Name: MoveLeft
   m_TagString: Untagged
@@ -3515,36 +3422,6 @@ RectTransform:
   m_AnchoredPosition: {x: -55, y: -55}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1423826119
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1423826117}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4abf86b541f9dcb47b3ee8928a007ad0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  b_AfterHoldTime: 0
-  f_HoldTime: 1
-  c_Color_NotHold: {r: 1, g: 1, b: 1, a: 1}
-  c_Color_Hold: {r: 1, g: 0, b: 0, a: 0}
-  Event_HoldClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: Set_Move_Left
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &1423826120
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3588,8 +3465,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: Button_TablePoision_Left
+      - m_Target: {fileID: 1944267479}
+        m_MethodName: Button_Left
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4517,7 +4394,7 @@ RectTransform:
   m_Children:
   - {fileID: 580319227}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -4534,9 +4411,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1944267478}
   - component: {fileID: 1944267477}
+  - component: {fileID: 1944267480}
+  - component: {fileID: 1944267479}
   m_Layer: 0
-  m_Name: SocketManager
-  m_TagString: Untagged
+  m_Name: ClientManager
+  m_TagString: ClientManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4556,6 +4435,7 @@ MonoBehaviour:
   s_Tag: ClientManager
   inp_Host: {fileID: 271058258}
   inp_Port: {fileID: 561300959}
+  c_DataSpace: 58
   l_Data_Queue: []
 --- !u!4 &1944267478
 Transform:
@@ -4569,8 +4449,41 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1944267479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1944267476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a86d60b5e0c5c94889e910b973da5a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  s_MapManager_Tag: IsometricMap
+  g_MapManager: {fileID: 0}
+  s_Client_Tag: IsometricClient
+  cl_ClientControl: {fileID: 0}
+--- !u!114 &1944267480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1944267476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0440dc187e4df7247b52db51fe9181b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  g_Local: {fileID: 947803935270042650, guid: 3f7ab3020c6ca274aa8dd49e12cbbe12, type: 3}
+  g_Remote: {fileID: 2588371840929055147, guid: 4eb03efdc648c7743acfb756a1f144ad,
+    type: 3}
+  l_ID: []
+  l_Remote: []
 --- !u!1 &1955612960
 GameObject:
   m_ObjectHideFlags: 0
@@ -5206,5 +5119,5 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

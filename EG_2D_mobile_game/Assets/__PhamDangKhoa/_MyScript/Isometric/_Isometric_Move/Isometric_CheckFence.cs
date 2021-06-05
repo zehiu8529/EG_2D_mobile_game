@@ -6,7 +6,7 @@ using UnityEngine;
 /// Check Fence to Avoid
 /// </summary>
 [RequireComponent(typeof(Isometric_MoveControl))]
-public class Isometric_MoveFence : MonoBehaviour
+public class Isometric_CheckFence : MonoBehaviour
 {
     /// <summary>
     /// Tag for other Isometric Object to Find
@@ -15,6 +15,9 @@ public class Isometric_MoveFence : MonoBehaviour
     [SerializeField]
     private string s_Tag = "IsometricMap";
 
+    /// <summary>
+    /// Get MapManager GameObject
+    /// </summary>
     [SerializeField]
     private GameObject g_MapManager;
 
@@ -35,11 +38,6 @@ public class Isometric_MoveFence : MonoBehaviour
             if (s_Tag != "")
             {
                 g_MapManager = GameObject.FindGameObjectWithTag(s_Tag);
-
-                if (g_MapManager == null)
-                {
-                    Debug.LogError(this.name + ": Not found 'MapManager GameObject' with tag: " + s_Tag);
-                }
             }
         }
 

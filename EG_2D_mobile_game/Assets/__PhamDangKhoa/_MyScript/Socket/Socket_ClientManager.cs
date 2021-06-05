@@ -29,6 +29,9 @@ public class Socket_ClientManager : MonoBehaviour
     [SerializeField]
     private InputField inp_Port;
 
+    [HideInInspector]
+    public char c_DataSpace = ':';
+
     #endregion
 
     #region Private Varible
@@ -43,7 +46,7 @@ public class Socket_ClientManager : MonoBehaviour
     /// <summary>
     /// Socket Connect OK?
     /// </summary>
-    internal Boolean b_SocketStart = false;
+    internal bool b_SocketStart = false;
 
     private TcpClient tcp_Socket;
     private NetworkStream net_Stream;
@@ -59,16 +62,6 @@ public class Socket_ClientManager : MonoBehaviour
     [SerializeField]
     private List<string> l_Data_Queue;
 
-    /// <summary>
-    /// Readline of Auto Read Data Fer Frame
-    /// </summary>
-    private int i_ReadlinePerFrame = 4;
-
-    public void Set_ReadlinePerFrame(int i_ReadlinePerFrame)
-    {
-        this.i_ReadlinePerFrame = i_ReadlinePerFrame;
-    }
-
     #endregion
 
     private void Awake()
@@ -83,11 +76,6 @@ public class Socket_ClientManager : MonoBehaviour
     {
         tcp_Socket = new TcpClient();
 
-        if (b_SocketStart)
-        {
-            Debug.Log("Client: Socket on!");
-        }
-
         l_Data_Queue = new List<string>();
 
         if (inp_Host != null)
@@ -101,12 +89,9 @@ public class Socket_ClientManager : MonoBehaviour
         }
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        for (int i = 0; i < i_ReadlinePerFrame; i++)
-        {
-            Set_Socket_Auto_Read();
-        }
+        Set_Socket_Auto_Read();
     }
 
     private void OnApplicationQuit()
@@ -121,7 +106,7 @@ public class Socket_ClientManager : MonoBehaviour
     /// </summary>
     public void Set_Socket_Start()
     {
-        if (!b_SocketStart)
+        if (!Get_SocketStart())
         {
             try
             {
@@ -185,7 +170,7 @@ public class Socket_ClientManager : MonoBehaviour
     /// <param name="s_Data"></param>
     public void Set_Socket_Write(string s_Data)
     {
-        if (!b_SocketStart)
+        if (!Get_SocketStart())
             return;
         String foo = s_Data + "\r\n";
         st_Writer.Write(foo);
@@ -232,7 +217,7 @@ public class Socket_ClientManager : MonoBehaviour
     /// <returns></returns>
     private String Get_Socket_Read()
     {
-        if (!b_SocketStart)
+        if (!Get_SocketStart())
             return "";
         if (net_Stream.DataAvailable)
             return st_Reader.ReadLine();
@@ -262,7 +247,7 @@ public class Socket_ClientManager : MonoBehaviour
     /// </summary>
     public void Set_Socket_Close()
     {
-        if (!b_SocketStart)
+        if (!Get_SocketStart())
             return;
         Set_Socket_Write("Exit");
         st_Writer.Close();
@@ -278,59 +263,36 @@ public class Socket_ClientManager : MonoBehaviour
     #region Data Get
 
     /// <summary>
-    /// Get FISRT Command in long Command
+    /// Get Data from Command
     /// </summary>
     /// <param name="s_SocketDataGet"></param>
     /// <returns></returns>
-    public string Get_SocketData_First(string s_SocketDataGet)
+    public List<string> Get_SocketData(string s_SocketDataGet)
     {
-        string s_ID = "";
+        List<string> l_Data = new List<string>();
+        l_Data.Add("");
         for (int i = 0; i < s_SocketDataGet.Length; i++)
         {
-            if (s_SocketDataGet[i] != ':')
+            if (s_SocketDataGet[i] != c_DataSpace)
             {
-                s_ID += s_SocketDataGet[i];
+                l_Data[l_Data.Count - 1] += s_SocketDataGet[i];
             }
             else
             {
-                return s_ID;
+                l_Data.Add("");
             }
         }
-        Debug.LogError("Get_Socket_ID: Can not Read ID!");
-        return "";
-    }
-
-    /// <summary>
-    /// Get ANOTHER Command in long Command after FIRST Command
-    /// </summary>
-    /// <param name="s_SocketDataGet"></param>
-    /// <returns></returns>
-    public string Get_SocketData_Second(string s_SocketDataGet)
-    {
-        string s_Command = "";
-        int i_Char = -1;
-        for (int i = 0; i < s_SocketDataGet.Length; i++)
-        {
-            if (s_SocketDataGet[i] != ':')
-            {
-                i_Char++;
-            }
-            else
-            {
-                i_Char++;
-                break;
-            }
-        }
-        i_Char++;
-        for (int i = i_Char; i < s_SocketDataGet.Length; i++)
-        {
-            if (s_SocketDataGet[i] != ':')
-            {
-                s_Command += s_SocketDataGet[i];
-            }
-        }
-        return s_Command;
+        return l_Data;
     }
 
     #endregion
+
+    /// <summary>
+    /// Socket is Started?
+    /// </summary>
+    /// <returns></returns>
+    public bool Get_SocketStart()
+    {
+        return b_SocketStart;
+    }
 }

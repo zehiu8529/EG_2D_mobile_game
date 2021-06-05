@@ -6,6 +6,7 @@ TagManager:
   tags:
   - IsometricMap
   - ClientManager
+  - IsometricClient
   layers:
   - Default
   - TransparentFX

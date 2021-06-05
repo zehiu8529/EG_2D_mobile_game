@@ -1,11 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Sample_SocketHandle : MonoBehaviour
 {
+    [Header("Socket Manager")]
     [SerializeField]
     private Socket_ClientManager cl_SocketManager;
+
+    [Header("Debug List")]
+    [SerializeField]
+    private Text t_Debug;
 
     [SerializeField]
     private List<string> l_ID;
@@ -21,13 +27,16 @@ public class Sample_SocketHandle : MonoBehaviour
         l_Message = new List<string>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (cl_SocketManager.Get_Socket_Queue_Read_Exist())
         {
             string s_SocketGet = cl_SocketManager.Get_Socket_Queue_Read();
-            string s_ID = cl_SocketManager.Get_SocketData_First(s_SocketGet);
-            string s_Command = cl_SocketManager.Get_SocketData_Second(s_SocketGet);
+            List<string> l_Data = cl_SocketManager.Get_SocketData(s_SocketGet);
+
+            string s_ID = l_Data[0];
+            string s_Command = l_Data[1];
+
             if (Get_Exist_ID(s_ID))
             {
                 int i_Index = Get_Exist_ID_Index(s_ID);
@@ -39,12 +48,20 @@ public class Sample_SocketHandle : MonoBehaviour
                 l_Message.Add(s_Command);
                 //cl_SocketManager.Set_Get(l_ID.Count);
             }
+
+            string s_Debug = "";
+            for(int i = 0; i < l_ID.Count; i++)
+            {
+                s_Debug += l_ID[i] + ":" + l_Message[i] + "\n";
+            }
+            t_Debug.text = s_Debug;
         }
     }
 
     public void Button_SendDeviceID()
     {
-        cl_SocketManager.Set_Socket_Write(cl_SocketManager.Get_DeviceID());
+        i_Plus++;
+        cl_SocketManager.Set_Socket_Write(cl_SocketManager.Get_DeviceID() + ":" + i_Plus.ToString());
     }
 
     private bool Get_Exist_ID(string s_IDCheck)

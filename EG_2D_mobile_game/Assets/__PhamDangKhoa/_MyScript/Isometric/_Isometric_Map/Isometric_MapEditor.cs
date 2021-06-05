@@ -206,11 +206,6 @@ public class Isometric_MapEditor : MonoBehaviour
             if (s_Tag != "")
             {
                 g_MapManager = GameObject.FindGameObjectWithTag(s_Tag);
-
-                if (g_MapManager == null)
-                {
-                    Debug.LogError(this.name + ": Not found 'MapManager GameObject' with tag: " + s_Tag);
-                }
             }
         }
 

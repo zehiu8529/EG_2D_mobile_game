@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 947803935270042653}
   m_Layer: 0
   m_Name: Client_Female
-  m_TagString: Untagged
+  m_TagString: IsometricClient
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -142,12 +142,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   s_Tag: IsometricMap
   g_MapManager: {fileID: 0}
-  b_UseScriptControl: 1
+  b_UseScriptControl: 0
   k_Up: 119
   k_Down: 115
   k_Left: 97
   k_Right: 100
-  b_DelayControl: 0
+  b_DelayControl: 1
   f_TimeDelay: 0.2
   f_MovePercent: 0.5
 --- !u!114 &947803935270042654

@@ -160,7 +160,7 @@ public class Class_Data
     /// </summary>
     /// <param name="s_DataName"></param>
     /// <returns></returns>
-    public int Get_Int_Data_Exist(string s_DataName)
+    public int Get_Index_Data_Exist(string s_DataName)
     {
         for (int i = 0; i < l_Data_Name.Count; i++)
         {
@@ -175,9 +175,9 @@ public class Class_Data
     /// </summary>
     /// <param name="s_DataName"></param>
     /// <param name="o_DataValue"></param>
-    public void Input_Data(string s_DataName, object o_DataValue)
+    public void Set_Data(string s_DataName, object o_DataValue)
     {
-        int Index = Get_Int_Data_Exist(s_DataName);
+        int Index = Get_Index_Data_Exist(s_DataName);
 
         if (Index != -1)
         {
@@ -247,7 +247,7 @@ public class Class_Data
     /// </summary>
     /// <param name="s_DataName"></param>
     /// <returns>If not found Data, return "@NotFound"</returns>
-    public object Get_Object_Data(string s_DataName)
+    public object Get_Data(string s_DataName)
     {
         for (int i = 0; i < l_Data_Name.Count; i++)
         {
@@ -289,10 +289,10 @@ public class Class_Data
     /// <param name="s_DataName"></param>
     /// <param name="i_Index"></param>
     /// <param name="o_DataValue"></param>
-    public void Input_Data(string s_DataName, int i_Index, object o_DataValue)
+    public void Set_Data(string s_DataName, int i_Index, object o_DataValue)
     {
         string s_DataCheck = s_DataName + "_" + i_Index.ToString();
-        Input_Data(s_DataCheck, o_DataValue);
+        Set_Data(s_DataCheck, o_DataValue);
     }
 
     /// <summary>
@@ -300,10 +300,10 @@ public class Class_Data
     /// </summary>
     /// <param name="s_DataName"></param>
     /// <param name="i_Count"></param>
-    public void Input_Data_Count(string s_DataName, int i_Count)
+    public void Set_Data_Count(string s_DataName, int i_Count)
     {
         string s_DataCheck = s_DataName + "_Count";
-        Input_Data(s_DataCheck, i_Count);
+        Set_Data(s_DataCheck, i_Count);
     }
 
     /// <summary>
@@ -315,7 +315,7 @@ public class Class_Data
     public object Get_Object_Data(string s_DataName, int i_Index)
     {
         string s_DataCheck = s_DataName + "_" + i_Index.ToString();
-        return Get_Object_Data(s_DataCheck);
+        return Get_Data(s_DataCheck);
     }
 
     /// <summary>
@@ -326,9 +326,9 @@ public class Class_Data
     public int Get_Int_Data_Count(string s_DataName)
     {
         string s_DataCheck = s_DataName + "_Count";
-        if (Get_Convert_String(Get_Object_Data(s_DataCheck)) == Get_String_Data_NotFound())
+        if (Get_Convert_String(Get_Data(s_DataCheck)) == Get_String_Data_NotFound())
             return -1;
-        return Get_Convert_Int(Get_Object_Data(s_DataCheck).ToString());
+        return Get_Convert_Int(Get_Data(s_DataCheck).ToString());
     }
 
     /// <summary>
