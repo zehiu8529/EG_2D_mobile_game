@@ -5,6 +5,19 @@ using UnityEngine;
 public class EG_SocketManager : MonoBehaviour
 {
     /// <summary>
+    /// Tag for other Isometric Object to Find
+    /// </summary>
+    [Header("Isometric Client Tag")]
+    [SerializeField]
+    private string s_Client_Tag = "IsometricClient";
+
+    /// <summary>
+    /// Client GameObject
+    /// </summary>
+    [SerializeField]
+    private Isometric_MoveControl cl_ClientControl;
+
+    /// <summary>
     /// Prepab Local
     /// </summary>
     [Header("Prefab Remote")]
@@ -24,7 +37,7 @@ public class EG_SocketManager : MonoBehaviour
     [SerializeField]
     private List<GameObject> l_Remote;
 
-    private Socket_ClientManager cl_SocketManager;
+    private Socket_ClientManager cl_ClientManager;
 
     private Class_Object cl_Object;
 
@@ -32,29 +45,46 @@ public class EG_SocketManager : MonoBehaviour
 
     private void Start()
     {
-        cl_SocketManager = GetComponent<Socket_ClientManager>();
+        cl_ClientManager = GetComponent<Socket_ClientManager>();
 
         cl_Object = new Class_Object();
+    }
+
+    private void Update()
+    {
+        if (cl_ClientManager.Get_SocketStart())
+        {
+            if (cl_ClientControl == null)
+            {
+                if (s_Client_Tag != "")
+                {
+                    cl_ClientControl = GameObject.FindGameObjectWithTag(s_Client_Tag).GetComponent<Isometric_MoveControl>();
+                }
+            }
+        }
     }
 
     private void FixedUpdate()
     {
         Set_AutoSocket();
+
+        cl_ClientManager.Set_Socket_Write("");
+        //Fixed Data send to Host
     }
 
     private void Set_AutoSocket()
     {
-        if (cl_SocketManager.Get_Socket_Queue_Read_Exist())
+        if (cl_ClientManager.Get_Socket_Queue_Read_Exist())
         {
-            string s_DataGet = cl_SocketManager.Get_Socket_Queue_Read();
-            List<string> l_Data = cl_SocketManager.Get_SocketData(s_DataGet);
+            string s_DataGet = cl_ClientManager.Get_Socket_Queue_Read();
+            List<string> l_Data = cl_ClientManager.Get_SocketData(s_DataGet);
             string s_ID = l_Data[0];
             //string s_Control = cl_SocketManager.Get_SocketData_First(s_Command);
             
             int i_x = int.Parse(l_Data[1]);
             int i_y = int.Parse(l_Data[2]);
 
-            if (s_ID == cl_SocketManager.Get_DeviceID())
+            if (s_ID == cl_ClientManager.Get_DeviceID())
             //If ID get Equa this Device ID
             {
                 if (!Get_Exist_ID(s_ID))
@@ -64,6 +94,12 @@ public class EG_SocketManager : MonoBehaviour
                     g_NewRemote.GetComponent<Isometric_Single>().Set_Pos(i_x, i_y);
                     l_ID.Add(s_ID);
                     l_Remote.Add(g_NewRemote);
+
+                    cl_ClientManager.Set_Socket_Write(
+                        cl_ClientManager.Get_DeviceID() + ":" +
+                        cl_ClientControl.Get_PosMoveTo().x + ":" +
+                        cl_ClientControl.Get_PosMoveTo().y);
+                    //Send my Pos to the new player join
                 }
                 else
                 //If Exist this Device on List >> Control Remote of this Device
@@ -89,6 +125,12 @@ public class EG_SocketManager : MonoBehaviour
                     g_NewRemote.GetComponent<Isometric_Single>().Set_Pos(i_x, i_y);
                     l_ID.Add(s_ID);
                     l_Remote.Add(g_NewRemote);
+
+                    cl_ClientManager.Set_Socket_Write(
+                        cl_ClientManager.Get_DeviceID() + ":" +
+                        cl_ClientControl.Get_PosMoveTo().x + ":" +
+                        cl_ClientControl.Get_PosMoveTo().y);
+                    //Send my Pos to the new player join
                 }
                 else
                 //If Exist this Device on List >> Control Remote
