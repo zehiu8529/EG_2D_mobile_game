@@ -23,7 +23,7 @@ public class Isometric_Single : MonoBehaviour
     /// Map
     /// </summary>
     [SerializeField]
-    private Isometric_Map cl_Map;
+    private Isometric_MapManager cl_Map;
 
     /// <summary>
     /// Pos on Map this Object
@@ -58,6 +58,13 @@ public class Isometric_Single : MonoBehaviour
     [SerializeField]
     private float f_Depth = 0;
 
+    /// <summary>
+    /// Single Code for Isometric Ground, Object, Fence on Map
+    /// </summary>
+    [Header("Single Code on Map")]
+    [SerializeField]
+    private char c_SingleCode = 'A';
+
     #endregion
 
     /// <summary>
@@ -71,11 +78,11 @@ public class Isometric_Single : MonoBehaviour
         {
             if (s_Tag != "")
             {
-                cl_Map = GameObject.FindGameObjectWithTag(s_Tag).GetComponent<Isometric_Map>();
+                cl_Map = GameObject.FindGameObjectWithTag(s_Tag).GetComponent<Isometric_MapManager>();
 
                 if (cl_Map == null)
                 {
-                    Debug.LogError("Not found 'Isometric Map Object' with tag: " + s_Tag);
+                    Debug.LogError(this.name + ": Not found 'MapManager GameObject' with tag: " + s_Tag);
                 }
             }
         }
@@ -83,7 +90,7 @@ public class Isometric_Single : MonoBehaviour
 
     private void Update()
     {
-        Set_Auto();
+        Set_Auto(); 
     }
 
     /// <summary>
@@ -111,6 +118,8 @@ public class Isometric_Single : MonoBehaviour
 
         this.transform.position = cl_Vector.Get_Isometric_TransformPosition(v3_Pos);
     }
+
+    //Pos
 
     /// <summary>
     /// Set Pos for this Isometric
@@ -140,6 +149,8 @@ public class Isometric_Single : MonoBehaviour
         return v2_Pos;
     }
 
+    //Offset
+
     /// <summary>
     /// Set Offset for this Isometric
     /// </summary>
@@ -158,13 +169,34 @@ public class Isometric_Single : MonoBehaviour
         return v2_Offset;
     }
 
+    //Is Object
+
+    /// <summary>
+    /// Set Object check for this Isometric
+    /// </summary>
+    /// <returns></returns>
     public bool Get_isObject()
     {
         return b_isObject;
     }
 
+    /// <summary>
+    /// Get Object check for this Isometric
+    /// </summary>
+    /// <param name="b_isObject"></param>
     public void Set_isObject(bool b_isObject)
     {
         this.b_isObject = b_isObject;
+    }
+
+    //Single Code
+
+    /// <summary>
+    /// Get Single Code for this Isometric
+    /// </summary>
+    /// <returns></returns>
+    public char Get_SingleCode()
+    {
+        return c_SingleCode;
     }
 }

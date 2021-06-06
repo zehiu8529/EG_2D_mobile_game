@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(Rigid3D_Component))]
+[RequireComponent(typeof(Control3D_Rigidbody))]
 
 public class Eye3D_Fan : MonoBehaviour
 //Eye Fan Cast
@@ -52,7 +52,7 @@ public class Eye3D_Fan : MonoBehaviour
 
         Class_Eye cs_Eye = new Class_Eye();
         //Use this Script to use all Methode of Eye
-        Rigid3D_Component cs_Rigid = GetComponent<Rigid3D_Component>();
+        Control3D_Rigidbody cs_Rigid = GetComponent<Control3D_Rigidbody>();
         //Use this Script to get "Rotation" of this Object
 
         if (!b_XZ)
@@ -298,7 +298,7 @@ public class Eye3D_Fan : MonoBehaviour
         Class_Vector cl_Vector = new Class_Vector();
 
         Class_Eye cs_Eye = new Class_Eye();
-        Rigid3D_Component cs_Rigid = GetComponent<Rigid3D_Component>();
+        Control3D_Rigidbody cs_Rigid = GetComponent<Control3D_Rigidbody>();
 
         if (!b_XZ)
         {

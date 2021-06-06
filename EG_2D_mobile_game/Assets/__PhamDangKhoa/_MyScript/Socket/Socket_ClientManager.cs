@@ -1,26 +1,42 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net.Sockets;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Socket_ClientManager : MonoBehaviour
 {
+    #region Public Varible
+
+    /// <summary>
+    /// Tag for other Socket Object to Find
+    /// </summary>
     [Header("Client Manager Tag")]
     [SerializeField]
     private string s_Tag = "ClientManager";
 
     /// <summary>
-    /// If Test Network on this Device
+    /// Host to Connect
     /// </summary>
     [Header("Network Server")]
     [SerializeField]
-    private bool b_LocalHost = true;
+    private InputField inp_Host;
 
     /// <summary>
-    /// IP on other Device or other Server
+    /// Port for Connect to Host
     /// </summary>
     [SerializeField]
-    private String s_Host = "192.168.100.38";
+    private InputField inp_Port;
+
+    [HideInInspector]
+    public char c_DataSpace = ':';
+
+    #endregion
+
+    #region Private Varible
+
+    //Socket
 
     /// <summary>
     /// IP on this Device or this Server
@@ -28,19 +44,25 @@ public class Socket_ClientManager : MonoBehaviour
     private String s_LocalHost = "localhost";
 
     /// <summary>
-    /// Port on Server
+    /// Socket Connect OK?
     /// </summary>
+    internal bool b_SocketStart = false;
+
+    private TcpClient tcp_Socket;
+    private NetworkStream net_Stream;
+    private StreamWriter st_Writer;
+    private StreamReader st_Reader;
+
+    //Data
+
+    /// <summary>
+    /// Stack of Data get from Server
+    /// </summary>
+    [Header("Data Get from Server")]
     [SerializeField]
-    private Int32 Port = 5056;
+    private List<string> l_Data_Queue;
 
-    internal Boolean socketReady = false;
-
-    private TcpClient mySocket;
-    private NetworkStream theStream;
-    private StreamWriter theWriter;
-    private StreamReader theReader;
-
-    private string s_ReadData = "";
+    #endregion
 
     private void Awake()
     {
@@ -52,72 +74,95 @@ public class Socket_ClientManager : MonoBehaviour
 
     private void Start()
     {
-        mySocket = new TcpClient();
+        tcp_Socket = new TcpClient();
 
-        if (socketReady)
+        l_Data_Queue = new List<string>();
+
+        if (inp_Host != null)
         {
-            Debug.Log("Client: Socket on!");
+            inp_Host.text = "192.168.100.38";
+        }
+
+        if (inp_Port != null)
+        {
+            inp_Port.text = "5000";
         }
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        if (!socketReady)
-        {
-            Set_SocketReady();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Set_Socket_Write("Exit");
-            Set_Socket_Close();
-        }
-
-        s_ReadData = Get_Socket_Read();
-        if (!s_ReadData.Equals(""))
-        {
-            Debug.Log("Client: Get '" + s_ReadData + "'");
-        }
-    }
-
-    private void OnDestroy()
-    {
-        
+        Set_Socket_Auto_Read();
     }
 
     private void OnApplicationQuit()
     {
-        if (mySocket != null && mySocket.Connected)
-            mySocket.Close();
+        Set_Socket_Close();
     }
+
+    #region Start Connect to Server
 
     /// <summary>
     /// Set Socket Ready
     /// </summary>
-    private void Set_SocketReady()
+    public void Set_Socket_Start()
     {
-        try
+        if (!Get_SocketStart())
         {
-            if (b_LocalHost)
+            try
             {
-                mySocket.Connect(s_LocalHost, Port);
+                if (inp_Host == null || inp_Port == null)
+                {
+                    Debug.LogError("Set_Socket_Start: Require Input Field!");
+                    return;
+                }
+                else
+                {
+                    if (inp_Port.text == "")
+                    {
+                        Debug.LogWarning("Set_Socket_Start: Port Require!");
+                        return;
+                    }
+
+                    if (inp_Host.text == "")
+                    {
+                        Debug.LogWarning("Set_Socket_Start: Local Host Instead!");
+                        tcp_Socket.Connect(s_LocalHost, int.Parse(inp_Port.text));
+                    }
+                    else
+                    {
+                        Debug.LogWarning("Set_Socket_Start: " + inp_Host.text + " Connecting!");
+                        Debug.LogWarning("Set_Socket_Start: Device " + SystemInfo.deviceUniqueIdentifier);
+                        tcp_Socket.Connect(inp_Host.text, int.Parse(inp_Port.text));
+                    }
+                }
+
+                net_Stream = tcp_Socket.GetStream();
+                net_Stream.ReadTimeout = 1;
+                st_Writer = new StreamWriter(net_Stream);
+                st_Reader = new StreamReader(net_Stream);
+                b_SocketStart = true;
+
+                Debug.LogWarning("Set_Socket_Start: Socket Start!");
             }
-            else
+            catch (Exception e)
             {
-                mySocket.Connect(s_Host, Port);
+                Debug.LogError("Client: Socket error '" + e + "'");
             }
-            theStream = mySocket.GetStream();
-            theStream.ReadTimeout = 1;
-            theWriter = new StreamWriter(theStream);
-            theReader = new StreamReader(theStream);
-            socketReady = true;
-            Debug.Log("Client: Socket Send!");
-        }
-        catch (Exception e)
-        {
-            Debug.Log("Client: Socket error '" + e + "'");
         }
     }
+
+    /// <summary>
+    /// Get ID of this Device
+    /// </summary>
+    /// <returns></returns>
+    public string Get_DeviceID()
+    {
+        return SystemInfo.deviceUniqueIdentifier;
+    }
+
+    #endregion
+
+    #region Write Data to Server
 
     /// <summary>
     /// Sent Data to Server
@@ -125,13 +170,46 @@ public class Socket_ClientManager : MonoBehaviour
     /// <param name="s_Data"></param>
     public void Set_Socket_Write(string s_Data)
     {
-        if (!socketReady)
+        if (!Get_SocketStart())
             return;
         String foo = s_Data + "\r\n";
-        theWriter.Write(foo);
-        theWriter.Flush();
-        Debug.Log("Client: Send '" + s_Data + "'");
+        st_Writer.Write(foo);
+        st_Writer.Flush();
+
+        Debug.Log("Set_Socket_Write: " + s_Data);
     }
+
+    #endregion
+
+    #region Read Data from Server
+
+    //Public
+
+    /// <summary>
+    /// Get Data Queue Read from Server add Local
+    /// </summary>
+    /// <returns></returns>
+    public string Get_Socket_Queue_Read()
+    {
+        if (!Get_Socket_Queue_Read_Exist())
+        {
+            return "";
+        }
+        string s_DataGet = l_Data_Queue[0];
+        l_Data_Queue.RemoveAt(0);
+        return s_DataGet;
+    }
+
+    /// <summary>
+    /// Get Data Read Queue from Server
+    /// </summary>
+    /// <returns></returns>
+    public bool Get_Socket_Queue_Read_Exist()
+    {
+        return l_Data_Queue.Count > 0;
+    }
+
+    //Private
 
     /// <summary>
     /// Get Data from Server
@@ -139,28 +217,82 @@ public class Socket_ClientManager : MonoBehaviour
     /// <returns></returns>
     private String Get_Socket_Read()
     {
-        if (!socketReady)
+        if (!Get_SocketStart())
             return "";
-        if (theStream.DataAvailable)
-            return theReader.ReadLine();
+        if (net_Stream.DataAvailable)
+            return st_Reader.ReadLine();
         return "";
     }
 
     /// <summary>
-    /// Close Connect to Server
+    /// Get Data Auto from Server
     /// </summary>
-    private void Set_Socket_Close()
+    private void Set_Socket_Auto_Read()
     {
-        if (!socketReady)
-            return;
-        theWriter.Close();
-        theReader.Close();
-        mySocket.Close();
-        socketReady = false;
+        string s_ReadData = Get_Socket_Read();
+        if (!s_ReadData.Equals(""))
+        {
+            l_Data_Queue.Add(s_ReadData);
+
+            Debug.Log("Set_Socket_Auto_Read: " + s_ReadData);
+        }
     }
 
-    public string Get_Data()
+    #endregion
+
+    #region Close Connect
+
+    /// <summary>
+    /// Close Connect to Server
+    /// </summary>
+    public void Set_Socket_Close()
     {
-        return s_ReadData;
+        if (!Get_SocketStart())
+            return;
+        Set_Socket_Write("Exit");
+        st_Writer.Close();
+        st_Reader.Close();
+        tcp_Socket.Close();
+        b_SocketStart = false;
+
+        Debug.LogWarning("Set_Socket_Close: Called!");
+    }
+
+    #endregion
+
+    #region Data Get
+
+    /// <summary>
+    /// Get Data from Command
+    /// </summary>
+    /// <param name="s_SocketDataGet"></param>
+    /// <returns></returns>
+    public List<string> Get_SocketData(string s_SocketDataGet)
+    {
+        List<string> l_Data = new List<string>();
+        l_Data.Add("");
+        for (int i = 0; i < s_SocketDataGet.Length; i++)
+        {
+            if (s_SocketDataGet[i] != c_DataSpace)
+            {
+                l_Data[l_Data.Count - 1] += s_SocketDataGet[i];
+            }
+            else
+            {
+                l_Data.Add("");
+            }
+        }
+        return l_Data;
+    }
+
+    #endregion
+
+    /// <summary>
+    /// Socket is Started?
+    /// </summary>
+    /// <returns></returns>
+    public bool Get_SocketStart()
+    {
+        return b_SocketStart;
     }
 }
