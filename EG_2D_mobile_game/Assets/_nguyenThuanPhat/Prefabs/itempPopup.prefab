@@ -348,7 +348,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "Ph\xF2ng 1"
+  m_Text: "Ph\xF2ng 5"
 --- !u!1 &734562743484014647
 GameObject:
   m_ObjectHideFlags: 0
@@ -2051,7 +2051,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "Ph\xF2ng 1"
+  m_Text: "Ph\xF2ng 3"
 --- !u!1 &4102198664429963748
 GameObject:
   m_ObjectHideFlags: 0
@@ -2490,7 +2490,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "Ph\xF2ng 1"
+  m_Text: "Ph\xF2ng 4"
 --- !u!1 &5080932748212528675
 GameObject:
   m_ObjectHideFlags: 0
@@ -3655,7 +3655,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "Ph\xF2ng 1"
+  m_Text: "Ph\xF2ng 2"
 --- !u!1 &7841064088873489230
 GameObject:
   m_ObjectHideFlags: 0
