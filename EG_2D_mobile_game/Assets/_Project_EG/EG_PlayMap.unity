@@ -363,6 +363,7 @@ GameObject:
   - component: {fileID: 133099637}
   - component: {fileID: 133099640}
   - component: {fileID: 133099639}
+  - component: {fileID: 133099638}
   m_Layer: 5
   m_Name: MoveRight
   m_TagString: Untagged
@@ -391,7 +392,7 @@ RectTransform:
   m_AnchoredPosition: {x: 55, y: 55}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &133099639
+--- !u!114 &133099638
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -399,6 +400,36 @@ MonoBehaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 133099636}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4abf86b541f9dcb47b3ee8928a007ad0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  b_AfterHoldTime: 0
+  f_HoldTime: 1
+  c_Color_NotHold: {r: 1, g: 1, b: 1, a: 1}
+  c_Color_Hold: {r: 1, g: 0, b: 0, a: 1}
+  Event_HoldClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1944267479}
+        m_MethodName: Button_Right
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &133099639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 133099636}
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -1593,6 +1624,7 @@ GameObject:
   - component: {fileID: 592903369}
   - component: {fileID: 592903372}
   - component: {fileID: 592903371}
+  - component: {fileID: 592903370}
   m_Layer: 5
   m_Name: MoveUp
   m_TagString: Untagged
@@ -1621,7 +1653,7 @@ RectTransform:
   m_AnchoredPosition: {x: -55, y: 55}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &592903371
+--- !u!114 &592903370
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1629,6 +1661,36 @@ MonoBehaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 592903368}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4abf86b541f9dcb47b3ee8928a007ad0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  b_AfterHoldTime: 0
+  f_HoldTime: 1
+  c_Color_NotHold: {r: 1, g: 1, b: 1, a: 1}
+  c_Color_Hold: {r: 1, g: 0, b: 0, a: 1}
+  Event_HoldClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1944267479}
+        m_MethodName: Button_Up
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &592903371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 592903368}
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -2140,7 +2202,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -2587,6 +2649,7 @@ GameObject:
   - component: {fileID: 922870523}
   - component: {fileID: 922870526}
   - component: {fileID: 922870525}
+  - component: {fileID: 922870524}
   m_Layer: 5
   m_Name: MoveDown
   m_TagString: Untagged
@@ -2615,7 +2678,7 @@ RectTransform:
   m_AnchoredPosition: {x: 55, y: -55}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &922870525
+--- !u!114 &922870524
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2623,6 +2686,36 @@ MonoBehaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 922870522}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4abf86b541f9dcb47b3ee8928a007ad0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  b_AfterHoldTime: 0
+  f_HoldTime: 1
+  c_Color_NotHold: {r: 1, g: 1, b: 1, a: 1}
+  c_Color_Hold: {r: 1, g: 0, b: 0, a: 1}
+  Event_HoldClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1944267479}
+        m_MethodName: Button_Down
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &922870525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 922870522}
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -3394,6 +3487,7 @@ GameObject:
   - component: {fileID: 1423826118}
   - component: {fileID: 1423826121}
   - component: {fileID: 1423826120}
+  - component: {fileID: 1423826119}
   m_Layer: 5
   m_Name: MoveLeft
   m_TagString: Untagged
@@ -3422,7 +3516,7 @@ RectTransform:
   m_AnchoredPosition: {x: -55, y: -55}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1423826120
+--- !u!114 &1423826119
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3430,6 +3524,36 @@ MonoBehaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1423826117}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4abf86b541f9dcb47b3ee8928a007ad0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  b_AfterHoldTime: 0
+  f_HoldTime: 1
+  c_Color_NotHold: {r: 1, g: 1, b: 1, a: 1}
+  c_Color_Hold: {r: 1, g: 0, b: 0, a: 1}
+  Event_HoldClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1944267479}
+        m_MethodName: Button_Left
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1423826120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1423826117}
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -4413,6 +4537,7 @@ GameObject:
   - component: {fileID: 1944267477}
   - component: {fileID: 1944267480}
   - component: {fileID: 1944267479}
+  - component: {fileID: 1944267481}
   m_Layer: 0
   m_Name: ClientManager
   m_TagString: ClientManager
@@ -4432,11 +4557,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b305b9c472735740a35e58b2f60faa5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  s_Tag: ClientManager
+  s_Tag_Host: SocketHost
   inp_Host: {fileID: 271058258}
+  s_Tag_Port: SocketPort
   inp_Port: {fileID: 561300959}
-  c_DataSpace: 58
-  l_Data_Queue: []
+  b_AutoConnect: 0
+  s_HostConnect: 192.168.1.171
+  s_PortConnect: 5000
+  b_AutoRead: 1
+  l_DataQueue: []
 --- !u!4 &1944267478
 Transform:
   m_ObjectHideFlags: 0
@@ -4479,11 +4608,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0440dc187e4df7247b52db51fe9181b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  s_Client_Tag: IsometricClient
+  cl_ClientControl: {fileID: 0}
   g_Local: {fileID: 947803935270042650, guid: 3f7ab3020c6ca274aa8dd49e12cbbe12, type: 3}
   g_Remote: {fileID: 2588371840929055147, guid: 4eb03efdc648c7743acfb756a1f144ad,
     type: 3}
   l_ID: []
   l_Remote: []
+--- !u!114 &1944267481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1944267476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36d66db9da044a7489aee6b4f6a427ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  s_Client_Tag: IsometricClient
+  cl_Camera: {fileID: 2119670947}
 --- !u!1 &1955612960
 GameObject:
   m_ObjectHideFlags: 0
@@ -5057,6 +5202,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2119670946}
   - component: {fileID: 2119670945}
+  - component: {fileID: 2119670947}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -5121,3 +5267,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2119670947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2119670944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49e66de8f3166fe419b1f7c4e83838ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  t_Follow: {fileID: 0}
+  v3_Follow: {x: 0, y: 0, z: -100}
+  b_FollowX: 1
+  b_FollowY: 1
+  b_FollowZ: 1
+  v3_Smooth: {x: 0, y: 0, z: 0}
+  v3_Rotation: {x: 0, y: 0, z: 0}

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class EG_SocketManager : MonoBehaviour
@@ -41,18 +42,29 @@ public class EG_SocketManager : MonoBehaviour
 
     private Class_Object cl_Object;
 
+    private string s_DeviceID = "";
+    private Transform t_Transform;
+
     private const string s_Command_Pos = "Pos";
+
+    private int i_QueuePush = (int)(0.2 / 0.02);
+    private int i_QueuePush_Cur = 0;
 
     private void Start()
     {
         cl_ClientManager = GetComponent<Socket_ClientManager>();
 
         cl_Object = new Class_Object();
+
+        s_DeviceID = cl_ClientManager.Get_DeviceID();
+        t_Transform = this.transform;
     }
 
     private void Update()
     {
-        if (cl_ClientManager.Get_SocketStart())
+        Set_Thread_AutoGame();
+
+        if (cl_ClientManager.Get_Socket_Start())
         {
             if (cl_ClientControl == null)
             {
@@ -66,87 +78,115 @@ public class EG_SocketManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Set_AutoSocket();
-
-        cl_ClientManager.Set_Socket_Write("");
-        //Fixed Data send to Host
+        Set_AutoFixed();
     }
 
-    private void Set_AutoSocket()
+    private void Set_Thread_AutoGame()
     {
-        if (cl_ClientManager.Get_Socket_Queue_Read_Exist())
+        if (cl_ClientManager.Get_Socket_Start())
+        //Socket Start
         {
-            string s_DataGet = cl_ClientManager.Get_Socket_Queue_Read();
-            List<string> l_Data = cl_ClientManager.Get_SocketData(s_DataGet);
-            string s_ID = l_Data[0];
-            //string s_Control = cl_SocketManager.Get_SocketData_First(s_Command);
-            
-            int i_x = int.Parse(l_Data[1]);
-            int i_y = int.Parse(l_Data[2]);
-
-            if (s_ID == cl_ClientManager.Get_DeviceID())
-            //If ID get Equa this Device ID
+            for(int i = 0; i < cl_ClientManager.Get_SocketQueue_Count(); i++)
+            //Loop Queue
             {
-                if (!Get_Exist_ID(s_ID))
-                //If not Exist this Device on List >> Create Remote of this Device
+                string s_DataGet = cl_ClientManager.Get_SocketQueue_Read();
+                Debug.Log("Set_Thread_AutoGame: " + s_DataGet);
+                if (s_DataGet != "")
+                //Data Get
                 {
-                    GameObject g_NewRemote = cl_Object.Set_Prepab_Create(g_Local, this.transform);
-                    g_NewRemote.GetComponent<Isometric_Single>().Set_Pos(i_x, i_y);
-                    l_ID.Add(s_ID);
-                    l_Remote.Add(g_NewRemote);
+                    List<string> l_Data = new Class_String().Get_String_Split_List(s_DataGet, ':');
+                    string s_ID = l_Data[0];
+
+                    int i_x = int.Parse(l_Data[1]);
+                    int i_y = int.Parse(l_Data[2]);
+
+                    if (s_ID == s_DeviceID)
+                    //If ID get Equa this Device ID
+                    {
+                        if (!Get_Exist_ID(s_ID))
+                        //If not Exist this Device on List >> Create Remote of this Device
+                        {
+                            GameObject g_NewRemote = cl_Object.Set_Prepab_Create(g_Local, t_Transform);
+                            g_NewRemote.GetComponent<Isometric_Single>().Set_Pos(i_x, i_y);
+                            l_ID.Add(s_ID);
+                            l_Remote.Add(g_NewRemote);
+
+                            cl_ClientManager.Set_Socket_Write(
+                                cl_ClientManager.Get_DeviceID() + ":" +
+                                cl_ClientControl.Get_PosStandOn().x + ":" +
+                                cl_ClientControl.Get_PosStandOn().y);
+                            //Send my Pos to the new player join
+                        }
+                    }
+                    else
+                    //If ID get NOT Equa this Device ID
+                    {
+                        if (!Get_Exist_ID(s_ID))
+                        //If not Exist this Device on List >> Create Remote
+                        {
+                            GameObject g_NewRemote = cl_Object.Set_Prepab_Create(g_Remote, t_Transform);
+                            g_NewRemote.GetComponent<Isometric_Single>().Set_Pos(i_x, i_y);
+                            l_ID.Add(s_ID);
+                            l_Remote.Add(g_NewRemote);
+
+                            cl_ClientManager.Set_Socket_Write(
+                                cl_ClientManager.Get_DeviceID() + ":" +
+                                cl_ClientControl.Get_PosStandOn().x + ":" +
+                                cl_ClientControl.Get_PosStandOn().y);
+                            //Send my Pos to the new player join
+                        }
+                        else
+                        //If Exist this Device on List >> Control Remote
+                        {
+                            int i_Index = Get_Exist_ID_Index(s_ID);
+
+                            if (l_Remote[i_Index].GetComponent<Isometric_MoveControl>().Get_PosStandOn() != new Vector2Int(i_x, i_y))
+                            {
+                                l_Remote[i_Index].GetComponent<Isometric_MoveControl>().Set_PosMoveTo_Pos(new Vector2Int(i_x, i_y));
+                            }
+                        }
+                    }
+                } //Data Get
+            } //Loop Queue
+        } //Socket Start
+    }
+
+    private void Set_AutoFixed()
+    {
+        //Fixed Updated Data for another Client(s)
+        if (cl_ClientManager.b_SocketStart)
+        {
+            //if (cl_ClientControl.Get_Moving())
+            //{
+            //    cl_ClientManager.Set_Socket_Write(
+            //        cl_ClientManager.Get_DeviceID() + ":" +
+            //        cl_ClientControl.Get_PosStandOn().x + ":" +
+            //        cl_ClientControl.Get_PosStandOn().y);
+            //    //Fixed Data send to Host
+            //}
+            //else
+            {
+                if (i_QueuePush_Cur > 0)
+                {
+                    i_QueuePush_Cur--;
+                }
+                else
+                {
+                    i_QueuePush_Cur = i_QueuePush;
 
                     cl_ClientManager.Set_Socket_Write(
                         cl_ClientManager.Get_DeviceID() + ":" +
-                        cl_ClientControl.Get_PosMoveTo().x + ":" +
-                        cl_ClientControl.Get_PosMoveTo().y);
-                    //Send my Pos to the new player join
-                }
-                else
-                //If Exist this Device on List >> Control Remote of this Device
-                {
-                    int i_Index = Get_Exist_ID_Index(s_ID);
-
-                    //if (s_Control == s_Command_Pos)
-                    ////If Command of Remote is Pos Move To >> Set Pos Move to
-                    //{
-
-                    //}
-
-                    l_Remote[i_Index].GetComponent<Isometric_MoveControl>().Set_PosMoveTo_Pos(new Vector2Int(i_x, i_y));
-                }
-            }
-            else
-            //If ID get NOT Equa this Device ID
-            {
-                if (!Get_Exist_ID(s_ID))
-                //If not Exist this Device on List >> Create Remote
-                {
-                    GameObject g_NewRemote = cl_Object.Set_Prepab_Create(g_Remote, this.transform);
-                    g_NewRemote.GetComponent<Isometric_Single>().Set_Pos(i_x, i_y);
-                    l_ID.Add(s_ID);
-                    l_Remote.Add(g_NewRemote);
-
-                    cl_ClientManager.Set_Socket_Write(
-                        cl_ClientManager.Get_DeviceID() + ":" +
-                        cl_ClientControl.Get_PosMoveTo().x + ":" +
-                        cl_ClientControl.Get_PosMoveTo().y);
-                    //Send my Pos to the new player join
-                }
-                else
-                //If Exist this Device on List >> Control Remote
-                {
-                    int i_Index = Get_Exist_ID_Index(s_ID);
-
-                    //    if (s_Control == s_Command_Pos)
-                    //    //If Command of Remote is Pos Move To >> Set Pos Move to
-                    //    {
-
-                    //    }
-
-                    l_Remote[i_Index].GetComponent<Isometric_MoveControl>().Set_PosMoveTo_Pos(new Vector2Int(i_x, i_y));
+                        cl_ClientControl.Get_PosStandOn().x + ":" +
+                        cl_ClientControl.Get_PosStandOn().y);
+                    //Fixed Data send to Host
                 }
             }
         }
+    }
+
+    public void Set_ResetAutoFixed()
+    {
+        this.i_QueuePush_Cur = i_QueuePush;
     }
 
     #region List Manager

@@ -29,33 +29,35 @@ public class Sample_SocketHandle : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (cl_SocketManager.Get_Socket_Queue_Read_Exist())
-        {
-            string s_SocketGet = cl_SocketManager.Get_Socket_Queue_Read();
-            List<string> l_Data = cl_SocketManager.Get_SocketData(s_SocketGet);
+        //if (cl_SocketManager.Get_Socket_Queue_Read_Exist())
+        //{
+        //    string s_SocketGet = cl_SocketManager.Get_Socket_Queue_Read();
+        //    Debug.Log("Debug:" + s_SocketGet);
+        //    //List<string> l_Data = cl_SocketManager.Get_SocketData(s_SocketGet);
+        //    string[] l_Data = s_SocketGet.Split(':');
 
-            string s_ID = l_Data[0];
-            string s_Command = l_Data[1];
+        //    string s_ID = l_Data[0];
+        //    string s_Command = l_Data[1];
+        //    Debug.Log("Debug: " + s_ID + "||" + s_Command);
 
-            if (Get_Exist_ID(s_ID))
-            {
-                int i_Index = Get_Exist_ID_Index(s_ID);
-                l_Message[i_Index] = s_Command;
-            }
-            else
-            {
-                l_ID.Add(s_ID);
-                l_Message.Add(s_Command);
-                //cl_SocketManager.Set_Get(l_ID.Count);
-            }
+        //    if (Get_Exist_ID(s_ID))
+        //    {
+        //        int i_Index = Get_Exist_ID_Index(s_ID);
+        //        l_Message[i_Index] = s_Command;
+        //    }
+        //    else
+        //    {
+        //        l_ID.Add(s_ID);
+        //        l_Message.Add(s_Command);
+        //        //cl_SocketManager.Set_Get(l_ID.Count);
+        //    }
 
-            string s_Debug = "";
-            for(int i = 0; i < l_ID.Count; i++)
-            {
-                s_Debug += l_ID[i] + ":" + l_Message[i] + "\n";
-            }
-            t_Debug.text = s_Debug;
-        }
+        //    string s_Debug = "";
+        //    for(int i = 0; i < l_ID.Count; i++)
+        //    {
+        //        s_Debug += l_ID[i] + ":" + l_Message[i] + "\n";
+        //    }
+        //}
     }
 
     public void Button_SendDeviceID()

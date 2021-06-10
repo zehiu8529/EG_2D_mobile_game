@@ -35,7 +35,6 @@ public class EG_ControlManager : MonoBehaviour
     private EG_SocketManager cl_SocketManager;
 
     private bool b_JoinGameSend = false;
-
     private void Start()
     {
         if (g_MapManager == null)
@@ -53,7 +52,7 @@ public class EG_ControlManager : MonoBehaviour
 
     private void Update()
     {
-        if (cl_ClientManager.Get_SocketStart())
+        if (cl_ClientManager.Get_Socket_Start())
         {
             if (!b_JoinGameSend)
             {
@@ -82,10 +81,12 @@ public class EG_ControlManager : MonoBehaviour
 
         if (cl_ClientControl.Get_CheckMove_Dir(g_MapManager.GetComponent<Isometric_MapManager>().v2_DirUp))
         {
-            cl_ClientManager.Set_Socket_Write(
-                cl_ClientManager.Get_DeviceID() + ":" +
-                cl_ClientControl.Get_PosMoveTo_Up().x + ":" +
-                cl_ClientControl.Get_PosMoveTo_Up().y);
+            //cl_ClientManager.Set_Socket_Write(
+            //    cl_ClientManager.Get_DeviceID() + ":" +
+            //    cl_ClientControl.Get_PosMoveTo_Up().x + ":" +
+            //    cl_ClientControl.Get_PosMoveTo_Up().y);
+
+            cl_ClientControl.Set_PosMoveTo_Up();
         }
     }
 
@@ -102,10 +103,12 @@ public class EG_ControlManager : MonoBehaviour
 
         if (cl_ClientControl.Get_CheckMove_Dir(g_MapManager.GetComponent<Isometric_MapManager>().v2_DirDown))
         {
-            cl_ClientManager.Set_Socket_Write(
-                cl_ClientManager.Get_DeviceID() + ":" +
-                cl_ClientControl.Get_PosMoveTo_Down().x + ":" +
-                cl_ClientControl.Get_PosMoveTo_Down().y);
+            //cl_ClientManager.Set_Socket_Write(
+            //    cl_ClientManager.Get_DeviceID() + ":" +
+            //    cl_ClientControl.Get_PosMoveTo_Down().x + ":" +
+            //    cl_ClientControl.Get_PosMoveTo_Down().y);
+
+            cl_ClientControl.Set_PosMoveTo_Down();
         }
     }
 
@@ -122,10 +125,12 @@ public class EG_ControlManager : MonoBehaviour
 
         if (cl_ClientControl.Get_CheckMove_Dir(g_MapManager.GetComponent<Isometric_MapManager>().v2_DirLeft))
         {
-            cl_ClientManager.Set_Socket_Write(
-                cl_ClientManager.Get_DeviceID() + ":" +
-                cl_ClientControl.Get_PosMoveTo_Left().x + ":" +
-                cl_ClientControl.Get_PosMoveTo_Left().y);
+            //cl_ClientManager.Set_Socket_Write(
+            //    cl_ClientManager.Get_DeviceID() + ":" +
+            //    cl_ClientControl.Get_PosMoveTo_Left().x + ":" +
+            //    cl_ClientControl.Get_PosMoveTo_Left().y);
+
+            cl_ClientControl.Set_PosMoveTo_Left();
         }
     }
 
@@ -142,10 +147,12 @@ public class EG_ControlManager : MonoBehaviour
 
         if (cl_ClientControl.Get_CheckMove_Dir(g_MapManager.GetComponent<Isometric_MapManager>().v2_DirRight))
         {
-            cl_ClientManager.Set_Socket_Write(
-                cl_ClientManager.Get_DeviceID() + ":" +
-                cl_ClientControl.Get_PosMoveTo_Right().x.ToString() + ":" +
-                cl_ClientControl.Get_PosMoveTo_Right().y.ToString());
+            //cl_ClientManager.Set_Socket_Write(
+            //    cl_ClientManager.Get_DeviceID() + ":" +
+            //    cl_ClientControl.Get_PosMoveTo_Right().x.ToString() + ":" +
+            //    cl_ClientControl.Get_PosMoveTo_Right().y.ToString());
+
+            cl_ClientControl.Set_PosMoveTo_Right();
         }
     }
 
