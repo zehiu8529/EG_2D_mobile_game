@@ -6,15 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/_Project_EG/PauseMenu.unity
-    guid: ced5bbacd53a05944b96573a1b11b815
-  - enabled: 1
     path: Assets/_Project_EG/EG_PlayMap.unity
     guid: 03c3dc0bec69c894ab6ffaa73454fbc4
-  - enabled: 1
-    path: Assets/_Project_EG/EG_homeSceern.unity
-    guid: 420f277766acb1448bc0a5b1c6fb3b77
-  - enabled: 1
-    path: Assets/_Project_EG/EG_EditorMap.unity
-    guid: fdab070ae0cdeb446a2e95f1fd7fb6e9
   m_configObjects: {}
