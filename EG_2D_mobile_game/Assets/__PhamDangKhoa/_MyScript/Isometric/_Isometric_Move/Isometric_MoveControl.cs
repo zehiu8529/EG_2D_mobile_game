@@ -502,4 +502,13 @@ public class Isometric_MoveControl : MonoBehaviour
     {
         return v2_PosMoveTo;
     }
+
+    /// <summary>
+    /// Get Pos Stand On
+    /// </summary>
+    /// <returns></returns>
+    public Vector2Int Get_PosStandOn()
+    {
+        return this.v2_PosStandOn;
+    }
 }

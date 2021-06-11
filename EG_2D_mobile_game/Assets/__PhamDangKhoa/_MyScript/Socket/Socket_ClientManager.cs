@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Sockets;
+using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,18 +12,24 @@ public class Socket_ClientManager : MonoBehaviour
     #region Public Varible
 
     /// <summary>
-    /// Tag for other Socket Object to Find
+    /// Tag with Host
     /// </summary>
-    [Header("Client Manager Tag")]
+    [Header("Network Host Server")]
     [SerializeField]
-    private string s_Tag = "ClientManager";
+    private string s_Tag_Host = "SocketHost";
 
     /// <summary>
     /// Host to Connect
     /// </summary>
-    [Header("Network Server")]
     [SerializeField]
     private InputField inp_Host;
+
+    /// <summary>
+    /// Tag with Port
+    /// </summary>
+    [Header("Network Port Server")]
+    [SerializeField]
+    private string s_Tag_Port = "SocketPort";
 
     /// <summary>
     /// Port for Connect to Host
@@ -29,8 +37,30 @@ public class Socket_ClientManager : MonoBehaviour
     [SerializeField]
     private InputField inp_Port;
 
-    [HideInInspector]
-    public char c_DataSpace = ':';
+    /// <summary>
+    /// Auto Connect on Start
+    /// </summary>
+    [Header("Network On Start")]
+    [SerializeField]
+    private bool b_AutoConnect = true;
+
+    /// <summary>
+    /// Host to Connect or Connected
+    /// </summary>
+    [SerializeField]
+    private string s_HostConnect = "192.168.100.38";
+
+    /// <summary>
+    /// Port to Connect or Connected
+    /// </summary>
+    [SerializeField]
+    private string s_PortConnect = "5000";
+
+    /// <summary>
+    /// Auto Read by Thread
+    /// </summary>
+    [SerializeField]
+    private bool b_AutoRead = true;
 
     #endregion
 
@@ -41,7 +71,7 @@ public class Socket_ClientManager : MonoBehaviour
     /// <summary>
     /// IP on this Device or this Server
     /// </summary>
-    private String s_LocalHost = "localhost";
+    private string s_LocalHost = "localhost";
 
     /// <summary>
     /// Socket Connect OK?
@@ -55,48 +85,83 @@ public class Socket_ClientManager : MonoBehaviour
 
     //Data
 
-    /// <summary>
-    /// Stack of Data get from Server
-    /// </summary>
-    [Header("Data Get from Server")]
+    private Thread th_GetData;
+
+    [Header("Network Auto Read")]
     [SerializeField]
-    private List<string> l_Data_Queue;
+    private List<string> l_DataQueue;
 
     #endregion
-
-    private void Awake()
-    {
-        if (s_Tag != "")
-        {
-            this.tag = s_Tag;
-        }
-    }
 
     private void Start()
     {
         tcp_Socket = new TcpClient();
 
-        l_Data_Queue = new List<string>();
-
+        if (inp_Host == null)
+        {
+            inp_Host = GameObject.FindGameObjectWithTag(s_Tag_Host).GetComponent<InputField>();
+        }
         if (inp_Host != null)
         {
-            inp_Host.text = "192.168.100.38";
+            if(inp_Host.text == "")
+            {
+                inp_Host.text = s_HostConnect;
+            }
         }
 
+        if (inp_Port == null)
+        {
+            inp_Port = GameObject.FindGameObjectWithTag(s_Tag_Port).GetComponent<InputField>();
+        }
         if (inp_Port != null)
         {
-            inp_Port.text = "5000";
+            if (inp_Port.text == "")
+            {
+                inp_Port.text = s_PortConnect;
+            }
+        }
+
+        l_DataQueue = new List<string>();
+
+        if (b_AutoConnect)
+        {
+            Set_Socket_Start();
+        }
+
+        if (b_AutoRead)
+        {
+            th_GetData = new Thread(Set_Thread_AutoRead);
+            th_GetData.Start();
         }
     }
 
-    private void FixedUpdate()
+    private void OnDestroy()
     {
-        Set_Socket_Auto_Read();
+        if (th_GetData.IsAlive)
+        {
+            th_GetData.Abort();
+        }
+
+        Set_Socket_Close();
     }
 
-    private void OnApplicationQuit()
+    /// <summary>
+    /// Auto Read Data for Debug
+    /// </summary>
+    private void Set_Thread_AutoRead()
     {
-        Set_Socket_Close();
+        while (true)
+        {
+            if (b_SocketStart)
+            {
+                string s_DataGet = Get_Socket_Read();
+                if (s_DataGet != "")
+                {
+                    Debug.Log("Set_Thread_AutoRead: " + s_DataGet);
+                    l_DataQueue.Add(s_DataGet);
+                }
+            }
+        }
     }
 
     #region Start Connect to Server
@@ -106,11 +171,11 @@ public class Socket_ClientManager : MonoBehaviour
     /// </summary>
     public void Set_Socket_Start()
     {
-        if (!Get_SocketStart())
+        if (!Get_Socket_Start())
         {
             try
             {
-                if (inp_Host == null || inp_Port == null)
+                if (inp_Port == null || inp_Port == null)
                 {
                     Debug.LogError("Set_Socket_Start: Require Input Field!");
                     return;
@@ -126,11 +191,12 @@ public class Socket_ClientManager : MonoBehaviour
                     if (inp_Host.text == "")
                     {
                         Debug.LogWarning("Set_Socket_Start: Local Host Instead!");
+                        Debug.LogWarning("Set_Socket_Start: Device " + SystemInfo.deviceUniqueIdentifier);
                         tcp_Socket.Connect(s_LocalHost, int.Parse(inp_Port.text));
                     }
                     else
                     {
-                        Debug.LogWarning("Set_Socket_Start: " + inp_Host.text + " Connecting!");
+                        Debug.LogWarning("Set_Socket_Start: Host " + inp_Host.text);
                         Debug.LogWarning("Set_Socket_Start: Device " + SystemInfo.deviceUniqueIdentifier);
                         tcp_Socket.Connect(inp_Host.text, int.Parse(inp_Port.text));
                     }
@@ -140,24 +206,28 @@ public class Socket_ClientManager : MonoBehaviour
                 net_Stream.ReadTimeout = 1;
                 st_Writer = new StreamWriter(net_Stream);
                 st_Reader = new StreamReader(net_Stream);
+
+                s_HostConnect = inp_Host.text;
+                s_PortConnect = inp_Port.text;
+
                 b_SocketStart = true;
 
                 Debug.LogWarning("Set_Socket_Start: Socket Start!");
             }
             catch (Exception e)
             {
-                Debug.LogError("Client: Socket error '" + e + "'");
+                Debug.LogError("Set_Socket_Start: Socket error '" + e + "'");
             }
         }
     }
 
     /// <summary>
-    /// Get ID of this Device
+    /// Socket is Started?
     /// </summary>
     /// <returns></returns>
-    public string Get_DeviceID()
+    public bool Get_Socket_Start()
     {
-        return SystemInfo.deviceUniqueIdentifier;
+        return b_SocketStart;
     }
 
     #endregion
@@ -170,7 +240,7 @@ public class Socket_ClientManager : MonoBehaviour
     /// <param name="s_Data"></param>
     public void Set_Socket_Write(string s_Data)
     {
-        if (!Get_SocketStart())
+        if (!Get_Socket_Start())
             return;
         String foo = s_Data + "\r\n";
         st_Writer.Write(foo);
@@ -183,59 +253,54 @@ public class Socket_ClientManager : MonoBehaviour
 
     #region Read Data from Server
 
-    //Public
-
-    /// <summary>
-    /// Get Data Queue Read from Server add Local
-    /// </summary>
-    /// <returns></returns>
-    public string Get_Socket_Queue_Read()
-    {
-        if (!Get_Socket_Queue_Read_Exist())
-        {
-            return "";
-        }
-        string s_DataGet = l_Data_Queue[0];
-        l_Data_Queue.RemoveAt(0);
-        return s_DataGet;
-    }
-
-    /// <summary>
-    /// Get Data Read Queue from Server
-    /// </summary>
-    /// <returns></returns>
-    public bool Get_Socket_Queue_Read_Exist()
-    {
-        return l_Data_Queue.Count > 0;
-    }
-
-    //Private
+    //Socket
 
     /// <summary>
     /// Get Data from Server
     /// </summary>
+    /// <remarks>
+    /// Should use this in 'void FixedUpdate()' or use with 'Thread'
+    /// </remarks>
     /// <returns></returns>
-    private String Get_Socket_Read()
+    public string Get_Socket_Read()
     {
-        if (!Get_SocketStart())
+        if (!Get_Socket_Start())
+        {
             return "";
+        }
         if (net_Stream.DataAvailable)
-            return st_Reader.ReadLine();
+        {
+            string s_ReadData = st_Reader.ReadLine();
+            Debug.Log("Get_Socket_Read: " + s_ReadData);
+            return s_ReadData;
+        }
         return "";
     }
 
-    /// <summary>
-    /// Get Data Auto from Server
-    /// </summary>
-    private void Set_Socket_Auto_Read()
-    {
-        string s_ReadData = Get_Socket_Read();
-        if (!s_ReadData.Equals(""))
-        {
-            l_Data_Queue.Add(s_ReadData);
+    //Queue
 
-            Debug.Log("Set_Socket_Auto_Read: " + s_ReadData);
+    /// <summary>
+    /// Get Data from Queue List
+    /// </summary>
+    /// <returns></returns>
+    public string Get_SocketQueue_Read()
+    {
+        if (Get_SocketQueue_Count() <= 0)
+        {
+            return "";
         }
+        string s_DataGet = l_DataQueue[0];
+        l_DataQueue.RemoveAt(0);
+        return s_DataGet;
+    }
+
+    /// <summary>
+    /// Get Data Exist from Queue List
+    /// </summary>
+    /// <returns></returns>
+    public int Get_SocketQueue_Count()
+    {
+        return l_DataQueue.Count;
     }
 
     #endregion
@@ -247,7 +312,7 @@ public class Socket_ClientManager : MonoBehaviour
     /// </summary>
     public void Set_Socket_Close()
     {
-        if (!Get_SocketStart())
+        if (!Get_Socket_Start())
             return;
         Set_Socket_Write("Exit");
         st_Writer.Close();
@@ -260,39 +325,12 @@ public class Socket_ClientManager : MonoBehaviour
 
     #endregion
 
-    #region Data Get
-
     /// <summary>
-    /// Get Data from Command
-    /// </summary>
-    /// <param name="s_SocketDataGet"></param>
-    /// <returns></returns>
-    public List<string> Get_SocketData(string s_SocketDataGet)
-    {
-        List<string> l_Data = new List<string>();
-        l_Data.Add("");
-        for (int i = 0; i < s_SocketDataGet.Length; i++)
-        {
-            if (s_SocketDataGet[i] != c_DataSpace)
-            {
-                l_Data[l_Data.Count - 1] += s_SocketDataGet[i];
-            }
-            else
-            {
-                l_Data.Add("");
-            }
-        }
-        return l_Data;
-    }
-
-    #endregion
-
-    /// <summary>
-    /// Socket is Started?
+    /// Get ID of this Device
     /// </summary>
     /// <returns></returns>
-    public bool Get_SocketStart()
+    public string Get_DeviceID()
     {
-        return b_SocketStart;
+        return SystemInfo.deviceUniqueIdentifier;
     }
 }

@@ -56,8 +56,6 @@ public class Button_Hold : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 		if (b_HoldDown)
 		//If Hold Pressed >> Do...
 		{
-			Debug.Log("ButtonHold!");
-
             if (b_AfterHoldTime)
 			//If Need Time to do Event >> Do...
             {

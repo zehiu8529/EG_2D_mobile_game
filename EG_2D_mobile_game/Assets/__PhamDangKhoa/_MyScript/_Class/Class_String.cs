@@ -16,7 +16,121 @@ public class Class_String
 
     }
 
-    //Email Check (Local-Part@Domain-Part)
+    #region String Command
+
+    //Count
+
+    /// <summary>
+    /// Count String in String Array
+    /// </summary>
+    /// <param name="s_StringArray"></param>
+    /// <returns></returns>
+    public int Get_StringArray_Count(string[] s_StringArray)
+    {
+        return s_StringArray.Length;
+    }
+
+    /// <summary>
+    /// Count String in String List
+    /// </summary>
+    /// <param name="s_StringArray"></param>
+    /// <returns></returns>
+    public int Get_StringList_Count(List<string> l_StringList)
+    {
+        return l_StringList.Count;
+    }
+
+    //Exist
+
+    /// <summary>
+    /// Check Child String inside Father String
+    /// </summary>
+    /// <param name="s_FatherString"></param>
+    /// <param name="s_ChildString"></param>
+    /// <returns></returns>
+    public bool Get_String_Exist(string s_FatherString, string s_ChildString)
+    {
+        return s_FatherString.Contains(s_ChildString);
+    }
+
+    //Replace
+
+    /// <summary>
+    /// Replace Child String Inside Father String with a Replace String
+    /// </summary>
+    /// <param name="s_FatherString"></param>
+    /// <param name="s_CheckString"></param>
+    /// <param name="s_ReplaceString"></param>
+    /// <returns></returns>
+    public string Get_String_Replace(string s_FatherString, string s_CheckString, string s_ReplaceString)
+    {
+        return s_FatherString.Replace(s_CheckString, s_ReplaceString);
+    }
+
+    //Split
+
+    /// <summary>
+    /// Split Child String inside Father String between Check Char
+    /// </summary>
+    /// <param name="s_FatherString"></param>
+    /// <param name="c_CheckChar"></param>
+    /// <returns></returns>
+    public string[] Get_String_Split_Array(string s_FatherString, char c_CheckChar)
+    {
+        return s_FatherString.Split(c_CheckChar);
+    }
+
+    /// <summary>
+    /// Split Child String inside Father String between Check Char
+    /// </summary>
+    /// <param name="s_FatherString"></param>
+    /// <param name="c_CheckChar"></param>
+    /// <returns></returns>
+    public List<string> Get_String_Split_List(string s_FatherString, char c_CheckChar)
+    {
+        string[] s_SplitString = Get_String_Split_Array(s_FatherString, c_CheckChar);
+        List<string> l_SplitString = new List<string>();
+        foreach(string s_String in s_SplitString)
+        {
+            l_SplitString.Add(s_String);
+        }
+        return l_SplitString;
+    }
+
+    #endregion
+
+    #region String Data
+
+    /// <summary>
+    /// Get String Data of All String Data from String List
+    /// </summary>
+    /// <param name="l_StringDataList"></param>
+    /// <param name="c_SpaceChar"></param>
+    /// <returns></returns>
+    public string Get_StringData_Encypt(List<string> l_StringDataList, char c_SpaceChar)
+    {
+        string s_StringData = "";
+        for(int i = 0; i < l_StringDataList.Count; i++)
+        {
+            s_StringData += (l_StringDataList[i] + c_SpaceChar);
+        }
+        return s_StringData;
+    }
+
+    /// <summary>
+    /// Get String List Data from String Data
+    /// </summary>
+    /// <param name="s_StringData"></param>
+    /// <param name="c_SpaceChar"></param>
+    /// <returns></returns>
+    public List<string> Get_StringData_Dencypt(string s_StringData, char c_SpaceChar)
+    {
+        return Get_String_Split_List(s_StringData, c_SpaceChar);
+    }
+
+    #endregion
+
+    #region Email Check (Local-Part@Domain-Part)
 
     /// <summary>
     /// Check if EMAIL NOT INVAILID (NOT FALSE)
@@ -147,48 +261,5 @@ public class Class_String
         return true;
     }
 
-    //Encypt Data
-
-    /// <summary>
-    /// Encypt Data to Single String
-    /// </summary>
-    /// <param name="l_Data"></param>
-    /// <returns></returns>
-    private string Get_EncyptData(List<string> l_Data)
-    {
-        string s_Data = "";
-
-        for(int i = 0; i < l_Data.Count; i++)
-        {
-            s_Data += (l_Data[i] + "$");
-        }
-
-        return s_Data;
-    }
-
-    /// <summary>
-    /// DeEncypt Data from Single String
-    /// </summary>
-    /// <param name="s_Data"></param>
-    /// <returns></returns>
-    private List<string> Get_DeEncyptData(string s_Data)
-    {
-        List<string> l_Data = new List<string>();
-
-        int i_Read = 0;
-
-        for (int i = 0; i < s_Data.Length; i++)
-        {
-            if (s_Data[i] == '$')
-            {
-                i_Read++;
-            }
-            else
-            {
-                l_Data[i_Read] += s_Data[i];
-            }
-        }
-
-        return l_Data;
-    }
+    #endregion
 }

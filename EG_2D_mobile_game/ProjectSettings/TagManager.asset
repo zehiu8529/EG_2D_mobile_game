@@ -7,6 +7,8 @@ TagManager:
   - IsometricMap
   - ClientManager
   - IsometricClient
+  - SocketHost
+  - SocketPort
   layers:
   - Default
   - TransparentFX
