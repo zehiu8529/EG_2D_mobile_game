@@ -1234,7 +1234,7 @@ GameObject:
   - component: {fileID: 522197707}
   - component: {fileID: 522197706}
   m_Layer: 5
-  m_Name: BagSimple
+  m_Name: BagButtonUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2371,6 +2371,7 @@ GameObject:
   m_Component:
   - component: {fileID: 882434031}
   - component: {fileID: 882434032}
+  - component: {fileID: 882434033}
   m_Layer: 0
   m_Name: UIManager
   m_TagString: Untagged
@@ -2407,6 +2408,39 @@ MonoBehaviour:
   g_GameCanvas: {fileID: 586045480}
   g_SocketCanvas: {fileID: 1875484679}
   a_BagPannel: {fileID: 1347474919}
+  i_Bag_Button: {fileID: 522197706}
+  s_Bag_Open: {fileID: -8613346315392297450, guid: f9eba80aff39218408f55c03e04aa751,
+    type: 3}
+  s_Bag_Close: {fileID: -8901387367547379542, guid: f9eba80aff39218408f55c03e04aa751,
+    type: 3}
+--- !u!114 &882434033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 882434030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df21415c7f4d7734295a297313200d75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  s_MapManager_Tag: IsometricMap
+  cl_MapManager: {fileID: 0}
+  s_SocketManager_Tag: ClientManager
+  cl_ClientManager: {fileID: 0}
+  s_Client_Tag: IsometricClient
+  cl_ClientControl: {fileID: 0}
+  i_Button_Up: {fileID: 58954388}
+  i_Button_Down: {fileID: 1294928690}
+  i_Button_Left: {fileID: 508769892}
+  i_Button_Right: {fileID: 1832189739}
+  s_Sample_Nope: {fileID: -1651824966679192434, guid: 58b1002c63eee1f4ebd82d97e22cb8ac,
+    type: 3}
+  s_Sample_Move: {fileID: -7120088510844100015, guid: 58b1002c63eee1f4ebd82d97e22cb8ac,
+    type: 3}
+  s_Sample_Get: {fileID: -1588826947282711717, guid: 58b1002c63eee1f4ebd82d97e22cb8ac,
+    type: 3}
 --- !u!1 &901867925
 GameObject:
   m_ObjectHideFlags: 0
@@ -2883,10 +2917,6 @@ MonoBehaviour:
   v2_MapSize: {x: 9, y: 9}
   v2_Offset: {x: 0, y: 0}
   b_StartGenerate: 1
-  v2_DirUp: {x: -1, y: 0}
-  v2_DirDown: {x: 1, y: 0}
-  v2_DirLeft: {x: 0, y: -1}
-  v2_DirRight: {x: 0, y: 1}
 --- !u!114 &974773405
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4595,7 +4625,7 @@ MonoBehaviour:
   s_MapManager_Tag: IsometricMap
   g_MapManager: {fileID: 0}
   s_Client_Tag: IsometricClient
-  cl_ClientControl: {fileID: 0}
+  cl_Client_MoveControl: {fileID: 0}
 --- !u!114 &1944267480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4609,12 +4639,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   s_Client_Tag: IsometricClient
-  cl_ClientControl: {fileID: 0}
+  cl_Client_MoveControl: {fileID: 0}
+  s_MapManager_Tag: IsometricMap
+  cl_MapManager: {fileID: 0}
   g_Local: {fileID: 947803935270042650, guid: 3f7ab3020c6ca274aa8dd49e12cbbe12, type: 3}
   g_Remote: {fileID: 2588371840929055147, guid: 4eb03efdc648c7743acfb756a1f144ad,
     type: 3}
-  l_ID: []
-  l_Remote: []
 --- !u!114 &1944267481
 MonoBehaviour:
   m_ObjectHideFlags: 0

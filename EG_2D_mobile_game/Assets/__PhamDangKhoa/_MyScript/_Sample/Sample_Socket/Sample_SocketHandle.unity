@@ -1043,13 +1043,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   s_Tag_Host: SocketHost
-  inp_Host: {fileID: 0}
+  inp_Host: {fileID: 711967493}
   s_Tag_Port: SocketPort
-  inp_Port: {fileID: 0}
+  inp_Port: {fileID: 533034961}
   b_AutoConnect: 1
   s_HostConnect: 192.168.1.171
   s_PortConnect: 5000
-  b_AutoRead: 1
+  b_AutoRead: 0
+  l_DataQueue: []
 --- !u!4 &640126103
 Transform:
   m_ObjectHideFlags: 0
@@ -1337,13 +1338,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   s_Tag_Host: SocketHost
-  inp_Host: {fileID: 0}
+  inp_Host: {fileID: 259228162}
   s_Tag_Port: SocketPort
-  inp_Port: {fileID: 0}
-  b_AutoConnect: 1
+  inp_Port: {fileID: 1100355766}
+  b_AutoConnect: 0
   s_HostConnect: 192.168.1.171
   s_PortConnect: 5000
-  b_AutoRead: 1
+  b_AutoRead: 0
+  l_DataQueue: []
 --- !u!4 &720302034
 Transform:
   m_ObjectHideFlags: 0

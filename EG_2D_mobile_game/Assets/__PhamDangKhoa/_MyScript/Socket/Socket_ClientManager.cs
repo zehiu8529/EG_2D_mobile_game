@@ -7,6 +7,17 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
+/*
+ * Android Run Circle Life:
+ * - onCreate()      | 
+ * - onStart()       |
+ * - onResume()      | OnApplicationPause(false)
+ * - ActivityRunning |
+ * - onPause()       | OnApplicationPause(true)
+ * - onStop()        |
+ * - onDestroy()     | OnApplicationQuit()
+ */
+
 public class Socket_ClientManager : MonoBehaviour
 {
     #region Public Varible
@@ -95,8 +106,6 @@ public class Socket_ClientManager : MonoBehaviour
 
     private void Start()
     {
-        tcp_Socket = new TcpClient();
-
         if (inp_Host == null)
         {
             inp_Host = GameObject.FindGameObjectWithTag(s_Tag_Host).GetComponent<InputField>();
@@ -135,11 +144,49 @@ public class Socket_ClientManager : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        //if(Application.platform == RuntimePlatform.Android)
+        //{
+        //    if(Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Menu))
+        //    {
+        //        Set_CloseApplication();
+        //        Application.Quit();
+        //    }
+        //}
+    }
+
     private void OnDestroy()
     {
-        if (th_GetData.IsAlive)
+        Set_CloseApplication();
+    }
+
+    private void OnApplicationQuit()
+    {
+        Set_CloseApplication();
+    }
+
+    private void OnApplicationPause(bool b_OnPause)
+    {
+        //Android Event onResume() and onPause()
+        if (b_OnPause)
         {
-            th_GetData.Abort();
+            Set_CloseApplication();
+        }
+        else
+        {
+            Set_Socket_Start();
+        }
+    }
+
+    private void Set_CloseApplication()
+    {
+        if(th_GetData != null)
+        {
+            if (th_GetData.IsAlive)
+            {
+                th_GetData.Abort();
+            }
         }
 
         Set_Socket_Close();
@@ -175,6 +222,8 @@ public class Socket_ClientManager : MonoBehaviour
         {
             try
             {
+                tcp_Socket = new TcpClient();
+
                 if (inp_Port == null || inp_Port == null)
                 {
                     Debug.LogError("Set_Socket_Start: Require Input Field!");

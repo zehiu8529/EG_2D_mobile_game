@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3385430312957717842}
   - component: {fileID: 3385430312957717844}
   - component: {fileID: 9205364875975983756}
+  - component: {fileID: 3854095858894240446}
   m_Layer: 0
   m_Name: EG_Object_Table02
   m_TagString: Untagged
@@ -123,3 +124,20 @@ MonoBehaviour:
   f_Centre: 1
   f_Depth: 0
   c_SingleCode: 50
+--- !u!114 &3854095858894240446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3385430312957717841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a8a3a6476c1d6642be8d25e0e1dac8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  s_SocketManager_Tag: ClientManager
+  g_SocketManager: {fileID: 0}
+  i_Poition_Red: 0
+  i_Poition_Blue: 0
+  i_Poition_Green: 0

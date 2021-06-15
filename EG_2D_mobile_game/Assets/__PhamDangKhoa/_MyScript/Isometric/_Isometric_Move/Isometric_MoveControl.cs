@@ -275,7 +275,68 @@ public class Isometric_MoveControl : MonoBehaviour
         f_MoveTime_Cur = f_TimeDelay;
     }
 
-    //Check
+    //Check Dir
+
+    /// <summary>
+    /// Check Inside Map
+    /// </summary>
+    /// <param name="v2_Dir"></param>
+    /// <returns></returns>
+    public bool Get_CheckMove_Dir_InsideMap(Vector2Int v2_Dir)
+    {
+        return cl_MapManager_MapManager.Get_Check_InsideMap(v2_PosStandOn + v2_Dir);
+    }
+
+    /// <summary>
+    /// Check Ground Accept
+    /// </summary>
+    /// <param name="v2_Dir"></param>
+    /// <returns></returns>
+    public bool Get_CheckMove_Dir_Ground(Vector2Int v2_Dir)
+    {
+        if (cl_Ground_Check != null)
+        {
+            if (!cl_Ground_Check.Get_Check_Ground_Accept(v2_PosStandOn, v2_Dir))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /// <summary>
+    /// Check Object Accept
+    /// </summary>
+    /// <param name="v2_Dir"></param>
+    /// <returns></returns>
+    public bool Get_CheckMove_Dir_Object(Vector2Int v2_Dir)
+    {
+        if (cl_Object_Check != null)
+        {
+            if (!cl_Object_Check.Get_Check_Object_Accept(v2_PosStandOn, v2_Dir))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /// <summary>
+    /// Check Fence Accept
+    /// </summary>
+    /// <param name="v2_Dir"></param>
+    /// <returns></returns>
+    public bool Get_CheckMove_Dir_Fence(Vector2Int v2_Dir)
+    {
+        if (cl_Fence_Check != null)
+        {
+            if (cl_Fence_Check.Get_Check_Fence_Ahead(v2_PosStandOn, v2_Dir))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
 
     /// <summary>
     /// Check Move by Dir
@@ -284,30 +345,68 @@ public class Isometric_MoveControl : MonoBehaviour
     /// <returns></returns>
     public bool Get_CheckMove_Dir(Vector2Int v2_Dir)
     {
-        if (!cl_MapManager_MapManager.Get_Check_InsideMap(v2_PosStandOn + v2_Dir))
+        if (!Get_CheckMove_Dir_InsideMap(v2_Dir))
         {
             return false;
         }
 
+        if (!Get_CheckMove_Dir_Ground(v2_Dir))
+        {
+            return false;
+        }
+
+        if (!Get_CheckMove_Dir_Object(v2_Dir))
+        {
+            return false;
+        }
+
+        if (!Get_CheckMove_Dir_Fence(v2_Dir))
+        {
+            return false;
+        }
+        
+        return true;
+    }
+
+    //Check Pos
+
+    /// <summary>
+    /// Check Inside Map
+    /// </summary>
+    /// <param name="v2_Pos"></param>
+    /// <returns></returns>
+    public bool Get_CheckMove_Pos_InsideMap(Vector2Int v2_Pos)
+    {
+        return cl_MapManager_MapManager.Get_Check_InsideMap(v2_Pos);
+    }
+
+    /// <summary>
+    /// Check Ground Accept
+    /// </summary>
+    /// <param name="v2_Pos"></param>
+    /// <returns></returns>
+    public bool Get_CheckMove_Pos_Ground(Vector2Int v2_Pos)
+    {
         if (cl_Ground_Check != null)
         {
-            if (!cl_Ground_Check.Get_Check_Ground_Accept(v2_PosStandOn, v2_Dir))
+            if (!cl_Ground_Check.Get_Check_Ground_Accept(v2_Pos))
             {
                 return false;
             }
         }
+        return true;
+    }
 
+    /// <summary>
+    /// Check Object Accept
+    /// </summary>
+    /// <param name="v2_Pos"></param>
+    /// <returns></returns>
+    public bool Get_CheckMove_Pos_Object(Vector2Int v2_Pos)
+    {
         if (cl_Object_Check != null)
         {
-            if (!cl_Object_Check.Get_Check_Object_Accept(v2_PosStandOn, v2_Dir))
-            {
-                return false;
-            }
-        }
-
-        if (cl_Fence_Check != null)
-        {
-            if (cl_Fence_Check.Get_Check_Fence_Ahead(v2_PosStandOn, v2_Dir))
+            if (!cl_Object_Check.Get_Check_Object_Accept(v2_Pos))
             {
                 return false;
             }
@@ -322,26 +421,21 @@ public class Isometric_MoveControl : MonoBehaviour
     /// <returns></returns>
     public bool Get_CheckMove_Pos(Vector2Int v2_Pos)
     {
-        if (!cl_MapManager_MapManager.Get_Check_InsideMap(v2_Pos))
+        if (!Get_CheckMove_Pos_InsideMap(v2_Pos))
         {
             return false;
         }
 
-        if (cl_Ground_Check != null)
+        if (!Get_CheckMove_Pos_Ground(v2_Pos))
         {
-            if (!cl_Ground_Check.Get_Check_Ground_Accept(v2_Pos))
-            {
-                return false;
-            }
+            return false;
         }
 
-        if (cl_Object_Check != null)
+        if (!Get_CheckMove_Pos_Object(v2_Pos))
         {
-            if (!cl_Object_Check.Get_Check_Object_Accept(v2_Pos))
-            {
-                return false;
-            }
+            return false;
         }
+        
         return true;
     }
 
@@ -356,7 +450,7 @@ public class Isometric_MoveControl : MonoBehaviour
     /// </summary>
     public void Set_PosMoveTo_Up()
     {
-        Set_PosMoveTo_Dir(cl_MapManager_MapManager.v2_DirUp);
+        Set_PosMoveTo_Dir(new Class_Isometric().v2_DirUp);
         i_Face = -1;
     }
 
@@ -365,7 +459,7 @@ public class Isometric_MoveControl : MonoBehaviour
     /// </summary>
     public void Set_PosMoveTo_Down()
     {
-        Set_PosMoveTo_Dir(cl_MapManager_MapManager.v2_DirDown);
+        Set_PosMoveTo_Dir(new Class_Isometric().v2_DirDown);
         i_Face = 1;
     }
 
@@ -374,7 +468,7 @@ public class Isometric_MoveControl : MonoBehaviour
     /// </summary>
     public void Set_PosMoveTo_Left()
     {
-        Set_PosMoveTo_Dir(cl_MapManager_MapManager.v2_DirLeft);
+        Set_PosMoveTo_Dir(new Class_Isometric().v2_DirLeft);
         i_Face = -1;
     }
 
@@ -383,7 +477,7 @@ public class Isometric_MoveControl : MonoBehaviour
     /// </summary>
     public void Set_PosMoveTo_Right()
     {
-        Set_PosMoveTo_Dir(cl_MapManager_MapManager.v2_DirRight);
+        Set_PosMoveTo_Dir(new Class_Isometric().v2_DirRight);
         i_Face = 1;
     }
 
@@ -395,7 +489,7 @@ public class Isometric_MoveControl : MonoBehaviour
     /// <returns></returns>
     public Vector2Int Get_PosMoveTo_Up()
     {
-        return v2_PosMoveTo + cl_MapManager_MapManager.v2_DirUp;
+        return v2_PosStandOn + new Class_Isometric().v2_DirUp;
     }
 
     /// <summary>
@@ -404,7 +498,7 @@ public class Isometric_MoveControl : MonoBehaviour
     /// <returns></returns>
     public Vector2Int Get_PosMoveTo_Down()
     {
-        return v2_PosMoveTo + cl_MapManager_MapManager.v2_DirDown;
+        return v2_PosStandOn + new Class_Isometric().v2_DirDown;
     }
 
     /// <summary>
@@ -413,7 +507,7 @@ public class Isometric_MoveControl : MonoBehaviour
     /// <returns></returns>
     public Vector2Int Get_PosMoveTo_Left()
     {
-        return v2_PosMoveTo + cl_MapManager_MapManager.v2_DirLeft;
+        return v2_PosStandOn + new Class_Isometric().v2_DirLeft;
     }
 
     /// <summary>
@@ -422,7 +516,7 @@ public class Isometric_MoveControl : MonoBehaviour
     /// <returns></returns>
     public Vector2Int Get_PosMoveTo_Right()
     {
-        return v2_PosMoveTo + cl_MapManager_MapManager.v2_DirRight;
+        return v2_PosStandOn + new Class_Isometric().v2_DirRight;
     }
 
     #endregion

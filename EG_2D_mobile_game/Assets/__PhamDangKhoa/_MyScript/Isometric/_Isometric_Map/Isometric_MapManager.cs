@@ -1032,35 +1032,4 @@ public class Isometric_MapManager : MonoBehaviour
     }
 
     #endregion
-
-    #region Dir
-
-    /// <summary>
-    /// Dir(-1, 0) on Isometric Square
-    /// </summary>
-    [HideInInspector]
-    public Vector2Int v2_DirUp = new Vector2Int(-1, 0);
-
-    /// <summary>
-    /// Dir(+1, 0) on Isometric Square
-    /// </summary>
-    /// <returns></returns>
-    [HideInInspector]
-    public Vector2Int v2_DirDown = new Vector2Int(1, 0);
-
-    /// <summary>
-    /// Dir(0, -1) on Isometric Square
-    /// </summary>
-    /// <returns></returns>
-    [HideInInspector]
-    public Vector2Int v2_DirLeft = new Vector2Int(0, -1);
-
-    /// <summary>
-    /// Dir(0, +1) on Isometric Square
-    /// </summary>
-    /// <returns></returns>
-    [HideInInspector]
-    public Vector2Int v2_DirRight = new Vector2Int(0, 1);
-
-    #endregion
 }
