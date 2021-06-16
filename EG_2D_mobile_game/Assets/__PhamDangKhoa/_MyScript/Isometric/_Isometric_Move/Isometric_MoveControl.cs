@@ -143,7 +143,7 @@ public class Isometric_MoveControl : MonoBehaviour
     /// <summary>
     /// Face Base on Dir Move (Start at Face Right)
     /// </summary>
-    private int i_Face = 1;
+    private int i_FaceRight = 1;
 
     #endregion
 
@@ -218,16 +218,19 @@ public class Isometric_MoveControl : MonoBehaviour
     private void Set_PosMoveTo_Dir(Vector2Int v2_Dir)
     {
         if (b_DelayControl)
+        //Not Delay Control
         {
             if (Get_Moving())
                 return;
         }
 
         if (!Get_CheckMove_Dir(v2_Dir))
+        //Check Move Accept
         {
             return;
         }
         
+        //Move
         v2_PosMoveTo += v2_Dir;
         f_MoveTime_Cur = f_TimeDelay;
     }
@@ -241,36 +244,40 @@ public class Isometric_MoveControl : MonoBehaviour
     public void Set_PosMoveTo_Pos(Vector2Int v2_Pos)
     {
         if (b_DelayControl)
+        //Not Delay Control
         {
             if (Get_Moving())
                 return;
         }
 
-        if (!Get_CheckMove_Pos(v2_Pos))
-        {
-            return;
-        }
-
+        //Face
         if(v2_PosStandOn.x < v2_Pos.x)
         {
-            i_Face = 1;
+            Set_Face_Right();
         }
         else
         if(v2_PosStandOn.y < v2_Pos.y)
         {
-            i_Face = 1;
+            Set_Face_Right();
         }
         else
         if (v2_PosStandOn.x > v2_Pos.x)
         {
-            i_Face = -1;
+            Set_Face_Left();
         }
         else
         if (v2_PosStandOn.y > v2_Pos.y)
         {
-            i_Face = -1;
+            Set_Face_Left();
         }
 
+        if (!Get_CheckMove_Pos(v2_Pos))
+        //Check Move Accept
+        {
+            return;
+        }
+
+        //Move
         this.v2_PosMoveTo = v2_Pos;
         f_MoveTime_Cur = f_TimeDelay;
     }
@@ -451,7 +458,7 @@ public class Isometric_MoveControl : MonoBehaviour
     public void Set_PosMoveTo_Up()
     {
         Set_PosMoveTo_Dir(new Class_Isometric().v2_DirUp);
-        i_Face = -1;
+        i_FaceRight = -1;
     }
 
     /// <summary>
@@ -460,7 +467,7 @@ public class Isometric_MoveControl : MonoBehaviour
     public void Set_PosMoveTo_Down()
     {
         Set_PosMoveTo_Dir(new Class_Isometric().v2_DirDown);
-        i_Face = 1;
+        i_FaceRight = 1;
     }
 
     /// <summary>
@@ -469,7 +476,7 @@ public class Isometric_MoveControl : MonoBehaviour
     public void Set_PosMoveTo_Left()
     {
         Set_PosMoveTo_Dir(new Class_Isometric().v2_DirLeft);
-        i_Face = -1;
+        i_FaceRight = -1;
     }
 
     /// <summary>
@@ -478,7 +485,7 @@ public class Isometric_MoveControl : MonoBehaviour
     public void Set_PosMoveTo_Right()
     {
         Set_PosMoveTo_Dir(new Class_Isometric().v2_DirRight);
-        i_Face = 1;
+        i_FaceRight = 1;
     }
 
     //Get Pos
@@ -570,6 +577,35 @@ public class Isometric_MoveControl : MonoBehaviour
 
     #endregion
 
+    #region Face
+
+    /// <summary>
+    /// Set Face
+    /// </summary>
+    /// <param name="i_FaceRight"></param>
+    public void Set_FaceRight(int i_FaceRight)
+    {
+        this.i_FaceRight = i_FaceRight;
+    }
+    
+    /// <summary>
+    /// Set Face Left
+    /// </summary>
+    public void Set_Face_Left()
+    {
+        this.i_FaceRight = -1;
+    }
+
+    /// <summary>
+    /// Set Face Right
+    /// </summary>
+    public void Set_Face_Right()
+    {
+        this.i_FaceRight = 1;
+    }
+
+    #endregion
+
     /// <summary>
     /// In Current Moving?
     /// </summary>
@@ -585,7 +621,7 @@ public class Isometric_MoveControl : MonoBehaviour
     /// <returns></returns>
     public bool Get_Face_Right()
     {
-        return i_Face == 1;
+        return i_FaceRight == 1;
     }
 
     /// <summary>

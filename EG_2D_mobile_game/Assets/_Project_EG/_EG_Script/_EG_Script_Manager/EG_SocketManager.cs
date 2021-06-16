@@ -165,6 +165,7 @@ public class EG_SocketManager : MonoBehaviour
         string s_ID = l_DataGet[1];
         int i_x = int.Parse(l_DataGet[2]);
         int i_y = int.Parse(l_DataGet[3]);
+        int i_Face = int.Parse(l_DataGet[4]);
 
         if (s_ID == cl_ClientManager.Get_DeviceID())
         //If ID get Equa this Device ID

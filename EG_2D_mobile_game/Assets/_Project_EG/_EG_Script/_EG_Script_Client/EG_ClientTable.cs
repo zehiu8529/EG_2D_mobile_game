@@ -77,8 +77,12 @@ public class EG_ClientTable : MonoBehaviour
             if (s_SocketManager_Tag != "")
             {
                 g_SocketManager = GameObject.FindGameObjectWithTag(s_SocketManager_Tag);
-                cl_ClientManager = g_SocketManager.GetComponent<Socket_ClientManager>();
-                cl_EGSocketManager = g_SocketManager.GetComponent<EG_SocketManager>();
+
+                if(g_SocketManager != null)
+                {
+                    cl_ClientManager = g_SocketManager.GetComponent<Socket_ClientManager>();
+                    cl_EGSocketManager = g_SocketManager.GetComponent<EG_SocketManager>();
+                }
             }
         }
     }
