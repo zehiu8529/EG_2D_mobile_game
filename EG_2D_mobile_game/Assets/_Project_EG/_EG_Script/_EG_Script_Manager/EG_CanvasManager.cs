@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class EG_UIManager : MonoBehaviour
+public class EG_CanvasManager : MonoBehaviour
 {
     #region Public Varible
 
@@ -26,6 +27,15 @@ public class EG_UIManager : MonoBehaviour
     [Header("Bag Pannel")]
     [SerializeField]
     private Animator a_BagPannel;
+
+    [SerializeField]
+    private Image i_Bag_Button;
+
+    [SerializeField]
+    private Sprite s_Bag_Open;
+
+    [SerializeField]
+    private Sprite s_Bag_Close;
 
     #endregion
 
@@ -52,10 +62,12 @@ public class EG_UIManager : MonoBehaviour
         if (!b_BagPannel_Show)
         {
             a_BagPannel.SetTrigger("Trig_Show");
+            i_Bag_Button.sprite = s_Bag_Close;
         }
         else
         {
             a_BagPannel.SetTrigger("Trig_Hide");
+            i_Bag_Button.sprite = s_Bag_Open;
         }
         b_BagPannel_Show = !b_BagPannel_Show;
     }

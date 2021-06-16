@@ -276,7 +276,7 @@ public class Isometric_MapEditor : MonoBehaviour
         {
             Vector2 v2_Current = cl_Single.Get_Pos();
 
-            if (cl_MapManager_MapManager.Get_Check_InsideMap(cl_Vector.Get_VectorInt(v2_Current), cl_MapManager_MapManager.v2_DirUp))
+            if (cl_MapManager_MapManager.Get_Check_InsideMap(cl_Vector.Get_VectorInt(v2_Current), new Class_Isometric().v2_DirUp))
             {
                 cl_Single.Set_Pos(new Vector2(v2_Current.x - 1, v2_Current.y));
             }
@@ -286,7 +286,7 @@ public class Isometric_MapEditor : MonoBehaviour
         {
             Vector2 v2_Current = cl_Single.Get_Pos();
 
-            if (cl_MapManager_MapManager.Get_Check_InsideMap(cl_Vector.Get_VectorInt(v2_Current), cl_MapManager_MapManager.v2_DirDown))
+            if (cl_MapManager_MapManager.Get_Check_InsideMap(cl_Vector.Get_VectorInt(v2_Current), new Class_Isometric().v2_DirDown))
             {
                 cl_Single.Set_Pos(new Vector2(v2_Current.x + 1, v2_Current.y));
             }
@@ -296,7 +296,7 @@ public class Isometric_MapEditor : MonoBehaviour
         {
             Vector2 v2_Current = cl_Single.Get_Pos();
 
-            if (cl_MapManager_MapManager.Get_Check_InsideMap(cl_Vector.Get_VectorInt(v2_Current), cl_MapManager_MapManager.v2_DirLeft))
+            if (cl_MapManager_MapManager.Get_Check_InsideMap(cl_Vector.Get_VectorInt(v2_Current), new Class_Isometric().v2_DirLeft))
             {
                 cl_Single.Set_Pos(new Vector2(v2_Current.x, v2_Current.y - 1));
             }
@@ -306,7 +306,7 @@ public class Isometric_MapEditor : MonoBehaviour
         {
             Vector2 v2_Current = cl_Single.Get_Pos();
 
-            if (cl_MapManager_MapManager.Get_Check_InsideMap(cl_Vector.Get_VectorInt(v2_Current), cl_MapManager_MapManager.v2_DirRight))
+            if (cl_MapManager_MapManager.Get_Check_InsideMap(cl_Vector.Get_VectorInt(v2_Current), new Class_Isometric().v2_DirRight))
             {
                 cl_Single.Set_Pos(new Vector2(v2_Current.x, v2_Current.y + 1));
             }

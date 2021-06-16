@@ -31,8 +31,13 @@ public class EG_ClientCamera : MonoBehaviour
             {
                 if (s_Client_Tag != "")
                 {
-                    t_ClientTransform = GameObject.FindGameObjectWithTag(s_Client_Tag).GetComponent<Transform>();
-                    cl_Camera.t_Follow = t_ClientTransform;
+                    GameObject g_FindGameObject = GameObject.FindGameObjectWithTag(s_Client_Tag);
+
+                    if (g_FindGameObject != null)
+                    {
+                        t_ClientTransform = g_FindGameObject.GetComponent<Transform>();
+                        cl_Camera.t_Follow = t_ClientTransform;
+                    }
                 }
             }
         }

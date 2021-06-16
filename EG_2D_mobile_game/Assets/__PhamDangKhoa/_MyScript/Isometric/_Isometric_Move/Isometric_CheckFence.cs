@@ -54,7 +54,7 @@ public class Isometric_CheckFence : MonoBehaviour
     /// <returns>If FALSE >> No FENCE EXIST</returns>
     public bool Get_Check_Fence_Ahead(Vector2Int v2_Pos, Vector2Int v2_Dir)
     {
-        if (v2_Dir == cl_MapManager_MapManager.v2_DirUp)
+        if (v2_Dir == new Class_Isometric().v2_DirUp)
         //If Move Dir Up
         {
             if (
@@ -65,7 +65,7 @@ public class Isometric_CheckFence : MonoBehaviour
             }
         }
         else
-        if (v2_Dir == cl_MapManager_MapManager.v2_DirDown)
+        if (v2_Dir == new Class_Isometric().v2_DirDown)
         //If Move Dir Down
         {
             if (
@@ -76,18 +76,18 @@ public class Isometric_CheckFence : MonoBehaviour
             }
         }
         else
-        if (v2_Dir == cl_MapManager_MapManager.v2_DirLeft) 
+        if (v2_Dir == new Class_Isometric().v2_DirLeft)
         //If Move Dir Left
         {
-            if(
-                cl_MapManager_MapManager.Get_MatrixCode_Fence_Right(v2_Pos +v2_Dir) !=
+            if (
+                cl_MapManager_MapManager.Get_MatrixCode_Fence_Right(v2_Pos + v2_Dir) !=
                 cl_MapManager_MapRenderer.Get_EmtyCode())
             {
                 return true;
             }
         }
         else
-        if(v2_Dir == cl_MapManager_MapManager.v2_DirRight)
+        if (v2_Dir == new Class_Isometric().v2_DirRight) 
         //If Move Dir Right
         {
             if(
