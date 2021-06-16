@@ -65,7 +65,7 @@ public class Isometric_MoveAnimation : MonoBehaviour
             }
         }
 
-        if (cl_Move.Get_Face_Right())
+        if (cl_Move.Get_FaceRight_Bool())
         {
             Set_Scale_Right();
         }
