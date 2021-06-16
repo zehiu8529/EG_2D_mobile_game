@@ -150,6 +150,8 @@ public class EG_MoveManager : MonoBehaviour
         l_Data.Add(v2_Spawm.x.ToString());
         //3
         l_Data.Add(v2_Spawm.y.ToString());
+        //4
+        l_Data.Add(1.ToString());
 
         Class_String cl_String = new Class_String();
 

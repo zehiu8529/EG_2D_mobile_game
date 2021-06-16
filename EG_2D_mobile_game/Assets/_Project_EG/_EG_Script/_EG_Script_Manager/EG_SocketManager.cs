@@ -175,6 +175,7 @@ public class EG_SocketManager : MonoBehaviour
             {
                 GameObject g_NewRemote = cl_Object.Set_Prepab_Create(g_Local, this.transform);
                 g_NewRemote.GetComponent<Isometric_Single>().Set_Pos(i_x, i_y);
+                g_NewRemote.GetComponent<Isometric_MoveControl>().Set_FaceRight(i_Face);
                 l_ID.Add(s_ID);
                 l_Remote.Add(g_NewRemote);
             }
@@ -187,6 +188,7 @@ public class EG_SocketManager : MonoBehaviour
             {
                 GameObject g_NewRemote = cl_Object.Set_Prepab_Create(g_Remote, this.transform);
                 g_NewRemote.GetComponent<Isometric_Single>().Set_Pos(i_x, i_y);
+                g_NewRemote.GetComponent<Isometric_MoveControl>().Set_FaceRight(i_Face);
                 l_ID.Add(s_ID);
                 l_Remote.Add(g_NewRemote);
             }
@@ -199,6 +201,7 @@ public class EG_SocketManager : MonoBehaviour
                 {
                     l_Remote[i_Index].GetComponent<Isometric_MoveControl>().Set_PosMoveTo_Pos(new Vector2Int(i_x, i_y));
                 }
+                l_Remote[i_Index].GetComponent<Isometric_MoveControl>().Set_FaceRight(i_Face);
             }
         }
     }
@@ -253,6 +256,8 @@ public class EG_SocketManager : MonoBehaviour
                     l_Data.Add(cl_Client_MoveControl.Get_PosStandOn().x.ToString());
                     //3
                     l_Data.Add(cl_Client_MoveControl.Get_PosStandOn().y.ToString());
+                    //4
+                    l_Data.Add(cl_Client_MoveControl.Get_FaceRight_Int().ToString());
 
                     Class_String cl_String = new Class_String();
 
