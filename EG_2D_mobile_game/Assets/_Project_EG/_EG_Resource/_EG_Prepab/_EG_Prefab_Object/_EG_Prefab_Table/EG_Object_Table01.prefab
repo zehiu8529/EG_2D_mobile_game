@@ -19,7 +19,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4460797128710157805
 Transform:
   m_ObjectHideFlags: 0
@@ -138,6 +138,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   s_SocketManager_Tag: ClientManager
   g_SocketManager: {fileID: 0}
-  i_Poition_Red: 0
-  i_Poition_Blue: 0
-  i_Poition_Green: 0
+  i_Poition_Red: 1
+  i_Poition_Blue: 1
+  i_Poition_Green: 1

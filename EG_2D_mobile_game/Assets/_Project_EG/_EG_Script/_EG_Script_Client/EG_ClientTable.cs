@@ -58,7 +58,7 @@ public class EG_ClientTable : MonoBehaviour
 
     //Queue Push
 
-    private int i_QueueTable = (int)(0.2 / 0.02);
+    private int i_QueueTable = (int)(1 / 0.02);
     private int i_QueueTable_Cur = 0;
 
     #endregion
@@ -109,7 +109,7 @@ public class EG_ClientTable : MonoBehaviour
 
                         List<string> l_Data = new List<string>();
                         //0
-                        l_Data.Add(cl_EGSocketManager.s_Command_Pos);
+                        l_Data.Add(cl_EGSocketManager.s_Command_Table);
                         //1
                         l_Data.Add(cl_Single.Get_Pos().x.ToString());
                         //2
@@ -140,7 +140,7 @@ public class EG_ClientTable : MonoBehaviour
     /// <param name="i_Red"></param>
     /// <param name="i_Green"></param>
     /// <param name="i_Blue"></param>
-    public void Set_Table_Get(out int i_Red, out int i_Green, out int i_Blue)
+    public void Set_Table_Get(out int i_Red, out int i_Blue, out int i_Green)
     {
         if (!Get_Table_Get_Already())
         {
