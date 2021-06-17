@@ -251,25 +251,25 @@ public class Isometric_MoveControl : MonoBehaviour
         }
 
         //Face
-        if(v2_PosStandOn.x < v2_Pos.x)
-        {
-            Set_Face_Right();
-        }
-        else
-        if(v2_PosStandOn.y < v2_Pos.y)
-        {
-            Set_Face_Right();
-        }
-        else
-        if (v2_PosStandOn.x > v2_Pos.x)
-        {
-            Set_Face_Left();
-        }
-        else
-        if (v2_PosStandOn.y > v2_Pos.y)
-        {
-            Set_Face_Left();
-        }
+        //if(v2_PosStandOn.x < v2_Pos.x)
+        //{
+        //    Set_Face_Right();
+        //}
+        //else
+        //if(v2_PosStandOn.y < v2_Pos.y)
+        //{
+        //    Set_Face_Right();
+        //}
+        //else
+        //if (v2_PosStandOn.x > v2_Pos.x)
+        //{
+        //    Set_Face_Left();
+        //}
+        //else
+        //if (v2_PosStandOn.y > v2_Pos.y)
+        //{
+        //    Set_Face_Left();
+        //}
 
         if (!Get_CheckMove_Pos(v2_Pos))
         //Check Move Accept
@@ -604,6 +604,24 @@ public class Isometric_MoveControl : MonoBehaviour
         this.i_FaceRight = 1;
     }
 
+    /// <summary>
+    /// Control Face to Right?
+    /// </summary>
+    /// <returns></returns>
+    public bool Get_FaceRight_Bool()
+    {
+        return i_FaceRight == 1;
+    }
+
+    /// <summary>
+    /// Control Face to Right?
+    /// </summary>
+    /// <returns></returns>
+    public int Get_FaceRight_Int()
+    {
+        return i_FaceRight;
+    }
+
     #endregion
 
     /// <summary>
@@ -613,15 +631,6 @@ public class Isometric_MoveControl : MonoBehaviour
     public bool Get_Moving()
     {
         return (f_MoveTime_Cur > 0);
-    }
-
-    /// <summary>
-    /// Control Face to Right?
-    /// </summary>
-    /// <returns></returns>
-    public bool Get_Face_Right()
-    {
-        return i_FaceRight == 1;
     }
 
     /// <summary>
