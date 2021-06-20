@@ -106,11 +106,11 @@ public class Isometric_MapRenderer : MonoBehaviour
     /// </summary>
     public void Set_Check_SingleCode_Ground()
     {
-        for (int i = 0; i < l_Ground.Count-1; i++)
+        for (int i = 0; i < l_Ground.Count - 1; i++)
         {
-            for(int j = i + 1; j < l_Ground.Count; j++)
+            for (int j = i + 1; j < l_Ground.Count; j++)
             {
-                if(Get_SingleCode_Ground(i) == Get_SingleCode_Ground(j))
+                if (Get_SingleCode_Ground(i) == Get_SingleCode_Ground(j))
                 {
                     Debug.LogWarning("Set_Check_SingleCode_Ground: Same Single Code '" + Get_SingleCode_Ground(i) + " ' at index '" + j + "'");
                     break;

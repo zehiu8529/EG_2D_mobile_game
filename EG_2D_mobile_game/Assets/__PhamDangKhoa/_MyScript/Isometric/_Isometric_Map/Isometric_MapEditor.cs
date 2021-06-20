@@ -451,32 +451,50 @@ public class Isometric_MapEditor : MonoBehaviour
             {
                 case 0:
                     //Ground
-                    s_SpriteChoice.sprite = cl_MapManager_Renderer.Get_GameObject_Ground(i_Choice).GetComponent<SpriteRenderer>().sprite;
+                    if (cl_MapManager_Renderer.Get_CountList_Ground() > 0)
+                    {
+                        s_SpriteChoice.sprite = cl_MapManager_Renderer.Get_GameObject_Ground(i_Choice).GetComponent<SpriteRenderer>().sprite;
+                    }
                     s_LayerChoice.text = "Ground [" + cl_MapManager_Renderer.Get_SingleCode_Ground(i_Choice) + "]";
                     break;
                 case 1:
                     //Object
-                    s_SpriteChoice.sprite = cl_MapManager_Renderer.Get_GameObject_Object(i_Choice).GetComponent<SpriteRenderer>().sprite;
+                    if (cl_MapManager_Renderer.Get_CountList_Object() > 0)
+                    {
+                        s_SpriteChoice.sprite = cl_MapManager_Renderer.Get_GameObject_Object(i_Choice).GetComponent<SpriteRenderer>().sprite;
+                    }
                     s_LayerChoice.text = "Object [" + cl_MapManager_Renderer.Get_SingleCode_Object(i_Choice) + "]";
                     break;
                 case 2:
                     //Fence U
-                    s_SpriteChoice.sprite = cl_MapManager_Renderer.Get_GameObject_Fence_Up(i_Choice).GetComponent<SpriteRenderer>().sprite;
+                    if (cl_MapManager_Renderer.Get_CountList_Fence_Up() > 0)
+                    {
+                        s_SpriteChoice.sprite = cl_MapManager_Renderer.Get_GameObject_Fence_Up(i_Choice).GetComponent<SpriteRenderer>().sprite;
+                    }
                     s_LayerChoice.text = "Fence U [" + cl_MapManager_Renderer.Get_SingleCode_Fence_Up(i_Choice) + "]";
                     break;
                 case 3:
                     //Fence
-                    s_SpriteChoice.sprite = cl_MapManager_Renderer.Get_GameObject_Fence_Down(i_Choice).GetComponent<SpriteRenderer>().sprite;
+                    if (cl_MapManager_Renderer.Get_CountList_Fence_Down() > 0)
+                    {
+                        s_SpriteChoice.sprite = cl_MapManager_Renderer.Get_GameObject_Fence_Down(i_Choice).GetComponent<SpriteRenderer>().sprite;
+                    }
                     s_LayerChoice.text = "Fence D [" + cl_MapManager_Renderer.Get_SingleCode_Fence_Down(i_Choice) + "]";
                     break;
                 case 4:
                     //Fence
-                    s_SpriteChoice.sprite = cl_MapManager_Renderer.Get_GameObject_Fence_Left(i_Choice).GetComponent<SpriteRenderer>().sprite;
+                    if (cl_MapManager_Renderer.Get_CountList_Fence_Left() > 0)
+                    {
+                        s_SpriteChoice.sprite = cl_MapManager_Renderer.Get_GameObject_Fence_Left(i_Choice).GetComponent<SpriteRenderer>().sprite;
+                    }
                     s_LayerChoice.text = "Fence L [" + cl_MapManager_Renderer.Get_SingleCode_Fence_Left(i_Choice) + "]";
                     break;
                 case 5:
                     //Fence
-                    s_SpriteChoice.sprite = cl_MapManager_Renderer.Get_GameObject_Fence_Right(i_Choice).GetComponent<SpriteRenderer>().sprite;
+                    if (cl_MapManager_Renderer.Get_CountList_Fence_Right() > 0)
+                    {
+                        s_SpriteChoice.sprite = cl_MapManager_Renderer.Get_GameObject_Fence_Right(i_Choice).GetComponent<SpriteRenderer>().sprite;
+                    }
                     s_LayerChoice.text = "Fence R [" + cl_MapManager_Renderer.Get_SingleCode_Fence_Right(i_Choice) + "]";
                     break;
             }
@@ -751,7 +769,7 @@ public class Isometric_MapEditor : MonoBehaviour
         g_SpawmPoint.GetComponent<Isometric_Single>().Set_Offset(cl_MapManager_MapManager.Get_Offset());
         g_SpawmPoint.GetComponent<Isometric_Single>().Set_isObject(true);
         g_SpawmPoint.SetActive(true);
-        
+
         lg_Spawm.Add(g_SpawmPoint);
     }
 
