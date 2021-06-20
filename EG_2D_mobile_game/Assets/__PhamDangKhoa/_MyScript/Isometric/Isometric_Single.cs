@@ -40,10 +40,10 @@ public class Isometric_Single : MonoBehaviour
     private Vector2 v2_Offset = new Vector2(0, 0);
 
     /// <summary>
-    /// Height of Ground
+    /// Fix
     /// </summary>
     [SerializeField]
-    private float f_Height = 0;
+    private Vector2 v2_Fix = new Vector2(0, 0);
 
     /// <summary>
     /// Check if this Object is Ground (not Character, Burden, etc...)
@@ -123,7 +123,7 @@ public class Isometric_Single : MonoBehaviour
         }
 
         Vector3 v3_Transform = cl_Vector.Get_Isometric_TransformPosition(v3_Pos);
-        v3_Transform.y += f_Height;
+        v3_Transform += new Vector3(v2_Fix.x, v2_Fix.y, 0);
         this.transform.position = v3_Transform;
     }
 
