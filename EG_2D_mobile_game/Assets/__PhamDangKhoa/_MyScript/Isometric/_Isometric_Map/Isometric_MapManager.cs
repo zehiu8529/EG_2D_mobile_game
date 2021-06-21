@@ -362,7 +362,7 @@ public class Isometric_MapManager : MonoBehaviour
     private void Set_Map_FirstGround()
     {
         string s_GroundCode = "";
-        for (int i = 0; i < v2_MapSize.x * v2_MapSize.y; i++) 
+        for (int i = 0; i < v2_MapSize.x * v2_MapSize.y; i++)
         {
             s_GroundCode += cl_MapRenderer.Get_SingleCode_Ground(0);
         }
@@ -428,6 +428,9 @@ public class Isometric_MapManager : MonoBehaviour
     public void Set_MatrixCode_Ground(Vector2Int v2_Pos, char c_GroundCode)
     {
         if (!Get_Check_InsideMap(v2_Pos))
+            return;
+
+        if (l2_Map_GroundCode[v2_Pos.x][v2_Pos.y] == c_GroundCode)
             return;
 
         Set_GameObject_Remove(l2_Map_Ground[v2_Pos.x][v2_Pos.y]);
@@ -521,6 +524,9 @@ public class Isometric_MapManager : MonoBehaviour
         if (!Get_Check_InsideMap(v2_Pos))
             return;
 
+        if (l2_Map_ObjectCode[v2_Pos.x][v2_Pos.y] == c_ObjectCode)
+            return;
+
         Set_GameObject_Remove(l2_Map_Object[v2_Pos.x][v2_Pos.y]);
 
         l2_Map_ObjectCode[v2_Pos.x][v2_Pos.y] = c_ObjectCode;
@@ -610,6 +616,9 @@ public class Isometric_MapManager : MonoBehaviour
     public void Set_MatrixCode_Fence_Up(Vector2Int v2_Pos, char c_FenceUpCode)
     {
         if (!Get_Check_InsideMap(v2_Pos))
+            return;
+
+        if (l2_Map_FenceUpCode[v2_Pos.x][v2_Pos.y] == c_FenceUpCode)
             return;
 
         Set_GameObject_Remove(l2_Map_FenceUp[v2_Pos.x][v2_Pos.y]);
@@ -703,6 +712,9 @@ public class Isometric_MapManager : MonoBehaviour
         if (!Get_Check_InsideMap(v2_Pos))
             return;
 
+        if (l2_Map_FenceDownCode[v2_Pos.x][v2_Pos.y] == c_FenceDownCode)
+            return;
+
         Set_GameObject_Remove(l2_Map_FenceDown[v2_Pos.x][v2_Pos.y]);
 
         l2_Map_FenceDownCode[v2_Pos.x][v2_Pos.y] = c_FenceDownCode;
@@ -794,6 +806,9 @@ public class Isometric_MapManager : MonoBehaviour
         if (!Get_Check_InsideMap(v2_Pos))
             return;
 
+        if (l2_Map_FenceLeftCode[v2_Pos.x][v2_Pos.y] == c_FenceLeftCode)
+            return;
+
         Set_GameObject_Remove(l2_Map_FenceLeft[v2_Pos.x][v2_Pos.y]);
 
         l2_Map_FenceLeftCode[v2_Pos.x][v2_Pos.y] = c_FenceLeftCode;
@@ -883,6 +898,9 @@ public class Isometric_MapManager : MonoBehaviour
     public void Set_MatrixCode_Fence_Right(Vector2Int v2_Pos, char c_FenceRightCode)
     {
         if (!Get_Check_InsideMap(v2_Pos))
+            return;
+
+        if (l2_Map_FenceRightCode[v2_Pos.x][v2_Pos.y] == c_FenceRightCode)
             return;
 
         Set_GameObject_Remove(l2_Map_FenceRight[v2_Pos.x][v2_Pos.y]);

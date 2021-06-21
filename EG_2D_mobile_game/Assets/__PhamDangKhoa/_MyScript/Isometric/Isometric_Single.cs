@@ -40,6 +40,12 @@ public class Isometric_Single : MonoBehaviour
     private Vector2 v2_Offset = new Vector2(0, 0);
 
     /// <summary>
+    /// Fix
+    /// </summary>
+    [SerializeField]
+    private Vector2 v2_Fix = new Vector2(0, 0);
+
+    /// <summary>
     /// Check if this Object is Ground (not Character, Burden, etc...)
     /// </summary>
     [Header("Object on Map (Not Ground)")]
@@ -90,7 +96,7 @@ public class Isometric_Single : MonoBehaviour
 
     private void Update()
     {
-        Set_Auto(); 
+        Set_Auto();
     }
 
     /// <summary>
@@ -102,7 +108,7 @@ public class Isometric_Single : MonoBehaviour
 
         if (b_isObject)
         {
-            if (cl_Map != null) 
+            if (cl_Map != null)
             {
                 v3_Pos = cl_Vector.Get_Isometric_FixedDepth(v2_Pos + v2_Offset, f_Centre, f_Depth, cl_Map.Get_MapSize());
             }
@@ -116,7 +122,9 @@ public class Isometric_Single : MonoBehaviour
             v3_Pos = cl_Vector.Get_Isometric_FixedDepth(v2_Pos + v2_Offset);
         }
 
-        this.transform.position = cl_Vector.Get_Isometric_TransformPosition(v3_Pos);
+        Vector3 v3_Transform = cl_Vector.Get_Isometric_TransformPosition(v3_Pos);
+        v3_Transform += new Vector3(v2_Fix.x, v2_Fix.y, 0);
+        this.transform.position = v3_Transform;
     }
 
     //Pos
