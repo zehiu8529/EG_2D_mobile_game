@@ -205,7 +205,9 @@ public class Class_Vector
     /// <returns>Use for 'Get_Isometric_TransformPosition()'</returns>
     public Vector3Int Get_Isometric_FixedDepth(Vector2Int v2_Pos)
     {
-        return (Vector3Int)v2_Pos + new Vector3Int(0, 0, v2_Pos.x * -1 + v2_Pos.y);
+        Vector3Int v3_Pos = (Vector3Int)v2_Pos + new Vector3Int(0, 0, v2_Pos.x * -1 + v2_Pos.y);
+
+        return v3_Pos;
     }
 
     /// <summary>
@@ -215,7 +217,9 @@ public class Class_Vector
     /// <returns>Use for 'Get_Isometric_TransformPosition()'</returns>
     public Vector3 Get_Isometric_FixedDepth(Vector2 v2_Pos)
     {
-        return (Vector3)v2_Pos + new Vector3(0, 0, v2_Pos.x * -1 + v2_Pos.y);
+        Vector3 v3_Pos = (Vector3)v2_Pos + new Vector3(0, 0, v2_Pos.x * -1 + v2_Pos.y);
+
+        return v3_Pos;
     }
 
     /// <summary>
@@ -223,11 +227,12 @@ public class Class_Vector
     /// </summary>
     /// <param name="v2_Pos"></param>
     /// <param name="f_Depth">Front of Ground</param>
-    /// <param name="f_Centre">Centre on Ground</param>
     /// <returns>Use for 'Get_Isometric_TransformPosition()'</returns>
-    public Vector3 Get_Isometric_FixedDepth(Vector2 v2_Pos, float f_Centre)
+    public Vector3 Get_Isometric_FixedDepth(Vector2 v2_Pos, float f_Depth, float f_Centre)
     {
         Vector3 v3_Pos = (Vector3)v2_Pos + new Vector3(0, 0, (v2_Pos.x * -1 + v2_Pos.y));
+
+        v3_Pos.z += f_Depth;
 
         v3_Pos.x -= f_Centre;
         v3_Pos.y += f_Centre;
@@ -242,13 +247,17 @@ public class Class_Vector
     /// <param name="f_Depth">Front of Ground</param>
     /// <param name="f_Centre">Centre on Ground</param>
     /// <returns>Use for 'Get_Isometric_TransformPosition()'</returns>
-    public Vector3 Get_Isometric_FixedDepth(Vector2 v2_Pos, float f_Centre, float f_Depth, Vector2Int v2_MapSize)
+    public Vector3 Get_Isometric_FixedDepth(Vector2 v2_Pos, float f_Depth, float f_Centre, Vector2Int v2_MapSize)
     {
         Vector3 v3_Pos = (Vector3)v2_Pos + new Vector3(0, 0, (v2_Pos.x * -1 + v2_Pos.y));
+
+        v3_Pos.z -= v2_MapSize.y;
+
+        v3_Pos.z += f_Depth;
+
         v3_Pos.x -= f_Centre;
         v3_Pos.y += f_Centre;
-        v3_Pos.z -= v2_MapSize.y; 
-        v3_Pos.z += f_Depth;
+
         return v3_Pos;
     }
 

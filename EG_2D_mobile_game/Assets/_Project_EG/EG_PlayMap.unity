@@ -3710,7 +3710,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   s_Tag: IsometricMap
-  v2_MapSize: {x: 9, y: 9}
   v2_Offset: {x: 0, y: 0}
   b_StartGenerate: 1
 --- !u!114 &974773405
@@ -3758,14 +3757,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b4cba5ef4eb2ba4aba219fe778444c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  s_Map_Ground: ~~~~~~~~~~aAaAaAa~~AaAaAaA~~aAaAaAa~~AaAaAaA~~aAaAaAa~~AaAaAaA~~aAaAaAa~~~~~~~~~~
-  s_Map_Object: ~~~~~~~~~~~~~~~~~~~~1~~~4~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~7~~~6~~~~~~~~~~~~~~~~~~~~
-  s_Map_Fence_Up: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~UUUUUUU~
-  s_Map_Fence_Down: ~DDDDDDD~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  s_Map_Fence_Left: ~~~~~~~~~~~~~~~~~L~~~~~~~~L~~~~~~~~L~~~~~~~~L~~~~~~~~L~~~~~~~~L~~~~~~~~L~~~~~~~~~
-  s_Map_Fence_Right: ~~~~~~~~~R~~~~~~~~R~~~~~~~~R~~~~~~~~R~~~~~~~~R~~~~~~~~R~~~~~~~~R~~~~~~~~~~~~~~~~~
+  s_MapCode_Ground: ~~~~~~~~~~~~AaA~BbBbB~~aAa~bBbBb~~AaA~BbBbB~~~A~~bBbBb~~AAA~BbBbB~~AAA~bBbBb~~AAAABbBbB~~AAA~bBbBb~~AAA~BbBbB~~~~~~~~~~~~
+  s_MapCode_Object: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~1~2~~~~~~~~~~~~~~~~~~~4~3~~~~~~~~~~~~~~~~~~~5~6~~~~~~~~~~~~~~~~~~~~~7~~~~~~~~~~~~~~~~~~~~~~~~
+  s_MapCode_Fence_Up: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~U~U~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~U~~~~~~~~~~~~~~~~~~UUU~UUUUU~
+  s_MapCode_Fence_Down: ~DDD~DDDDD~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~D~D~~~~~~~~~~~~~~~~~~~~~~D~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  s_MapCode_Fence_Left: ~~~~~~~~~~~~~~~L~~~~~L~~~~L~~~~~L~~~~L~~~~~L~~~~~~~~~~L~~~~L~~~~~L~~~~L~~~~~L~~~~~~~~~~L~~~~L~~~~~L~~~~L~~~~~L~~~~~~~~~~~
+  s_MapCode_Fence_Right: ~~~~~~~~~~~R~~~R~~~~~~R~~~R~~~~~~R~~~R~~~~~~~~~~R~~~~~~R~~~R~~~~~~R~~~R~~~~~~R~~~~~~~~~~R~~~R~~~~~~R~~~R~~~~~~~~~~~~~~~~~
+  v2_MapCode_Size: {x: 11, y: 11}
   l_SpawmPoint:
-  - {x: 1, y: 1}
+  - {x: 2, y: 2}
 --- !u!4 &974773407
 Transform:
   m_ObjectHideFlags: 0
