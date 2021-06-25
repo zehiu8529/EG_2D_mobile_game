@@ -8,42 +8,44 @@ using UnityEngine;
 /// <remarks>
 /// Use with Camera set 'Orthographic'
 /// </remarks>
-[ExecuteAlways]
 public class Isometric_Single : MonoBehaviour
 {
     //Notice: This Script will auto Run in Edit Mode, and not when in Play Mode if this is Ground
 
     #region Public Varible
 
+    /// <summary>
+    /// Tag Isometric Object to Find
+    /// </summary>
     [Header("Isometric Map Tag")]
     [SerializeField]
     private string s_Tag = "IsometricMap";
 
     /// <summary>
-    /// Map
+    /// Map Manager GameObject
     /// </summary>
     [SerializeField]
-    private Isometric_MapManager cl_Map;
+    private GameObject g_MapManager;
 
     /// <summary>
     /// Pos on Map this Object
     /// </summary>
     [Header("Pos on Map")]
-    //Use to Show Private Varible on Unity
     [SerializeField]
-    private Vector2 v2_Pos = new Vector2();
+    private Vector2 v2_PosOnMap = new Vector2();
 
     /// <summary>
     /// Pos Offset for Map
     /// </summary>
     [SerializeField]
-    private Vector2 v2_Offset = new Vector2(0, 0);
+    private Vector2 v2_OffsetOnMap = new Vector2(0, 0);
 
     /// <summary>
     /// Fix
     /// </summary>
+    [Header("Centre on Square")]
     [SerializeField]
-    private Vector2 v2_Fix = new Vector2(0, 0);
+    private Vector2 v2_CentreOnSquare = new Vector2(0, 0);
 
     /// <summary>
     /// Check if this Object is Ground (not Character, Burden, etc...)
@@ -56,7 +58,7 @@ public class Isometric_Single : MonoBehaviour
     /// Object Stand on Centre Ground
     /// </summary>
     [SerializeField]
-    private float f_Centre = 0.3f;
+    private float f_Centre = 1f;
 
     /// <summary>
     /// Layer of this Isometric between other Isometric (Set 'i_Layer_Max' in 'IsometricMap' Object)
@@ -73,6 +75,10 @@ public class Isometric_Single : MonoBehaviour
 
     #endregion
 
+    private Isometric_MapManager cl_MapManager;
+
+    private Isometric_MapString cl_MapString;
+
     /// <summary>
     /// Pos on Environmemt
     /// </summary>
@@ -80,50 +86,55 @@ public class Isometric_Single : MonoBehaviour
 
     private void Start()
     {
-        if (cl_Map == null)
+        if (cl_MapManager == null)
         {
             if (s_Tag != "")
             {
-                cl_Map = GameObject.FindGameObjectWithTag(s_Tag).GetComponent<Isometric_MapManager>();
+                g_MapManager = GameObject.FindGameObjectWithTag(s_Tag);
 
-                if (cl_Map == null)
+                if (cl_MapManager == null)
                 {
-                    Debug.LogError(this.name + ": Not found 'MapManager GameObject' with tag: " + s_Tag);
+                    cl_MapManager = g_MapManager.GetComponent<Isometric_MapManager>();
+                    cl_MapString = g_MapManager.GetComponent<Isometric_MapString>();
                 }
             }
         }
+
+        Set_Isometric_Transform();
     }
 
-    private void Update()
+    private void OnDrawGizmosSelected()
     {
-        Set_Auto();
+        Set_Isometric_Transform();
     }
+
+    //Transform
 
     /// <summary>
     /// Set on Map Auto on Edit Mode
     /// </summary>
-    private void Set_Auto()
+    private void Set_Isometric_Transform()
     {
         Class_Vector cl_Vector = new Class_Vector();
 
         if (b_isObject)
         {
-            if (cl_Map != null)
+            if (cl_MapManager != null)
             {
-                v3_Pos = cl_Vector.Get_Isometric_FixedDepth(v2_Pos + v2_Offset, f_Centre, f_Depth, cl_Map.Get_MapSize());
+                v3_Pos = cl_Vector.Get_Isometric_FixedDepth(v2_PosOnMap + v2_OffsetOnMap, f_Depth, f_Centre, cl_MapString.Get_MapSize());
             }
             else
             {
-                v3_Pos = cl_Vector.Get_Isometric_FixedDepth(v2_Pos + v2_Offset, f_Centre);
+                v3_Pos = cl_Vector.Get_Isometric_FixedDepth(v2_PosOnMap + v2_OffsetOnMap, f_Depth, f_Centre);
             }
         }
         else
         {
-            v3_Pos = cl_Vector.Get_Isometric_FixedDepth(v2_Pos + v2_Offset);
+            v3_Pos = cl_Vector.Get_Isometric_FixedDepth(v2_PosOnMap + v2_OffsetOnMap);
         }
 
         Vector3 v3_Transform = cl_Vector.Get_Isometric_TransformPosition(v3_Pos);
-        v3_Transform += new Vector3(v2_Fix.x, v2_Fix.y, 0);
+        v3_Transform += new Vector3(v2_CentreOnSquare.x, v2_CentreOnSquare.y, 0);
         this.transform.position = v3_Transform;
     }
 
@@ -132,29 +143,33 @@ public class Isometric_Single : MonoBehaviour
     /// <summary>
     /// Set Pos for this Isometric
     /// </summary>
-    /// <param name="v2_Pos"></param>
-    public void Set_Pos(Vector2 v2_Pos)
+    /// <param name="v2_PosOnMap"></param>
+    public void Set_Isometric_PosOnMap(Vector2 v2_PosOnMap)
     {
-        this.v2_Pos = v2_Pos;
+        this.v2_PosOnMap = v2_PosOnMap;
+
+        Set_Isometric_Transform();
     }
 
     /// <summary>
     /// Set Pos for this Isometric
     /// </summary>
-    /// <param name="f_Pos_x"></param>
-    /// <param name="f_Pos_y"></param>
-    public void Set_Pos(float f_Pos_x, float f_Pos_y)
+    /// <param name="f_PosOnMap_x"></param>
+    /// <param name="f_PosOnMap_y"></param>
+    public void Set_Isometric_PosOnMap(float f_PosOnMap_x, float f_PosOnMap_y)
     {
-        Set_Pos(new Vector2(f_Pos_x, f_Pos_y));
+        Set_Isometric_PosOnMap(new Vector2(f_PosOnMap_x, f_PosOnMap_y));
+
+        Set_Isometric_Transform();
     }
 
     /// <summary>
     /// Get Pos of this Isometric
     /// </summary>
     /// <returns></returns>
-    public Vector2 Get_Pos()
+    public Vector2 Get_Isometric_PosOnMap()
     {
-        return v2_Pos;
+        return v2_PosOnMap;
     }
 
     //Offset
@@ -163,18 +178,20 @@ public class Isometric_Single : MonoBehaviour
     /// Set Offset for this Isometric
     /// </summary>
     /// <param name="v2_Pos"></param>
-    public void Set_Offset(Vector2 v2_Offset)
+    public void Set_Isometric_OffsetOnMap(Vector2 v2_OffsetOnMap)
     {
-        this.v2_Offset = v2_Offset;
+        this.v2_OffsetOnMap = v2_OffsetOnMap;
+
+        Set_Isometric_Transform();
     }
 
     /// <summary>
     /// Get Offset of this Isometric
     /// </summary>
     /// <returns></returns>
-    public Vector2 Get_Offset()
+    public Vector2 Get_Isometric_OffsetOnMap()
     {
-        return v2_Offset;
+        return v2_OffsetOnMap;
     }
 
     //Is Object

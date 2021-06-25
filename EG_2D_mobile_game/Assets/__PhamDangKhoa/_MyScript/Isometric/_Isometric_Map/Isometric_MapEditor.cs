@@ -84,10 +84,16 @@ public class Isometric_MapEditor : MonoBehaviour
 
     [Header("File Map Control")]
     [SerializeField]
-    private KeyCode k_Open = KeyCode.F5;
+    private KeyCode k_Open_Normal = KeyCode.F5;
+
+    [SerializeField]
+    private KeyCode k_Open_Temp = KeyCode.F6;
 
     [SerializeField]
     private KeyCode k_New = KeyCode.F9;
+
+    [SerializeField]
+    private KeyCode k_Save = KeyCode.F12;
 
     /// <summary>
     /// Name of Map (Will auto add File Exten '*.isomap')
@@ -224,30 +230,24 @@ public class Isometric_MapEditor : MonoBehaviour
         s_SpriteChoice.sprite = cl_MapManager_Renderer.Get_GameObject_Ground(0).GetComponent<SpriteRenderer>().sprite;
         s_LayerChoice.text = "Ground [" + cl_MapManager_Renderer.Get_SingleCode_Ground(0) + "]";
 
-        if (i_MapName != null)
-        {
-            i_MapName.text = cl_Scene.Get_PlayerPrefs_String("_IsoMapName");
-
-            if (i_MapName.text == "")
-            {
-                i_MapName.text = "NewMap";
-            }
-        }
-
         cl_MapManager_MapManager.Set_Map_StartGenerate(false);
-        Set_MapCode_FromFile(true);
 
-        i_MapSize_X.text = cl_MapManager_MapManager.Get_MapSize().x.ToString();
-        i_MapSize_Y.text = cl_MapManager_MapManager.Get_MapSize().y.ToString();
+        i_MapSize_X.text = cl_MapManager_MapString.Get_MapSize().x.ToString();
+        i_MapSize_Y.text = cl_MapManager_MapString.Get_MapSize().y.ToString();
+
+        Class_KeyCode cl_String = new Class_KeyCode();
 
         s_GuildKeyboard.text =
-            "- Edit Square: " + k_Edit + "\n" +
-            "- Remove Square: " + k_Remove + "\n" +
-            "- Change Layer: " + k_Layer + "\n" +
-            "- Next Choice: " + k_Next + "\n" +
-            "- Previous Choice: " + k_Back + "\n" +
-            "- Open Map: " + k_Open + "\n" +
-            "- New Map: " + k_New;
+            "- Edit Square: " + cl_String.Get_KeyCode_SimpleChar(k_Edit) + "\n" +
+            "- Remove Square: " + cl_String.Get_KeyCode_SimpleChar(k_Remove) + "\n" +
+            "- Change Layer: " + cl_String.Get_KeyCode_SimpleChar(k_Layer) + "\n" +
+            "- Next Choice: " + cl_String.Get_KeyCode_SimpleChar(k_Next) + "\n" +
+            "- Previous Choice: " + cl_String.Get_KeyCode_SimpleChar(k_Back) + "\n" +
+            "- Spawm Point: " + cl_String.Get_KeyCode_SimpleChar(k_Spawm) + "\n" +
+            "- Open Map: " + cl_String.Get_KeyCode_SimpleChar(k_Open_Normal) + "\n" +
+            "- Open Temp Map: " + cl_String.Get_KeyCode_SimpleChar(k_Open_Temp) + "\n" +
+            "- New Map: " + cl_String.Get_KeyCode_SimpleChar(k_New) + "\n" +
+            "- Save Map: " + cl_String.Get_KeyCode_SimpleChar(k_Save) + "\n";
     }
 
     private void Update()
@@ -268,47 +268,47 @@ public class Isometric_MapEditor : MonoBehaviour
         //if (!cl_MapManager_MapManager.Get_Map_DoneGenerate())
         //    return;
 
-        cl_Single.Set_Offset(cl_MapManager_MapManager.Get_Offset());
+        cl_Single.Set_Isometric_OffsetOnMap(cl_MapManager_MapManager.Get_Offset());
 
         //Control Curson
 
         if (Input.GetKeyDown(k_Up))
         {
-            Vector2 v2_Current = cl_Single.Get_Pos();
+            Vector2 v2_Current = cl_Single.Get_Isometric_PosOnMap();
 
             if (cl_MapManager_MapManager.Get_Check_InsideMap(cl_Vector.Get_VectorInt(v2_Current), new Class_Isometric().v2_DirUp))
             {
-                cl_Single.Set_Pos(new Vector2(v2_Current.x - 1, v2_Current.y));
+                cl_Single.Set_Isometric_PosOnMap(new Vector2(v2_Current.x - 1, v2_Current.y));
             }
         }
 
         if (Input.GetKeyDown(k_Down))
         {
-            Vector2 v2_Current = cl_Single.Get_Pos();
+            Vector2 v2_Current = cl_Single.Get_Isometric_PosOnMap();
 
             if (cl_MapManager_MapManager.Get_Check_InsideMap(cl_Vector.Get_VectorInt(v2_Current), new Class_Isometric().v2_DirDown))
             {
-                cl_Single.Set_Pos(new Vector2(v2_Current.x + 1, v2_Current.y));
+                cl_Single.Set_Isometric_PosOnMap(new Vector2(v2_Current.x + 1, v2_Current.y));
             }
         }
 
         if (Input.GetKeyDown(k_Left))
         {
-            Vector2 v2_Current = cl_Single.Get_Pos();
+            Vector2 v2_Current = cl_Single.Get_Isometric_PosOnMap();
 
             if (cl_MapManager_MapManager.Get_Check_InsideMap(cl_Vector.Get_VectorInt(v2_Current), new Class_Isometric().v2_DirLeft))
             {
-                cl_Single.Set_Pos(new Vector2(v2_Current.x, v2_Current.y - 1));
+                cl_Single.Set_Isometric_PosOnMap(new Vector2(v2_Current.x, v2_Current.y - 1));
             }
         }
 
         if (Input.GetKeyDown(k_Right))
         {
-            Vector2 v2_Current = cl_Single.Get_Pos();
+            Vector2 v2_Current = cl_Single.Get_Isometric_PosOnMap();
 
             if (cl_MapManager_MapManager.Get_Check_InsideMap(cl_Vector.Get_VectorInt(v2_Current), new Class_Isometric().v2_DirRight))
             {
-                cl_Single.Set_Pos(new Vector2(v2_Current.x, v2_Current.y + 1));
+                cl_Single.Set_Isometric_PosOnMap(new Vector2(v2_Current.x, v2_Current.y + 1));
             }
         }
 
@@ -504,7 +504,7 @@ public class Isometric_MapEditor : MonoBehaviour
 
         if (Input.GetKeyDown(k_Edit))
         {
-            Vector2Int v2_Current = cl_Vector.Get_VectorInt(cl_Single.Get_Pos());
+            Vector2Int v2_Current = cl_Vector.Get_VectorInt(cl_Single.Get_Isometric_PosOnMap());
             switch (i_Layer)
             {
                 case 0:
@@ -534,17 +534,14 @@ public class Isometric_MapEditor : MonoBehaviour
             }
 
             //Auto Save
-            Set_MapCode_ToFile();
-
-            //Save Map Name to cache
-            cl_Scene.Set_PlayerPrefs("_IsoMapName", s_MapName);
+            Set_MapCode_ToFile(true);
         }
 
         //Remove
 
         if (Input.GetKeyDown(k_Remove))
         {
-            Vector2Int v2_Current = cl_Vector.Get_VectorInt(cl_Single.Get_Pos());
+            Vector2Int v2_Current = cl_Vector.Get_VectorInt(cl_Single.Get_Isometric_PosOnMap());
             switch (i_Layer)
             {
                 case 0:
@@ -574,17 +571,23 @@ public class Isometric_MapEditor : MonoBehaviour
             }
 
             //Auto Save
-            Set_MapCode_ToFile();
-
-            //Save Map Name to cache
-            cl_Scene.Set_PlayerPrefs("_IsoMapName", s_MapName);
+            Set_MapCode_ToFile(true);
         }
 
         //Open
 
-        if (Input.GetKeyDown(k_Open))
+        if (Input.GetKeyDown(k_Open_Normal))
         {
             Set_MapCode_FromFile(false);
+
+            Debug.Log("Set_ControlKeyboard: Open Map!");
+        }
+
+        if (Input.GetKeyDown(k_Open_Temp))
+        {
+            Set_MapCode_FromFile(true);
+
+            Debug.Log("Set_ControlKeyboard: Open Temp Map!");
         }
 
         //New
@@ -592,6 +595,17 @@ public class Isometric_MapEditor : MonoBehaviour
         if (Input.GetKeyDown(k_New))
         {
             Set_MapGenerate_NewMap();
+
+            Debug.Log("Set_ControlKeyboard: New Map!");
+        }
+
+        //Save
+
+        if(Input.GetKeyDown(k_Save))
+        {
+            Set_MapCode_ToFile(false);
+
+            Debug.Log("Set_ControlKeyboard: Save Map!");
         }
 
         //Spawm
@@ -601,7 +615,7 @@ public class Isometric_MapEditor : MonoBehaviour
             Set_Debug_SpawmPoint_Chance();
 
             //Auto Save
-            Set_MapCode_ToFile();
+            Set_MapCode_ToFile(true);
         }
     }
 
@@ -612,17 +626,17 @@ public class Isometric_MapEditor : MonoBehaviour
     /// </summary>
     public void Set_MapGenerate_NewMap()
     {
-        cl_Single.Set_Pos(new Vector2(0, 0));
+        cl_Single.Set_Isometric_PosOnMap(new Vector2(0, 0));
 
+        Set_Debug_SpawmPoint_Remove();
         cl_MapManager_MapManager.Set_Map_Remove();
+        cl_MapManager_MapString.Set_MapCode_ClearAll();
 
-        cl_MapManager_MapManager.Set_Map_MapSize(new Vector2Int(
+        cl_MapManager_MapString.Set_MapSize(new Vector2Int(
             int.Parse(i_MapSize_X.text),
             int.Parse(i_MapSize_Y.text)));
 
         cl_MapManager_MapManager.Set_Map_StartGenerate(true);
-
-        Set_MapCode_ToFile();
     }
 
     //Public (Set Matrix Map Code from File)
@@ -632,21 +646,20 @@ public class Isometric_MapEditor : MonoBehaviour
     /// </summary>
     /// <remarks>
     /// </remarks>
-    /// <param name="b_FromTempFile">Temp File is a copy of current File during Edit</param>
-    private void Set_MapCode_FromFile(bool b_FromTempFile)
+    /// <param name="b_TempFile">Temp File is a copy of current File during Edit</param>
+    private void Set_MapCode_FromFile(bool b_TempFile)
     {
         Class_FileIO cl_File = new Class_FileIO();
         string s_File = "C:\\Users\\Admin\\Documents\\" + s_MapName + ".isomap";
 
-        if (b_FromTempFile)
+        if (b_TempFile)
         {
-            s_File = "C:\\Users\\Admin\\Documents\\_Temp.isomap";
+            s_File = "C:\\Users\\Admin\\Documents\\" + s_MapName + "_Temp.isomap";
         }
-        else
-        {
-            cl_MapManager_MapManager.Set_Map_Remove();
-            Set_Debug_SpawmPoint_Remove();
-        }
+
+        Set_Debug_SpawmPoint_Remove();
+        cl_MapManager_MapManager.Set_Map_Remove();
+        cl_MapManager_MapString.Set_MapCode_ClearAll();
 
         if (!cl_File.Get_FileExist(s_File))
         {
@@ -659,7 +672,11 @@ public class Isometric_MapEditor : MonoBehaviour
 
         int i_MapXCount = cl_File.Get_Read_Auto_Int();
         int i_MapYCount = cl_File.Get_Read_Auto_Int();
-        cl_MapManager_MapManager.Set_Map_MapSize(new Vector2Int(i_MapXCount, i_MapYCount));
+
+        i_MapSize_X.text = i_MapXCount.ToString();
+        i_MapSize_Y.text = i_MapYCount.ToString();
+
+        cl_MapManager_MapString.Set_MapSize(new Vector2Int(i_MapXCount, i_MapYCount));
 
         cl_MapManager_MapString.Set_MapCode_Ground(cl_File.Get_Read_Auto_String());
         cl_MapManager_MapString.Set_MapCode_Object(cl_File.Get_Read_Auto_String());
@@ -681,18 +698,22 @@ public class Isometric_MapEditor : MonoBehaviour
         cl_MapManager_MapManager.Set_Map_StartGenerate(false);
     }
 
-    private void Set_MapCode_ToFile()
+    private void Set_MapCode_ToFile(bool b_TempFile)
     {
         cl_MapManager_MapManager.Set_MapCode_FromMapCodeMatrix();
 
         Class_FileIO cl_File = new Class_FileIO();
         string s_File = "C:\\Users\\Admin\\Documents\\" + s_MapName + ".isomap";
-        string s_FileTemp = "C:\\Users\\Admin\\Documents\\_Temp.isomap";
+
+        if (b_TempFile)
+        {
+            s_File = "C:\\Users\\Admin\\Documents\\" + s_MapName + "_Temp.isomap";
+        }
 
         cl_File.Set_Act_Write_Clear();
 
-        cl_File.Set_Act_Write_Add(cl_MapManager_MapManager.Get_MapSize().x);
-        cl_File.Set_Act_Write_Add(cl_MapManager_MapManager.Get_MapSize().y);
+        cl_File.Set_Act_Write_Add(cl_MapManager_MapString.Get_MapSize().x);
+        cl_File.Set_Act_Write_Add(cl_MapManager_MapString.Get_MapSize().y);
 
         cl_File.Set_Act_Write_Add(cl_MapManager_MapString.Get_MapCode_Ground());
         cl_File.Set_Act_Write_Add(cl_MapManager_MapString.Get_MapCode_Object());
@@ -709,7 +730,6 @@ public class Isometric_MapEditor : MonoBehaviour
         }
 
         cl_File.Set_Act_Write_Start(s_File);
-        cl_File.Set_Act_Write_Start(s_FileTemp);
     }
 
     #region Spawm Debug Manager
@@ -732,7 +752,7 @@ public class Isometric_MapEditor : MonoBehaviour
     {
         for (int i = 0; i < cl_MapManager_MapString.Get_List_SpawmPoint().Count; i++)
         {
-            cl_Object.Set_Destroy_GameObject(lg_Spawm[0]);
+            cl_Object.Set_Destroy_GameObject(lg_Spawm[i]);
         }
         lg_Spawm = new List<GameObject>();
     }
@@ -744,7 +764,7 @@ public class Isometric_MapEditor : MonoBehaviour
     {
         for (int i = 0; i < cl_MapManager_MapString.Get_List_SpawmPoint().Count; i++)
         {
-            if (cl_Single.Get_Pos() == cl_MapManager_MapString.Get_List_SpawmPoint()[i])
+            if (cl_Single.Get_Isometric_PosOnMap() == cl_MapManager_MapString.Get_List_SpawmPoint()[i])
             {
                 cl_Object.Set_Destroy_GameObject(lg_Spawm[i]);
                 cl_MapManager_MapString.Set_List_SpawmPoint_Remove(i);
@@ -752,9 +772,9 @@ public class Isometric_MapEditor : MonoBehaviour
                 return;
             }
         }
-        Set_Debug_SpawmPoint_Prefab(new Vector2Int((int)cl_Single.Get_Pos().x, (int)cl_Single.Get_Pos().y));
+        Set_Debug_SpawmPoint_Prefab(new Vector2Int((int)cl_Single.Get_Isometric_PosOnMap().x, (int)cl_Single.Get_Isometric_PosOnMap().y));
         cl_MapManager_MapString.Set_List_SpawmPoint_Add(
-            new Vector2Int((int)cl_Single.Get_Pos().x, (int)cl_Single.Get_Pos().y));
+            new Vector2Int((int)cl_Single.Get_Isometric_PosOnMap().x, (int)cl_Single.Get_Isometric_PosOnMap().y));
     }
 
     /// <summary>
@@ -765,8 +785,8 @@ public class Isometric_MapEditor : MonoBehaviour
     {
         GameObject g_SpawmPoint = cl_Object.Set_Prepab_Create(this.g_SpawmPoint, g_MapManager.transform);
 
-        g_SpawmPoint.GetComponent<Isometric_Single>().Set_Pos(v2_Pos);
-        g_SpawmPoint.GetComponent<Isometric_Single>().Set_Offset(cl_MapManager_MapManager.Get_Offset());
+        g_SpawmPoint.GetComponent<Isometric_Single>().Set_Isometric_PosOnMap(v2_Pos);
+        g_SpawmPoint.GetComponent<Isometric_Single>().Set_Isometric_OffsetOnMap(cl_MapManager_MapManager.Get_Offset());
         g_SpawmPoint.GetComponent<Isometric_Single>().Set_isObject(true);
         g_SpawmPoint.SetActive(true);
 
