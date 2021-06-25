@@ -11,7 +11,7 @@ public class Class_KeyCode
 
     }
 
-    //=== 0: All
+    #region Key Pressed Down
 
     /// <summary>
     /// Get Key Down
@@ -55,7 +55,9 @@ public class Class_KeyCode
         return KeyCode.None;
     }
 
-    //=== 1: Mouse
+    #endregion
+
+    #region Mouse
 
     /// <summary>
     /// Mouse Pos
@@ -66,7 +68,7 @@ public class Class_KeyCode
         return Input.mousePosition;
     }
 
-    //Any
+    #region Mouse Any
 
     /// <summary>
     /// Get Mouse Down
@@ -116,7 +118,9 @@ public class Class_KeyCode
             Input.GetKey(KeyCode.Mouse6);
     }
 
-    //Left
+    #endregion
+
+    #region Mouse Left
 
     /// <summary>
     /// Get Mouse Left Down
@@ -145,7 +149,9 @@ public class Class_KeyCode
         return Input.GetKey(KeyCode.Mouse0);
     }
 
-    //Right
+    #endregion
+
+    #region Mouse Right
 
     /// <summary>
     /// Get Mouse Right Down
@@ -174,7 +180,9 @@ public class Class_KeyCode
         return Input.GetKey(KeyCode.Mouse1);
     }
 
-    //Mid
+    #endregion
+
+    #region Mouse Mid
 
     /// <summary>
     /// Get Mouse Mid Down
@@ -203,7 +211,11 @@ public class Class_KeyCode
         return Input.GetKey(KeyCode.Mouse2);
     }
 
-    //=== 2: Keyboard
+    #endregion
+
+    #endregion
+
+    #region Keyboard
 
     /// <summary>
     /// Get Keyboard Hold
@@ -234,4 +246,25 @@ public class Class_KeyCode
     {
         return Input.GetKeyUp(k_Keyboard);
     }
+
+    #endregion
+
+    #region Key Simple
+
+    public string Get_KeyCode_SimpleChar(KeyCode k_Key)
+    {
+        if (k_Key == KeyCode.LeftBracket)
+            return "[";
+        if (k_Key == KeyCode.RightBracket)
+            return "]";
+        if (k_Key == KeyCode.Escape)
+            return "Esc";
+        if (k_Key == KeyCode.Return)
+            return "Enter";
+        if (k_Key == KeyCode.Delete)
+            return "Del";
+        return k_Key.ToString();
+    }
+
+    #endregion
 }

@@ -174,7 +174,7 @@ public class EG_SocketManager : MonoBehaviour
             //If not Exist this Device on List >> Create Remote of this Device
             {
                 GameObject g_NewRemote = cl_Object.Set_Prepab_Create(g_Local, this.transform);
-                g_NewRemote.GetComponent<Isometric_Single>().Set_Pos(i_x, i_y);
+                g_NewRemote.GetComponent<Isometric_Single>().Set_Isometric_PosOnMap(i_x, i_y);
                 g_NewRemote.GetComponent<Isometric_MoveControl>().Set_FaceRight(i_Face);
                 l_ID.Add(s_ID);
                 l_Remote.Add(g_NewRemote);
@@ -187,7 +187,7 @@ public class EG_SocketManager : MonoBehaviour
             //If not Exist this Device on List >> Create Remote
             {
                 GameObject g_NewRemote = cl_Object.Set_Prepab_Create(g_Remote, this.transform);
-                g_NewRemote.GetComponent<Isometric_Single>().Set_Pos(i_x, i_y);
+                g_NewRemote.GetComponent<Isometric_Single>().Set_Isometric_PosOnMap(i_x, i_y);
                 g_NewRemote.GetComponent<Isometric_MoveControl>().Set_FaceRight(i_Face);
                 l_ID.Add(s_ID);
                 l_Remote.Add(g_NewRemote);

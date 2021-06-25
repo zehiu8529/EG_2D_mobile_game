@@ -164,8 +164,10 @@ MonoBehaviour:
   k_Next: 93
   k_Back: 91
   k_Spawm: 278
-  k_Open: 286
+  k_Open_Normal: 286
+  k_Open_Temp: 287
   k_New: 290
+  k_Save: 293
   s_MapName: NewMap
   s_SpriteChoice: {fileID: 854100611}
   s_LayerChoice: {fileID: 75297978}
@@ -183,7 +185,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 13449614}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.3, z: -8.9}
+  m_LocalPosition: {x: 0, y: 1.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -202,12 +204,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   s_Tag: IsometricMap
-  cl_Map: {fileID: 634855603}
-  v2_Pos: {x: 0, y: 0}
-  v2_Offset: {x: 0, y: 0}
+  g_MapManager: {fileID: 0}
+  v2_PosOnMap: {x: 0, y: 0}
+  v2_OffsetOnMap: {x: 0, y: 0}
+  v2_CentreOnSquare: {x: 0, y: 0}
   b_isObject: 1
   f_Centre: 1.3
-  f_Depth: 0.1
+  f_Depth: 0
   c_SingleCode: 65
 --- !u!212 &13449618
 SpriteRenderer:
@@ -667,7 +670,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &116772159
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -690,6 +693,8 @@ MonoBehaviour:
   b_DelayControl: 0
   f_TimeDelay: 0.2
   f_MovePercent: 0.5
+  v2_PosMoveTo: {x: 0, y: 0}
+  v2_PosStandOn: {x: 0, y: 0}
 --- !u!4 &116772160
 Transform:
   m_ObjectHideFlags: 0
@@ -698,7 +703,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 116772158}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2, y: 1.3, z: -8.9}
+  m_LocalPosition: {x: 0, y: 1.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -768,12 +773,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   s_Tag: IsometricMap
-  cl_Map: {fileID: 634855603}
-  v2_Pos: {x: 1, y: 1}
-  v2_Offset: {x: 0, y: 0}
+  g_MapManager: {fileID: 0}
+  v2_PosOnMap: {x: 0, y: 0}
+  v2_OffsetOnMap: {x: 0, y: 0}
+  v2_CentreOnSquare: {x: 0, y: 0}
   b_isObject: 1
   f_Centre: 1.3
-  f_Depth: 0.1
+  f_Depth: 0
   c_SingleCode: 65
 --- !u!114 &116772163
 MonoBehaviour:
@@ -1681,12 +1687,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   s_Tag: IsometricMap
-  v2_MapSize: {x: 9, y: 9}
   v2_Offset: {x: 0, y: 0}
-  v2_DirUp: {x: -1, y: 0}
-  v2_DirDown: {x: 1, y: 0}
-  v2_DirLeft: {x: 0, y: -1}
-  v2_DirRight: {x: 0, y: 1}
+  b_StartGenerate: 0
 --- !u!114 &634855604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1732,12 +1734,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b4cba5ef4eb2ba4aba219fe778444c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  s_Map_Ground: 
-  s_Map_Object: 
-  s_Map_Fence_Up: 
-  s_Map_Fence_Down: 
-  s_Map_Fence_Left: 
-  s_Map_Fence_Right: 
+  s_MapCode_Ground: 
+  s_MapCode_Object: 
+  s_MapCode_Fence_Up: 
+  s_MapCode_Fence_Down: 
+  s_MapCode_Fence_Left: 
+  s_MapCode_Fence_Right: 
+  v2_MapCode_Size: {x: 0, y: 0}
   l_SpawmPoint: []
 --- !u!1 &700887579
 GameObject:
@@ -3202,7 +3205,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1233936798}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.3, z: -200}
+  m_LocalPosition: {x: 0, y: 0, z: -200}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -4548,21 +4551,6 @@ PrefabInstance:
     - target: {fileID: 3325684715977503943, guid: 3bc286e0a72a99745a708442739a12a9,
         type: 3}
       propertyPath: m_Pivot.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3325684717434639216, guid: 3bc286e0a72a99745a708442739a12a9,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3325684717434639216, guid: 3bc286e0a72a99745a708442739a12a9,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3325684717434639216, guid: 3bc286e0a72a99745a708442739a12a9,
-        type: 3}
-      propertyPath: m_Color.b
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

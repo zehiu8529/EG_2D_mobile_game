@@ -43,6 +43,7 @@ public class Class_Object
     {
         if (g_GameObject != null)
         {
+            Debug.Log("Set_Destroy_GameObject: " + g_GameObject.name);
             MonoBehaviour.Destroy(g_GameObject);
         }
     }
