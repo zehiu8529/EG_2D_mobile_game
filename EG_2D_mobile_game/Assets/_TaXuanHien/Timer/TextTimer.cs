@@ -17,7 +17,7 @@ public class TextTimer : MonoBehaviour
     {
         if (isActive)
         {
-            timer += Time.deltaTime;
+            timer -= Time.deltaTime;
             UpdateText();
         }
     }
@@ -30,20 +30,14 @@ public class TextTimer : MonoBehaviour
         float hours = (int)(timer / 3600);
         text.text = hours.ToString("00") + characterSpliter + minutes.ToString("00") + characterSpliter + seconds.ToString("00");
         Debug.Log((int)timer);
-        Wingame();
-    }
-
-    public float TimeLose;
-
-    private void Wingame()
-    {
-        if ((int)timer == TimeLose)
+        if ((int)timer <= 0 )
         {
             Lose.SetActive(true);
             isActive = !isActive;
         }
     }
 
+  
     public void StartTimer()
     {
         StartTimer(0);

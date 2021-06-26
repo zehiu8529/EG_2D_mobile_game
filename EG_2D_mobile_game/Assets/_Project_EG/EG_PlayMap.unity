@@ -2660,6 +2660,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 784138111}
   m_CullTransparentMesh: 0
+--- !u!1 &801681997 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7695642883227558995, guid: fa406dd91c0f2b74281c7673cb082356,
+    type: 3}
+  m_PrefabInstance: {fileID: 1761047618}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &824641125
 GameObject:
   m_ObjectHideFlags: 0
@@ -2840,16 +2846,27 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1325904206}
         m_MethodName: StartTimer
-        m_Mode: 1
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
-          m_FloatArgument: 20
+          m_FloatArgument: 900
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1400079104}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 801681997}
         m_MethodName: SetActive
         m_Mode: 6
         m_Arguments:
@@ -4546,7 +4563,6 @@ MonoBehaviour:
   text: {fileID: 1325904207}
   characterSpliter: 58
   Lose: {fileID: 1088354087}
-  TimeLose: 2700
 --- !u!114 &1325904207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5728,7 +5744,7 @@ PrefabInstance:
     - target: {fileID: 7695642883227558995, guid: fa406dd91c0f2b74281c7673cb082356,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7695642883227559006, guid: fa406dd91c0f2b74281c7673cb082356,
         type: 3}

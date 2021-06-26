@@ -14,11 +14,10 @@ public class PauseMenu : MonoBehaviour
 
     public GameObject pauseUIMenuOptions;
 
-
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        pauseUI.SetActive(false);
+        
+        pauseUI.SetActive(true);
         pauseUIMenuOptions.SetActive(false);
     }
 
