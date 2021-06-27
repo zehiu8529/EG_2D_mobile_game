@@ -117,9 +117,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   s_Tag: IsometricMap
-  cl_Map: {fileID: 0}
-  v2_Pos: {x: 0, y: 0}
-  v2_Offset: {x: 0, y: 0}
+  g_MapManager: {fileID: 0}
+  v2_PosOnMap: {x: 0, y: 0}
+  v2_OffsetOnMap: {x: 0, y: 0}
+  v2_CentreOnSquare: {x: 0, y: 0}
   b_isObject: 1
   f_Centre: 1
   f_Depth: 0

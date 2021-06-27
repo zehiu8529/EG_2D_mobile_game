@@ -235,7 +235,7 @@ public class EG_SocketManager : MonoBehaviour
     /// </summary>
     private void Set_Auto_FixPos()
     {
-        if (cl_ClientManager.b_SocketStart)
+        if (cl_ClientManager.Get_Socket_Start())
         {
             if (cl_Client_MoveControl != null) 
             {

@@ -127,17 +127,17 @@ public class EG_MoveUI : MonoBehaviour
 
     private void Set_MoveUI_Up()
     {
-        if (!cl_ClientControl.Get_CheckMove_Dir_InsideMap(new Class_Isometric().v2_DirUp))
+        if (!cl_ClientControl.Get_CheckMove_Dir_InsideMap(new Class_Vector().v2_Isometric_DirUp))
         {
             i_Button_Up.GetComponent<Image>().sprite = s_Sample_Nope;
         }
         else
-        if (!cl_ClientControl.Get_CheckMove_Dir_Fence(new Class_Isometric().v2_DirUp))
+        if (!cl_ClientControl.Get_CheckMove_Dir_Fence(new Class_Vector().v2_Isometric_DirUp))
         {
             i_Button_Up.GetComponent<Image>().sprite = s_Sample_Nope;
         }
         else
-        if (!cl_ClientControl.Get_CheckMove_Dir_Object(new Class_Isometric().v2_DirUp)) 
+        if (!cl_ClientControl.Get_CheckMove_Dir_Object(new Class_Vector().v2_Isometric_DirUp)) 
         {
             if (!cl_MapManager.Get_GameObject_Object(cl_ClientControl.Get_PosMoveTo_Up()).GetComponent<EG_ClientTable>().Get_Table_Get_Already())
             {
@@ -156,17 +156,17 @@ public class EG_MoveUI : MonoBehaviour
 
     private void Set_MoveUI_Down()
     {
-        if (!cl_ClientControl.Get_CheckMove_Dir_InsideMap(new Class_Isometric().v2_DirDown))
+        if (!cl_ClientControl.Get_CheckMove_Dir_InsideMap(new Class_Vector().v2_Isometric_DirDown))
         {
             i_Button_Down.GetComponent<Image>().sprite = s_Sample_Nope;
         }
         else
-        if (!cl_ClientControl.Get_CheckMove_Dir_Fence(new Class_Isometric().v2_DirDown))
+        if (!cl_ClientControl.Get_CheckMove_Dir_Fence(new Class_Vector().v2_Isometric_DirDown))
         {
             i_Button_Down.GetComponent<Image>().sprite = s_Sample_Nope;
         }
         else
-        if (!cl_ClientControl.Get_CheckMove_Dir_Object(new Class_Isometric().v2_DirDown))
+        if (!cl_ClientControl.Get_CheckMove_Dir_Object(new Class_Vector().v2_Isometric_DirDown))
         {
             if (!cl_MapManager.Get_GameObject_Object(cl_ClientControl.Get_PosMoveTo_Down()).GetComponent<EG_ClientTable>().Get_Table_Get_Already())
             {
@@ -185,17 +185,17 @@ public class EG_MoveUI : MonoBehaviour
 
     private void Set_MoveUI_Left()
     {
-        if (!cl_ClientControl.Get_CheckMove_Dir_InsideMap(new Class_Isometric().v2_DirLeft))
+        if (!cl_ClientControl.Get_CheckMove_Dir_InsideMap(new Class_Vector().v2_Isometric_DirLeft))
         {
             i_Button_Left.GetComponent<Image>().sprite = s_Sample_Nope;
         }
         else
-        if (!cl_ClientControl.Get_CheckMove_Dir_Fence(new Class_Isometric().v2_DirLeft))
+        if (!cl_ClientControl.Get_CheckMove_Dir_Fence(new Class_Vector().v2_Isometric_DirLeft))
         {
             i_Button_Left.GetComponent<Image>().sprite = s_Sample_Nope;
         }
         else
-        if (!cl_ClientControl.Get_CheckMove_Dir_Object(new Class_Isometric().v2_DirLeft))
+        if (!cl_ClientControl.Get_CheckMove_Dir_Object(new Class_Vector().v2_Isometric_DirLeft))
         {
             if (!cl_MapManager.Get_GameObject_Object(cl_ClientControl.Get_PosMoveTo_Left()).GetComponent<EG_ClientTable>().Get_Table_Get_Already())
             {
@@ -214,17 +214,17 @@ public class EG_MoveUI : MonoBehaviour
 
     private void Set_MoveUI_Right()
     {
-        if (!cl_ClientControl.Get_CheckMove_Dir_InsideMap(new Class_Isometric().v2_DirRight))
+        if (!cl_ClientControl.Get_CheckMove_Dir_InsideMap(new Class_Vector().v2_Isometric_DirRight))
         {
             i_Button_Right.GetComponent<Image>().sprite = s_Sample_Nope;
         }
         else
-        if (!cl_ClientControl.Get_CheckMove_Dir_Fence(new Class_Isometric().v2_DirRight))
+        if (!cl_ClientControl.Get_CheckMove_Dir_Fence(new Class_Vector().v2_Isometric_DirRight))
         {
             i_Button_Right.GetComponent<Image>().sprite = s_Sample_Nope;
         }
         else
-        if (!cl_ClientControl.Get_CheckMove_Dir_Object(new Class_Isometric().v2_DirRight))
+        if (!cl_ClientControl.Get_CheckMove_Dir_Object(new Class_Vector().v2_Isometric_DirRight))
         {
             if (!cl_MapManager.Get_GameObject_Object(cl_ClientControl.Get_PosMoveTo_Right()).GetComponent<EG_ClientTable>().Get_Table_Get_Already())
             {

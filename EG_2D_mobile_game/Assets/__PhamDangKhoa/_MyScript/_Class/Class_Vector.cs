@@ -11,7 +11,7 @@ public class Class_Vector
 
     }
 
-    //===1: Distance
+    #region Distance
 
     /// <summary>
     /// Receive Distance Between 2 Vector Point
@@ -69,7 +69,7 @@ public class Class_Vector
         return f_DegNeedExchance;
     }
 
-    //=== 2.2: XY
+    #region XY
 
     /// <summary>
     /// Receive Vector Point Based on Circle
@@ -104,7 +104,9 @@ public class Class_Vector
         return Vector2.Angle(v2_DirStart, v2_DirEnd);
     }
 
-    //=== 2.3: XZ
+    #endregion
+
+    #region XZ
 
     /// <summary>
     /// Receive Vector Point Based on trên Circle
@@ -158,7 +160,11 @@ public class Class_Vector
         return Get_DirToDeg_XZ(v3_DirStart, v3_DirEnd);
     }
 
-    //===3: Rotate & Transform Rotate
+    #endregion
+
+    #endregion
+
+    #region Rotate & Transform Rotate
 
     /// <summary>
     /// Receive Rotate To Add Transform Rotate
@@ -196,7 +202,38 @@ public class Class_Vector
         return v3_Rotation;
     }
 
-    //===4: Isometric (2.5D 45' Dec)
+    #endregion
+
+    #region Isometric (2.5D 45' Dec)
+
+    #region Dir
+
+    /// <summary>
+    /// Dir(-1, 0) on Isometric Square
+    /// </summary>
+    public readonly Vector2Int v2_Isometric_DirUp = new Vector2Int(-1, 0);
+
+    /// <summary>
+    /// Dir(+1, 0) on Isometric Square
+    /// </summary>
+    /// <returns></returns>
+    public readonly Vector2Int v2_Isometric_DirDown = new Vector2Int(1, 0);
+
+    /// <summary>
+    /// Dir(0, -1) on Isometric Square
+    /// </summary>
+    /// <returns></returns>
+    public readonly Vector2Int v2_Isometric_DirLeft = new Vector2Int(0, -1);
+
+    /// <summary>
+    /// Dir(0, +1) on Isometric Square
+    /// </summary>
+    /// <returns></returns>
+    public readonly Vector2Int v2_Isometric_DirRight = new Vector2Int(0, 1);
+
+    #endregion
+
+    #region Isometric Fixed Depth
 
     /// <summary>
     /// Get Fixed Depth of Ground Vector
@@ -275,6 +312,10 @@ public class Class_Vector
     //{
     //    return new Vector3(0.5f * v.x - v.y, 0.5f * v.x + v.y, v.z);
     //}
+
+    #endregion
+
+    #endregion
 
     //===5: Vector and VectorInt
 
