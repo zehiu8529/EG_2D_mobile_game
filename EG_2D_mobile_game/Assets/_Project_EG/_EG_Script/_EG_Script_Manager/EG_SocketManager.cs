@@ -8,60 +8,40 @@ public class EG_SocketManager : MonoBehaviour
     #region Public Varible
 
     /// <summary>
-    /// Tag for other Isometric Object to Find
+    /// Map Manager
     /// </summary>
-    [Header("Isometric Client Tag")]
+    [Header("Game Manager")]
     [SerializeField]
-    private string s_Client_Tag = "IsometricClient";
+    private GameObject g_MapManager;
+
+    #endregion
+
+    #region Private Varible
 
     /// <summary>
     /// Client GameObject
     /// </summary>
+    [Header("Data Get from Server")]
     [SerializeField]
     private Isometric_MoveControl cl_Client_MoveControl;
 
-    /// <summary>
-    /// Tag for other Isometric Map Manager
-    /// </summary>
-    [Header("Isometric Map Tag")]
-    [SerializeField]
-    private string s_MapManager_Tag = "IsometricMap";
-
-    /// <summary>
-    /// Map Manager
-    /// </summary>
-    [SerializeField]
-    private Isometric_MapManager cl_MapManager;
-
-    /// <summary>
-    /// Prepab Local
-    /// </summary>
-    [Header("Prefab Remote")]
-    [SerializeField]
-    private GameObject g_Local;
-
-    /// <summary>
-    /// Prefab Remote(s)
-    /// </summary>
-    [SerializeField]
-    private GameObject g_Remote;
-
-    [Header("Data Get from Server")]
     //[SerializeField]
     private List<string> l_ID;
 
     //[SerializeField]
     private List<GameObject> l_Remote;
 
-    #endregion
-
-    #region Private Varible
-
     //Class
+
+    private EG_CharacterManager cl_CharacterManager;
+
+    private EG_MoveManager cl_MoveManager;
 
     private Socket_ClientManager cl_ClientManager;
 
     private Class_Object cl_Object;
+
+    private bool b_JoinGameSend = false;
 
     //Queue Push
 
@@ -80,13 +60,9 @@ public class EG_SocketManager : MonoBehaviour
 
     private void Start()
     {
-        if (cl_MapManager == null)
-        {
-            if (s_MapManager_Tag != "")
-            {
-                cl_MapManager = GameObject.FindGameObjectWithTag(s_MapManager_Tag).GetComponent<Isometric_MapManager>();
-            }
-        }
+        cl_CharacterManager = GetComponent<EG_CharacterManager>();
+
+        cl_MoveManager = GetComponent<EG_MoveManager>();
 
         cl_ClientManager = GetComponent<Socket_ClientManager>();
 
@@ -100,18 +76,15 @@ public class EG_SocketManager : MonoBehaviour
     {
         if (cl_ClientManager.Get_Socket_Start())
         {
-            Set_Auto_GameControl();
-
-            if (cl_Client_MoveControl == null)
+            if (cl_ClientManager.Get_SocketThread_Read())
             {
-                if (s_Client_Tag != "")
+                if (!b_JoinGameSend)
                 {
-                    GameObject g_FindGameObject = GameObject.FindGameObjectWithTag(s_Client_Tag);
-
-                    if (g_FindGameObject != null)
-                    {
-                        cl_Client_MoveControl = g_FindGameObject.GetComponent<Isometric_MoveControl>();
-                    }
+                    Set_SendData_JoinGame();
+                }
+                else
+                {
+                    Set_Auto_GameControl();
                 }
             }
         }
@@ -119,7 +92,7 @@ public class EG_SocketManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Set_Auto_FixPos();
+        //Set_Auto_FixPos();
     }
 
     /// <summary>
@@ -166,6 +139,7 @@ public class EG_SocketManager : MonoBehaviour
         int i_x = int.Parse(l_DataGet[2]);
         int i_y = int.Parse(l_DataGet[3]);
         int i_Face = int.Parse(l_DataGet[4]);
+        int i_Character = int.Parse(l_DataGet[5]);
 
         if (s_ID == cl_ClientManager.Get_DeviceID())
         //If ID get Equa this Device ID
@@ -173,11 +147,15 @@ public class EG_SocketManager : MonoBehaviour
             if (!Get_Exist_ID(s_ID))
             //If not Exist this Device on List >> Create Remote of this Device
             {
-                GameObject g_NewRemote = cl_Object.Set_Prepab_Create(g_Local, this.transform);
+                GameObject g_NewRemote = cl_Object.Set_Prepab_Create(cl_CharacterManager.Get_Prefab_Client(i_Character), this.transform);
                 g_NewRemote.GetComponent<Isometric_Single>().Set_Isometric_PosOnMap(i_x, i_y);
                 g_NewRemote.GetComponent<Isometric_MoveControl>().Set_FaceRight(i_Face);
                 l_ID.Add(s_ID);
                 l_Remote.Add(g_NewRemote);
+                cl_Client_MoveControl = g_NewRemote.GetComponent<Isometric_MoveControl>();
+                cl_MoveManager.Set_ClientRemoteControl(cl_Client_MoveControl);
+
+                //Set_SendData_PosStandOn();
             }
         }
         else
@@ -186,11 +164,13 @@ public class EG_SocketManager : MonoBehaviour
             if (!Get_Exist_ID(s_ID))
             //If not Exist this Device on List >> Create Remote
             {
-                GameObject g_NewRemote = cl_Object.Set_Prepab_Create(g_Remote, this.transform);
+                GameObject g_NewRemote = cl_Object.Set_Prepab_Create(cl_CharacterManager.Get_Prefab_Remote(i_Character), this.transform);
                 g_NewRemote.GetComponent<Isometric_Single>().Set_Isometric_PosOnMap(i_x, i_y);
                 g_NewRemote.GetComponent<Isometric_MoveControl>().Set_FaceRight(i_Face);
                 l_ID.Add(s_ID);
                 l_Remote.Add(g_NewRemote);
+
+                Set_SendData_PosStandOn();
             }
             else
             //If Exist this Device on List >> Control Remote
@@ -219,7 +199,7 @@ public class EG_SocketManager : MonoBehaviour
         int i_x = int.Parse(l_DataGet[1]);
         int i_y = int.Parse(l_DataGet[2]);
 
-        cl_MapManager.Get_GameObject_Object(new Vector2Int(i_x, i_y)).GetComponent<EG_ClientTable>().Set_Table_Get_Aldready();
+        g_MapManager.GetComponent<Isometric_MapManager>().Get_GameObject_Object(new Vector2Int(i_x, i_y)).GetComponent<EG_ClientTable>().Set_Table_Get_Aldready();
     }
 
     #endregion
@@ -247,34 +227,71 @@ public class EG_SocketManager : MonoBehaviour
                 {
                     Set_Reset_QueuePos();
 
-                    List<string> l_Data = new List<string>();
-                    //0
-                    l_Data.Add(s_Command_Pos);
-                    //1
-                    l_Data.Add(cl_ClientManager.Get_DeviceID());
-                    //2
-                    l_Data.Add(cl_Client_MoveControl.Get_PosStandOn().x.ToString());
-                    //3
-                    l_Data.Add(cl_Client_MoveControl.Get_PosStandOn().y.ToString());
-                    //4
-                    l_Data.Add(cl_Client_MoveControl.Get_FaceRight_Int().ToString());
-
-                    Class_String cl_String = new Class_String();
-
-                    string s_Data = cl_String.Get_StringData_Encypt(l_Data, ':');
-
-                    cl_ClientManager.Set_Socket_Write(s_Data);
+                    Set_SendData_PosStandOn();
                 }
             }
         }
     }
 
+    private void Set_SendData_PosStandOn()
+    {
+        List<string> l_Data = new List<string>();
+        //0
+        l_Data.Add(s_Command_Pos);
+        //1
+        l_Data.Add(cl_ClientManager.Get_DeviceID());
+        //2
+        l_Data.Add(cl_Client_MoveControl.Get_PosStandOn().x.ToString());
+        //3
+        l_Data.Add(cl_Client_MoveControl.Get_PosStandOn().y.ToString());
+        //4
+        l_Data.Add(cl_Client_MoveControl.Get_FaceRight_Int().ToString());
+        //5
+        l_Data.Add(cl_CharacterManager.Get_ClientCharacterChoice().ToString());
+
+        Class_String cl_String = new Class_String();
+
+        string s_Data = cl_String.Get_StringData_Encypt(l_Data, ':');
+
+        cl_ClientManager.Set_Socket_Write(s_Data);
+    }
+
     /// <summary>
     /// Auto Reset Pos Fixed
     /// </summary>
-    public void Set_Reset_QueuePos()
+    private void Set_Reset_QueuePos()
     {
         this.i_QueuePos_Cur = this.i_QueuePos;
+    }
+
+    //Button Join Game
+
+    /// <summary>
+    /// Button Join After Socket Start
+    /// </summary>
+    public void Set_SendData_JoinGame()
+    {
+        Vector2Int v2_Spawm = g_MapManager.GetComponent<Isometric_MapString>().Get_List_SpawmPoint()[0];
+
+        List<string> l_Data = new List<string>();
+        //0
+        l_Data.Add(s_Command_Pos);
+        //1
+        l_Data.Add(cl_ClientManager.Get_DeviceID());
+        //2
+        l_Data.Add(v2_Spawm.x.ToString());
+        //3
+        l_Data.Add(v2_Spawm.y.ToString());
+        //4
+        l_Data.Add(1.ToString());
+        //5
+        l_Data.Add(cl_CharacterManager.Get_ClientCharacterChoice().ToString());
+
+        string s_Data = new Class_String().Get_StringData_Encypt(l_Data, ':');
+
+        cl_ClientManager.Set_Socket_Write(s_Data);
+
+        b_JoinGameSend = true;
     }
 
     #endregion

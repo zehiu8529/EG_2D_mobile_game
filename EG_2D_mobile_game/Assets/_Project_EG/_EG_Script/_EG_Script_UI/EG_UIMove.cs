@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EG_MoveUI : MonoBehaviour
+public class EG_UIMove : MonoBehaviour
 {
     #region Public Varible
 

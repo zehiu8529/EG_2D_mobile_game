@@ -526,6 +526,44 @@ public class Isometric_MoveControl : MonoBehaviour
         return v2_PosStandOn + new Class_Vector().v2_Isometric_DirRight;
     }
 
+    //Get Face
+
+    /// <summary>
+    /// Get Face if Move Up
+    /// </summary>
+    /// <returns></returns>
+    public int Get_FaceRight_Up()
+    {
+        return -1;
+    }
+
+    /// <summary>
+    /// Get Face if Move Down
+    /// </summary>
+    /// <returns></returns>
+    public int Get_FaceRight_Down()
+    {
+        return 1;
+    }
+
+    /// <summary>
+    /// Get Face if Move Left
+    /// </summary>
+    /// <returns></returns>
+    public int Get_FaceRight_Left()
+    {
+        return -1;
+    }
+
+    /// <summary>
+    /// Get Face if Move Right
+    /// </summary>
+    /// <returns></returns>
+    public int Get_FaceRight_Right()
+    {
+        return 1;
+    }
+
     #endregion
 
     #region Auto Control Methode

@@ -3,23 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EG_CanvasManager : MonoBehaviour
+public class EG_UIBag : MonoBehaviour
 {
     #region Public Varible
-
-    /// <summary>
-    /// Game Canvas after Socket Canvas
-    /// </summary>
-    [Header("Game Canvas")]
-    [SerializeField]
-    private GameObject g_GameCanvas;
-
-    /// <summary>
-    /// Socket Canvas before Player Canvas
-    /// </summary>
-    [Header("Socket Canvas")]
-    [SerializeField]
-    private GameObject g_SocketCanvas;
 
     /// <summary>
     /// Animator of Bag Pannel (On/Off)
@@ -48,16 +34,10 @@ public class EG_CanvasManager : MonoBehaviour
 
     #endregion
 
-    private void Start()
-    {
-        g_GameCanvas.SetActive(false);
-        g_SocketCanvas.SetActive(true);
-    }
-
     /// <summary>
     /// Bag Pannel
     /// </summary>
-    public void Button_BagPannel()
+    public void Button_BagActive()
     {
         if (!b_BagPannel_Show)
         {
@@ -72,12 +52,4 @@ public class EG_CanvasManager : MonoBehaviour
         b_BagPannel_Show = !b_BagPannel_Show;
     }
 
-    /// <summary>
-    /// Socket Pannel
-    /// </summary>
-    public void Button_SocketCanvas()
-    {
-        g_GameCanvas.SetActive(true);
-        g_SocketCanvas.SetActive(false);
-    }
 }

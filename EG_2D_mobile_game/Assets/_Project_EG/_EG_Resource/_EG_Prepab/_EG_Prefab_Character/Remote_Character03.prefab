@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1411080477080462056
+--- !u!1 &8893165134942967109
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,43 +8,40 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1411080477080462065}
-  - component: {fileID: 1411080477080462064}
-  - component: {fileID: 1411080477080462067}
-  - component: {fileID: 1411080477080462066}
-  - component: {fileID: 1411080477080462061}
-  - component: {fileID: 1411080477080462060}
-  - component: {fileID: 1411080477080462063}
-  - component: {fileID: 1411080477080462062}
-  - component: {fileID: 1411080477080462057}
+  - component: {fileID: 2726770322163767647}
+  - component: {fileID: 1807578524034822477}
+  - component: {fileID: 3064979735846086203}
+  - component: {fileID: 1817881432148623860}
+  - component: {fileID: 246709113450402633}
+  - component: {fileID: 7254209784986483933}
   m_Layer: 0
-  m_Name: Client_Male
-  m_TagString: IsometricClient
+  m_Name: Remote_Character03
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1411080477080462065
+--- !u!4 &2726770322163767647
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1411080477080462056}
+  m_GameObject: {fileID: 8893165134942967109}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3, y: 0.79999995, z: -9.9}
+  m_LocalPosition: {x: 3, y: -0.20000005, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &1411080477080462064
+--- !u!212 &1807578524034822477
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1411080477080462056}
+  m_GameObject: {fileID: 8893165134942967109}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -77,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 6999428276671377270, guid: 126bf303fcfcab944842cc39724332fd,
+  m_Sprite: {fileID: -3967758977740659677, guid: e6b4b2550564fb445831e3aff37d75b2,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -89,17 +86,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &1411080477080462067
+--- !u!95 &3064979735846086203
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1411080477080462056}
+  m_GameObject: {fileID: 8893165134942967109}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: b6c259664f4b6fa408b60221936c4574, type: 2}
+  m_Controller: {fileID: 9100000, guid: 26007120385d8124cafbc64d2df71967, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -108,13 +105,13 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1411080477080462066
+--- !u!114 &1817881432148623860
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1411080477080462056}
+  m_GameObject: {fileID: 8893165134942967109}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 88b51ca1839d85a47a182808b3636847, type: 3}
@@ -122,20 +119,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   s_Tag: IsometricMap
   g_MapManager: {fileID: 0}
-  v2_PosOnMap: {x: 0, y: 0}
+  v2_PosOnMap: {x: 3, y: 0}
   v2_OffsetOnMap: {x: 0, y: 0}
   v2_CentreOnSquare: {x: 0, y: 0}
   b_isObject: 1
   f_Centre: 1.3
-  f_Depth: 0.1
+  f_Depth: 0
   c_SingleCode: 65
---- !u!114 &1411080477080462061
+--- !u!114 &246709113450402633
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1411080477080462056}
+  m_GameObject: {fileID: 8893165134942967109}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ee72e565ef2753b4ba9fc8a5036d0246, type: 3}
@@ -153,13 +150,13 @@ MonoBehaviour:
   f_MovePercent: 0.5
   v2_PosMoveTo: {x: 0, y: 0}
   v2_PosStandOn: {x: 0, y: 0}
---- !u!114 &1411080477080462060
+--- !u!114 &7254209784986483933
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1411080477080462056}
+  m_GameObject: {fileID: 8893165134942967109}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 99667e86c1653a44b9880abacf1ebf61, type: 3}
@@ -167,54 +164,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   s_Boolean_Move: Move
   b_FaceRight: 1
---- !u!114 &1411080477080462063
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1411080477080462056}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54c88592566a22c408d19d2662c57364, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  s_Tag: IsometricMap
-  g_MapManager: {fileID: 0}
-  l_Ground: []
---- !u!114 &1411080477080462062
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1411080477080462056}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4de90af20c1ec79419d0bc8cb0a0c0f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  s_Tag: IsometricMap
-  g_MapManager: {fileID: 0}
-  l_ObjectCheck:
-  - {fileID: 4460797128710157806, guid: 9149e6bc29cce9a428402b6b24a8bdef, type: 3}
-  - {fileID: 3385430312957717841, guid: af6aa17eeb942214284dfa92ed659d4b, type: 3}
-  - {fileID: 5916381484402601358, guid: d6ffefe3b364e7e4b9426098a4c40bb0, type: 3}
-  - {fileID: 7527980856908120249, guid: 7117cd78db18ca245aff64d401e13664, type: 3}
-  - {fileID: 5786968988204015352, guid: fbda9acae48b03f4798676433c741742, type: 3}
-  - {fileID: 1555752416678142943, guid: 41928973c3c920444beb724913a184d8, type: 3}
-  - {fileID: 2568581412078353803, guid: 8847a9b664a31484fa3bbcac9b60345d, type: 3}
---- !u!114 &1411080477080462057
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1411080477080462056}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5ff57a67062b3c4d9b7a798270e490c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  s_Tag: IsometricMap
-  g_MapManager: {fileID: 0}

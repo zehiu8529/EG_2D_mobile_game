@@ -73,6 +73,16 @@ public class Socket_ClientManager : MonoBehaviour
     [SerializeField]
     private bool b_AutoRead = true;
 
+    [Header("Socket Message")]
+    [SerializeField]
+    private List<Text> lt_SocketMessage;
+
+    [SerializeField]
+    private string s_ConnectSuccess = "Connect Success!";
+
+    [SerializeField]
+    private string s_ConnectFailed = "Connect Failed!";
+
     #endregion
 
     #region Private Varible
@@ -284,10 +294,21 @@ public class Socket_ClientManager : MonoBehaviour
                 b_SocketStart = true;
 
                 Debug.LogWarning("Set_Socket_Start: Socket Start!");
+
+                for (int i = 0; i < lt_SocketMessage.Count; i++) 
+                {
+                    lt_SocketMessage[i].text = s_ConnectSuccess;
+                }
+                
             }
             catch (Exception e)
             {
                 Debug.LogError("Set_Socket_Start: Socket error '" + e + "'");
+
+                for (int i = 0; i < lt_SocketMessage.Count; i++)
+                {
+                    lt_SocketMessage[i].text = s_ConnectFailed;
+                }
             }
         }
     }
