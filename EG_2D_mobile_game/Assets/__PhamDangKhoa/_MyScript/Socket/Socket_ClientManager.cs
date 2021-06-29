@@ -73,6 +73,16 @@ public class Socket_ClientManager : MonoBehaviour
     [SerializeField]
     private bool b_AutoRead = true;
 
+    [Header("Socket Message")]
+    [SerializeField]
+    private List<Text> lt_SocketMessage;
+
+    [SerializeField]
+    private string s_ConnectSuccess = "Connect Success!";
+
+    [SerializeField]
+    private string s_ConnectFailed = "Connect Failed!";
+
     #endregion
 
     #region Private Varible
@@ -87,7 +97,12 @@ public class Socket_ClientManager : MonoBehaviour
     /// <summary>
     /// Socket Connect OK?
     /// </summary>
-    internal bool b_SocketStart = false;
+    private bool b_SocketStart = false;
+
+    /// <summary>
+    /// Socket Auto Thread Read?
+    /// </summary>
+    private bool b_SocketRead = false;
 
     private TcpClient tcp_Socket;
     private NetworkStream net_Stream;
@@ -112,7 +127,7 @@ public class Socket_ClientManager : MonoBehaviour
         }
         if (inp_Host != null)
         {
-            if(inp_Host.text == "")
+            if (inp_Host.text == "")
             {
                 inp_Host.text = s_HostConnect;
             }
@@ -139,21 +154,11 @@ public class Socket_ClientManager : MonoBehaviour
 
         if (b_AutoRead)
         {
-            th_GetData = new Thread(Set_Thread_AutoRead);
-            th_GetData.Start();
+            Set_SocketThread_Read(true);
         }
-    }
 
-    private void Update()
-    {
-        //if(Application.platform == RuntimePlatform.Android)
-        //{
-        //    if(Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Menu))
-        //    {
-        //        Set_CloseApplication();
-        //        Application.Quit();
-        //    }
-        //}
+        th_GetData = new Thread(Set_SocketThread_AutoRead);
+        th_GetData.Start();
     }
 
     private void OnDestroy()
@@ -181,7 +186,7 @@ public class Socket_ClientManager : MonoBehaviour
 
     private void Set_CloseApplication()
     {
-        if(th_GetData != null)
+        if (th_GetData != null)
         {
             if (th_GetData.IsAlive)
             {
@@ -192,24 +197,51 @@ public class Socket_ClientManager : MonoBehaviour
         Set_Socket_Close();
     }
 
+    #region Thread Read Data
+
     /// <summary>
     /// Auto Read Data for Debug
     /// </summary>
-    private void Set_Thread_AutoRead()
+    private void Set_SocketThread_AutoRead()
     {
         while (true)
         {
             if (b_SocketStart)
+            //If Socket Started
             {
-                string s_DataGet = Get_Socket_Read();
-                if (s_DataGet != "")
+                if (b_SocketRead)
+                //If Socket Read
                 {
-                    Debug.Log("Set_Thread_AutoRead: " + s_DataGet);
-                    l_DataQueue.Add(s_DataGet);
+                    string s_DataGet = Get_SocketData_Read();
+                    if (s_DataGet != "")
+                    {
+                        //Debug.Log("Set_Thread_AutoRead: " + s_DataGet);
+                        l_DataQueue.Add(s_DataGet);
+                    }
                 }
             }
         }
     }
+
+    /// <summary>
+    /// Set Socket Read by Thread
+    /// </summary>
+    /// <param name="b_SocketRead"></param>
+    public void Set_SocketThread_Read(bool b_SocketRead)
+    {
+        this.b_SocketRead = b_SocketRead;
+    }
+
+    /// <summary>
+    /// Get Socket Read by Thread
+    /// </summary>
+    /// <returns></returns>
+    public bool Get_SocketThread_Read()
+    {
+        return b_SocketRead;
+    }
+
+    #endregion
 
     #region Start Connect to Server
 
@@ -262,10 +294,21 @@ public class Socket_ClientManager : MonoBehaviour
                 b_SocketStart = true;
 
                 Debug.LogWarning("Set_Socket_Start: Socket Start!");
+
+                for (int i = 0; i < lt_SocketMessage.Count; i++) 
+                {
+                    lt_SocketMessage[i].text = s_ConnectSuccess;
+                }
+                
             }
             catch (Exception e)
             {
                 Debug.LogError("Set_Socket_Start: Socket error '" + e + "'");
+
+                for (int i = 0; i < lt_SocketMessage.Count; i++)
+                {
+                    lt_SocketMessage[i].text = s_ConnectFailed;
+                }
             }
         }
     }
@@ -311,7 +354,7 @@ public class Socket_ClientManager : MonoBehaviour
     /// Should use this in 'void FixedUpdate()' or use with 'Thread'
     /// </remarks>
     /// <returns></returns>
-    public string Get_Socket_Read()
+    private string Get_SocketData_Read()
     {
         if (!Get_Socket_Start())
         {

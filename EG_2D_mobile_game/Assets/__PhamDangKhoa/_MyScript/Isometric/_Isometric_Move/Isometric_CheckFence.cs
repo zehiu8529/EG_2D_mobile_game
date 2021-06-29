@@ -54,7 +54,7 @@ public class Isometric_CheckFence : MonoBehaviour
     /// <returns>If FALSE >> No FENCE EXIST</returns>
     public bool Get_Check_Fence_Ahead(Vector2Int v2_Pos, Vector2Int v2_Dir)
     {
-        if (v2_Dir == new Class_Isometric().v2_DirUp)
+        if (v2_Dir == new Class_Vector().v2_Isometric_DirUp)
         //If Move Dir Up
         {
             if (
@@ -65,7 +65,7 @@ public class Isometric_CheckFence : MonoBehaviour
             }
         }
         else
-        if (v2_Dir == new Class_Isometric().v2_DirDown)
+        if (v2_Dir == new Class_Vector().v2_Isometric_DirDown)
         //If Move Dir Down
         {
             if (
@@ -76,7 +76,7 @@ public class Isometric_CheckFence : MonoBehaviour
             }
         }
         else
-        if (v2_Dir == new Class_Isometric().v2_DirLeft)
+        if (v2_Dir == new Class_Vector().v2_Isometric_DirLeft)
         //If Move Dir Left
         {
             if (
@@ -87,7 +87,7 @@ public class Isometric_CheckFence : MonoBehaviour
             }
         }
         else
-        if (v2_Dir == new Class_Isometric().v2_DirRight) 
+        if (v2_Dir == new Class_Vector().v2_Isometric_DirRight) 
         //If Move Dir Right
         {
             if(
