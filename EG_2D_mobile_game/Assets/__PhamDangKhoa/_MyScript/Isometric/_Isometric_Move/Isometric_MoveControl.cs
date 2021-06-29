@@ -457,7 +457,7 @@ public class Isometric_MoveControl : MonoBehaviour
     /// </summary>
     public void Set_PosMoveTo_Up()
     {
-        Set_PosMoveTo_Dir(new Class_Isometric().v2_DirUp);
+        Set_PosMoveTo_Dir(new Class_Vector().v2_Isometric_DirUp);
         i_FaceRight = -1;
     }
 
@@ -466,7 +466,7 @@ public class Isometric_MoveControl : MonoBehaviour
     /// </summary>
     public void Set_PosMoveTo_Down()
     {
-        Set_PosMoveTo_Dir(new Class_Isometric().v2_DirDown);
+        Set_PosMoveTo_Dir(new Class_Vector().v2_Isometric_DirDown);
         i_FaceRight = 1;
     }
 
@@ -475,7 +475,7 @@ public class Isometric_MoveControl : MonoBehaviour
     /// </summary>
     public void Set_PosMoveTo_Left()
     {
-        Set_PosMoveTo_Dir(new Class_Isometric().v2_DirLeft);
+        Set_PosMoveTo_Dir(new Class_Vector().v2_Isometric_DirLeft);
         i_FaceRight = -1;
     }
 
@@ -484,7 +484,7 @@ public class Isometric_MoveControl : MonoBehaviour
     /// </summary>
     public void Set_PosMoveTo_Right()
     {
-        Set_PosMoveTo_Dir(new Class_Isometric().v2_DirRight);
+        Set_PosMoveTo_Dir(new Class_Vector().v2_Isometric_DirRight);
         i_FaceRight = 1;
     }
 
@@ -496,7 +496,7 @@ public class Isometric_MoveControl : MonoBehaviour
     /// <returns></returns>
     public Vector2Int Get_PosMoveTo_Up()
     {
-        return v2_PosStandOn + new Class_Isometric().v2_DirUp;
+        return v2_PosStandOn + new Class_Vector().v2_Isometric_DirUp;
     }
 
     /// <summary>
@@ -505,7 +505,7 @@ public class Isometric_MoveControl : MonoBehaviour
     /// <returns></returns>
     public Vector2Int Get_PosMoveTo_Down()
     {
-        return v2_PosStandOn + new Class_Isometric().v2_DirDown;
+        return v2_PosStandOn + new Class_Vector().v2_Isometric_DirDown;
     }
 
     /// <summary>
@@ -514,7 +514,7 @@ public class Isometric_MoveControl : MonoBehaviour
     /// <returns></returns>
     public Vector2Int Get_PosMoveTo_Left()
     {
-        return v2_PosStandOn + new Class_Isometric().v2_DirLeft;
+        return v2_PosStandOn + new Class_Vector().v2_Isometric_DirLeft;
     }
 
     /// <summary>
@@ -523,7 +523,45 @@ public class Isometric_MoveControl : MonoBehaviour
     /// <returns></returns>
     public Vector2Int Get_PosMoveTo_Right()
     {
-        return v2_PosStandOn + new Class_Isometric().v2_DirRight;
+        return v2_PosStandOn + new Class_Vector().v2_Isometric_DirRight;
+    }
+
+    //Get Face
+
+    /// <summary>
+    /// Get Face if Move Up
+    /// </summary>
+    /// <returns></returns>
+    public int Get_FaceRight_Up()
+    {
+        return -1;
+    }
+
+    /// <summary>
+    /// Get Face if Move Down
+    /// </summary>
+    /// <returns></returns>
+    public int Get_FaceRight_Down()
+    {
+        return 1;
+    }
+
+    /// <summary>
+    /// Get Face if Move Left
+    /// </summary>
+    /// <returns></returns>
+    public int Get_FaceRight_Left()
+    {
+        return -1;
+    }
+
+    /// <summary>
+    /// Get Face if Move Right
+    /// </summary>
+    /// <returns></returns>
+    public int Get_FaceRight_Right()
+    {
+        return 1;
     }
 
     #endregion
