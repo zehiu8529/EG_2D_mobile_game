@@ -1,5 +1,7 @@
-﻿using TMPro;
+﻿using System.Collections;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TextTimer : MonoBehaviour
 {
@@ -8,10 +10,12 @@ public class TextTimer : MonoBehaviour
     [SerializeField] private char characterSpliter = ':';
 
     [Header("Logic")]
-    private float timer;
+    float timer;
     private bool isActive;
+    //[SerializeField] float starttimer = 0f ;
 
     public GameObject Lose;
+    //public Slider slider;
 
     public void Update()
     {
@@ -23,12 +27,12 @@ public class TextTimer : MonoBehaviour
     }
     private void UpdateText()
     {
-
         // Get the amount time since start
-        float seconds = (timer % 60);
-        float minutes = ((int)(timer / 60) % 60);
-        float hours = (int)(timer / 3600);
-        text.text = hours.ToString("00") + characterSpliter + minutes.ToString("00") + characterSpliter + seconds.ToString("00");
+        int seconds = (int)timer % 60;
+        int minutes = ((int)(timer / 60) % 60);
+      //  int hours = (int)(timer / 3600);
+      
+        text.text = /*hours.ToString("00") + characterSpliter + */  minutes.ToString("00") + characterSpliter + seconds.ToString("00");
         Debug.Log((int)timer);
         if ((int)timer <= 0 )
         {
@@ -38,16 +42,37 @@ public class TextTimer : MonoBehaviour
     }
 
   
-    public void StartTimer()
-    {
-        StartTimer(0);
-    }
+    //public void StartTimer()
+    //{
+    //    StartTimer(0);
+    //}
+
     public void StartTimer(float seconds)
     {
+        //StartCoroutine(LoandTimer());
         isActive = true;
         timer = seconds;
         UpdateText();
     }
+
+
+    //public IEnumerator LoandTimer ()
+    //{
+        
+    //    timer = starttimer ;
+    //    do
+    //    {
+    //        timer -= Time.deltaTime;
+    //        slider.value = timer / starttimer;
+    //        UpdateText();
+    //        yield return null;
+    //    }
+    //    while (timer > 0);
+    //}    
+  
+
+
+
 
 
     //public void AddTime(float seconds)
