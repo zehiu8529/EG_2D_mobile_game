@@ -116,11 +116,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   s_Tag: IsometricMap
-  cl_Map: {fileID: 0}
+  g_MapManager: {fileID: 0}
   v2_Pos: {x: 0, y: 0}
+  i_Floor: 0
   v2_Offset: {x: 0, y: 0}
+  v2_Centre: {x: 0, y: 0}
   b_isObject: 1
-  f_Centre: 1
+  f_Centre: 0
   f_Depth: 0
   c_SingleCode: 55
 --- !u!114 &7808453681984286413

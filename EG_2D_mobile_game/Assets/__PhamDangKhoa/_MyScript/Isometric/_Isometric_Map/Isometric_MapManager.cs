@@ -993,7 +993,7 @@ public class Isometric_MapManager : MonoBehaviour
 
         GameObject g_GameObject = cl_Object.Set_Prepab_Create(g_Prefab, transform);
 
-        g_GameObject.GetComponent<Isometric_Single>().Set_Isometric_PosOnMap(v2_Pos);
+        g_GameObject.GetComponent<Isometric_Single>().Set_Isometric(v2_Pos);
         g_GameObject.GetComponent<Isometric_Single>().Set_Isometric_OffsetOnMap(v2_Offset);
         g_GameObject.GetComponent<Isometric_Single>().Set_isObject(b_isObject);
         g_GameObject.SetActive(true);

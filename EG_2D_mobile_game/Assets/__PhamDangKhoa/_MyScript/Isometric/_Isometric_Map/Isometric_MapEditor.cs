@@ -278,7 +278,7 @@ public class Isometric_MapEditor : MonoBehaviour
 
             if (cl_MapManager_MapManager.Get_Check_InsideMap(cl_Vector.Get_VectorInt(v2_Current), new Class_Vector().v2_Isometric_DirUp))
             {
-                cl_Single.Set_Isometric_PosOnMap(new Vector2(v2_Current.x - 1, v2_Current.y));
+                cl_Single.Set_Isometric(new Vector2(v2_Current.x - 1, v2_Current.y));
             }
         }
 
@@ -288,7 +288,7 @@ public class Isometric_MapEditor : MonoBehaviour
 
             if (cl_MapManager_MapManager.Get_Check_InsideMap(cl_Vector.Get_VectorInt(v2_Current), new Class_Vector().v2_Isometric_DirDown))
             {
-                cl_Single.Set_Isometric_PosOnMap(new Vector2(v2_Current.x + 1, v2_Current.y));
+                cl_Single.Set_Isometric(new Vector2(v2_Current.x + 1, v2_Current.y));
             }
         }
 
@@ -298,7 +298,7 @@ public class Isometric_MapEditor : MonoBehaviour
 
             if (cl_MapManager_MapManager.Get_Check_InsideMap(cl_Vector.Get_VectorInt(v2_Current), new Class_Vector().v2_Isometric_DirLeft))
             {
-                cl_Single.Set_Isometric_PosOnMap(new Vector2(v2_Current.x, v2_Current.y - 1));
+                cl_Single.Set_Isometric(new Vector2(v2_Current.x, v2_Current.y - 1));
             }
         }
 
@@ -308,7 +308,7 @@ public class Isometric_MapEditor : MonoBehaviour
 
             if (cl_MapManager_MapManager.Get_Check_InsideMap(cl_Vector.Get_VectorInt(v2_Current), new Class_Vector().v2_Isometric_DirRight))
             {
-                cl_Single.Set_Isometric_PosOnMap(new Vector2(v2_Current.x, v2_Current.y + 1));
+                cl_Single.Set_Isometric(new Vector2(v2_Current.x, v2_Current.y + 1));
             }
         }
 
@@ -626,7 +626,7 @@ public class Isometric_MapEditor : MonoBehaviour
     /// </summary>
     public void Set_MapGenerate_NewMap()
     {
-        cl_Single.Set_Isometric_PosOnMap(new Vector2(0, 0));
+        cl_Single.Set_Isometric(new Vector2(0, 0));
 
         Set_Debug_SpawmPoint_Remove();
         cl_MapManager_MapManager.Set_Map_Remove();
@@ -785,7 +785,7 @@ public class Isometric_MapEditor : MonoBehaviour
     {
         GameObject g_SpawmPoint = cl_Object.Set_Prepab_Create(this.g_SpawmPoint, g_MapManager.transform);
 
-        g_SpawmPoint.GetComponent<Isometric_Single>().Set_Isometric_PosOnMap(v2_Pos);
+        g_SpawmPoint.GetComponent<Isometric_Single>().Set_Isometric(v2_Pos);
         g_SpawmPoint.GetComponent<Isometric_Single>().Set_Isometric_OffsetOnMap(cl_MapManager_MapManager.Get_Offset());
         g_SpawmPoint.GetComponent<Isometric_Single>().Set_isObject(true);
         g_SpawmPoint.SetActive(true);

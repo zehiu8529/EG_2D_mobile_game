@@ -48,7 +48,7 @@ public class Isometric_MapString : MonoBehaviour
     /// </remarks>
     [Header("Special Map Code")]
     [SerializeField]
-    private string s_MapCode_Fence_Up = "";
+    private string s_MapCode_Fence_U = "";
 
     /// <summary>
     /// Isometric GameObject Code that BETWEEN 2 isometric Grounds Code  with side DOWN
@@ -57,7 +57,7 @@ public class Isometric_MapString : MonoBehaviour
     /// Isomtric Object(s) BETWEEN 2 Isomtric Grounds with side DOWN
     /// </remarks>
     [SerializeField]
-    private string s_MapCode_Fence_Down = "";
+    private string s_MapCode_Fence_D = "";
 
     /// <summary>
     /// Isometric GameObject Code that BETWEEN 2 isometric Grounds Code  with side LEFT
@@ -66,7 +66,7 @@ public class Isometric_MapString : MonoBehaviour
     /// Isomtric Object(s) BETWEEN 2 Isomtric Grounds with side LEFT
     /// </remarks>
     [SerializeField]
-    private string s_MapCode_Fence_Left = "";
+    private string s_MapCode_Fence_L = "";
 
     /// <summary>
     /// Isometric GameObject Code that BETWEEN 2 isometric Grounds Code  with side RIGHT
@@ -75,7 +75,7 @@ public class Isometric_MapString : MonoBehaviour
     /// Isomtric Object(s) BETWEEN 2 Isomtric Grounds with side RIGHT
     /// </remarks>
     [SerializeField]
-    private string s_MapCode_Fence_Right = "";
+    private string s_MapCode_Fence_R = "";
 
     /// <summary>
     /// Isomtric Map X Length Dir UP and DOWN and Y Lenght Dir LEFT and RIGHT
@@ -130,10 +130,10 @@ public class Isometric_MapString : MonoBehaviour
     {
         s_MapCode_Ground = "";
         s_MapCode_Object = "";
-        s_MapCode_Fence_Up = "";
-        s_MapCode_Fence_Down = "";
-        s_MapCode_Fence_Left = "";
-        s_MapCode_Fence_Right = "";
+        s_MapCode_Fence_U = "";
+        s_MapCode_Fence_D = "";
+        s_MapCode_Fence_L = "";
+        s_MapCode_Fence_R = "";
         l_SpawmPoint = new List<Vector2Int>();
     }
 
@@ -191,7 +191,7 @@ public class Isometric_MapString : MonoBehaviour
     /// <param name="s_MapGroundCode"></param>
     public void Set_MapCode_Fence_Up(string s_MapFenceUpCode)
     {
-        this.s_MapCode_Fence_Up = s_MapFenceUpCode;
+        this.s_MapCode_Fence_U = s_MapFenceUpCode;
     }
 
     /// <summary>
@@ -200,7 +200,7 @@ public class Isometric_MapString : MonoBehaviour
     /// <returns></returns>
     public string Get_MapCode_Fence_Up()
     {
-        return s_MapCode_Fence_Up;
+        return s_MapCode_Fence_U;
     }
 
     #endregion
@@ -213,7 +213,7 @@ public class Isometric_MapString : MonoBehaviour
     /// <param name="s_MapGroundCode"></param>
     public void Set_MapCode_Fence_Down(string s_MapFenceDownCode)
     {
-        this.s_MapCode_Fence_Down = s_MapFenceDownCode;
+        this.s_MapCode_Fence_D = s_MapFenceDownCode;
     }
 
     /// <summary>
@@ -222,7 +222,7 @@ public class Isometric_MapString : MonoBehaviour
     /// <returns></returns>
     public string Get_MapCode_Fence_Down()
     {
-        return s_MapCode_Fence_Down;
+        return s_MapCode_Fence_D;
     }
 
     #endregion
@@ -235,7 +235,7 @@ public class Isometric_MapString : MonoBehaviour
     /// <param name="s_MapGroundCode"></param>
     public void Set_MapCode_Fence_Left(string s_MapFenceLeftCode)
     {
-        this.s_MapCode_Fence_Left = s_MapFenceLeftCode;
+        this.s_MapCode_Fence_L = s_MapFenceLeftCode;
     }
 
     /// <summary>
@@ -244,7 +244,7 @@ public class Isometric_MapString : MonoBehaviour
     /// <returns></returns>
     public string Get_MapCode_Fence_Left()
     {
-        return s_MapCode_Fence_Left;
+        return s_MapCode_Fence_L;
     }
 
     #endregion
@@ -257,7 +257,7 @@ public class Isometric_MapString : MonoBehaviour
     /// <param name="s_MapGroundCode"></param>
     public void Set_MapCode_Fence_Right(string s_MapFenceRightCode)
     {
-        this.s_MapCode_Fence_Right = s_MapFenceRightCode;
+        this.s_MapCode_Fence_R = s_MapFenceRightCode;
     }
 
     /// <summary>
@@ -266,7 +266,7 @@ public class Isometric_MapString : MonoBehaviour
     /// <returns></returns>
     public string Get_MapCode_Fence_Right()
     {
-        return s_MapCode_Fence_Right;
+        return s_MapCode_Fence_R;
     }
 
     #endregion

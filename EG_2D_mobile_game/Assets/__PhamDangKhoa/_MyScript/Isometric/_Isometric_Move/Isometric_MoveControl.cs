@@ -167,7 +167,7 @@ public class Isometric_MoveControl : MonoBehaviour
 
         v2_PosMoveTo = new Vector2Int((int)cl_Single.Get_Isometric_PosOnMap().x, (int)cl_Single.Get_Isometric_PosOnMap().y);
         v2_PosStandOn = new Vector2Int((int)cl_Single.Get_Isometric_PosOnMap().x, (int)cl_Single.Get_Isometric_PosOnMap().y);
-        cl_Single.Set_Isometric_PosOnMap(v2_PosStandOn);
+        cl_Single.Set_Isometric(v2_PosStandOn);
     }
 
     private void Update()
@@ -596,7 +596,7 @@ public class Isometric_MoveControl : MonoBehaviour
             f_x_MoveTo, 
             ref f_Velocity_x, 
             f_TimeDelay * f_MovePercent);
-        cl_Single.Set_Isometric_PosOnMap(f_x_MoveNew, cl_Single.Get_Isometric_PosOnMap().y);
+        cl_Single.Set_Isometric(f_x_MoveNew, cl_Single.Get_Isometric_PosOnMap().y);
     }
 
     /// <summary>
@@ -610,7 +610,7 @@ public class Isometric_MoveControl : MonoBehaviour
             f_y_MoveTo, 
             ref f_Velocity_y, 
             f_TimeDelay * f_MovePercent);
-        cl_Single.Set_Isometric_PosOnMap(cl_Single.Get_Isometric_PosOnMap().x, f_y_MoveNew);
+        cl_Single.Set_Isometric(cl_Single.Get_Isometric_PosOnMap().x, f_y_MoveNew);
     }
 
     #endregion
