@@ -3,8 +3,17 @@ guid: 3162467fbecc8a14982c22781a2e9b50
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1901446020532504529
-    second: Spawm_Isometric_0
+      213: 8557925959227051367
+    second: Isometric_Editor_0
+  - first:
+      213: -2459106454598102733
+    second: Isometric_Editor_1
+  - first:
+      213: 5296858251550442748
+    second: Isometric_Editor_2
+  - first:
+      213: -494558350686636362
+    second: Isometric_Editor_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -26,7 +35,6 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
-  vTOnly: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -58,12 +66,9 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
-  flipbookRows: 1
-  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
-  ignorePngGamma: 0
   applyGammaDecoding: 0
   platformSettings:
   - serializedVersion: 3
@@ -118,22 +123,85 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Spawm_Isometric_0
+      name: Isometric_Editor_0
       rect:
         serializedVersion: 2
         x: 5
         y: 5
         width: 64
         height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1d78b65d41b436a10800000000000000
-      internalID: 1901446020532504529
+      spriteID: 76d82dd615cd3c670800000000000000
+      internalID: 8557925959227051367
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Isometric_Editor_1
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 5
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3315fcc55bf7fddd0800000000000000
+      internalID: -2459106454598102733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Isometric_Editor_2
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 5
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf4c24d0488328940800000000000000
+      internalID: 5296858251550442748
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Isometric_Editor_3
+      rect:
+        serializedVersion: 2
+        x: 212
+        y: 5
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b6be92ecc9f229f0800000000000000
+      internalID: -494558350686636362
       vertices: []
       indices: 
       edges: []
@@ -141,7 +209,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 4c277df0b94f2814d8fd53957080eed2
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 

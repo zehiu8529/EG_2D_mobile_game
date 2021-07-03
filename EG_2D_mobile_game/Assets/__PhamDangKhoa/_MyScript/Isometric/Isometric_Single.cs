@@ -174,16 +174,37 @@ public class Isometric_Single : MonoBehaviour
     /// <summary>
     /// Set Pos for this Isometric
     /// </summary>
-    /// <param name="v2_PosOnMap"></param>
-    public void Set_Isometric(Vector2 v2_PosOnMap)
+    /// <param name="v2_Pos"></param>
+    public void Set_Isometric_Pos(Vector2 v2_Pos)
     {
-        this.v2_Pos = v2_PosOnMap;
+        this.v2_Pos = v2_Pos;
 
         Set_Isometric_Transform();
     }
 
     /// <summary>
     /// Set Pos for this Isometric
+    /// </summary>
+    /// <param name="f_Pos_x"></param>
+    /// <param name="f_Pos_y"></param>
+    public void Set_Isometric_Pos(float f_Pos_x, float f_Pos_y)
+    {
+        Set_Isometric_Pos(new Vector2(f_Pos_x, f_Pos_y));
+    }
+
+    /// <summary>
+    /// Set Floor for this Isometric
+    /// </summary>
+    /// <param name="i_Floor"></param>
+    public void Set_Isometric_Floor(int i_Floor)
+    {
+        this.i_Floor = i_Floor;
+
+        Set_Isometric_Transform();
+    }
+
+    /// <summary>
+    /// Set Pos and Floor for this Isometric
     /// </summary>
     /// <param name="v2_PosOnMap"></param>
     public void Set_Isometric(Vector2 v2_PosOnMap, int i_Floor)
@@ -195,21 +216,11 @@ public class Isometric_Single : MonoBehaviour
     }
 
     /// <summary>
-    /// Set Pos for this Isometric
+    /// Set Pos and Floor for this Isometric
     /// </summary>
     /// <param name="f_PosOnMap_x"></param>
     /// <param name="f_PosOnMap_y"></param>
-    public void Set_Isometric(float f_PosOnMap_x, float f_PosOnMap_y)
-    {
-        Set_Isometric(new Vector2(f_PosOnMap_x, f_PosOnMap_y));
-    }
-
-    /// <summary>
-    /// Set Pos for this Isometric
-    /// </summary>
-    /// <param name="f_PosOnMap_x"></param>
-    /// <param name="f_PosOnMap_y"></param>
-    public void Set_Isometric_PosOnMap(float f_PosOnMap_x, float f_PosOnMap_y, int i_Floor)
+    public void Set_Isometric(float f_PosOnMap_x, float f_PosOnMap_y, int i_Floor)
     {
         Set_Isometric(new Vector2(f_PosOnMap_x, f_PosOnMap_y), i_Floor);
     }
@@ -218,7 +229,7 @@ public class Isometric_Single : MonoBehaviour
     /// Get Pos of this Isometric
     /// </summary>
     /// <returns></returns>
-    public Vector2 Get_Isometric_PosOnMap()
+    public Vector2 Get_Isometric_Pos()
     {
         return v2_Pos;
     }

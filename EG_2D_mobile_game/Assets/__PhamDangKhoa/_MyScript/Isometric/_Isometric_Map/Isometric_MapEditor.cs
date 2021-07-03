@@ -230,8 +230,6 @@ public class Isometric_MapEditor : MonoBehaviour
         s_SpriteChoice.sprite = cl_MapManager_Renderer.Get_GameObject_Ground(0).GetComponent<SpriteRenderer>().sprite;
         s_LayerChoice.text = "Ground [" + cl_MapManager_Renderer.Get_SingleCode_Ground(0) + "]";
 
-        cl_MapManager_MapManager.Set_Map_StartGenerate(false);
-
         i_MapSize_X.text = cl_MapManager_MapString.Get_MapSize().x.ToString();
         i_MapSize_Y.text = cl_MapManager_MapString.Get_MapSize().y.ToString();
 
@@ -274,41 +272,41 @@ public class Isometric_MapEditor : MonoBehaviour
 
         if (Input.GetKeyDown(k_Up))
         {
-            Vector2 v2_Current = cl_Single.Get_Isometric_PosOnMap();
+            Vector2 v2_Current = cl_Single.Get_Isometric_Pos();
 
             if (cl_MapManager_MapManager.Get_Check_InsideMap(cl_Vector.Get_VectorInt(v2_Current), new Class_Vector().v2_Isometric_DirUp))
             {
-                cl_Single.Set_Isometric(new Vector2(v2_Current.x - 1, v2_Current.y));
+                cl_Single.Set_Isometric_Pos(new Vector2(v2_Current.x - 1, v2_Current.y));
             }
         }
 
         if (Input.GetKeyDown(k_Down))
         {
-            Vector2 v2_Current = cl_Single.Get_Isometric_PosOnMap();
+            Vector2 v2_Current = cl_Single.Get_Isometric_Pos();
 
             if (cl_MapManager_MapManager.Get_Check_InsideMap(cl_Vector.Get_VectorInt(v2_Current), new Class_Vector().v2_Isometric_DirDown))
             {
-                cl_Single.Set_Isometric(new Vector2(v2_Current.x + 1, v2_Current.y));
+                cl_Single.Set_Isometric_Pos(new Vector2(v2_Current.x + 1, v2_Current.y));
             }
         }
 
         if (Input.GetKeyDown(k_Left))
         {
-            Vector2 v2_Current = cl_Single.Get_Isometric_PosOnMap();
+            Vector2 v2_Current = cl_Single.Get_Isometric_Pos();
 
             if (cl_MapManager_MapManager.Get_Check_InsideMap(cl_Vector.Get_VectorInt(v2_Current), new Class_Vector().v2_Isometric_DirLeft))
             {
-                cl_Single.Set_Isometric(new Vector2(v2_Current.x, v2_Current.y - 1));
+                cl_Single.Set_Isometric_Pos(new Vector2(v2_Current.x, v2_Current.y - 1));
             }
         }
 
         if (Input.GetKeyDown(k_Right))
         {
-            Vector2 v2_Current = cl_Single.Get_Isometric_PosOnMap();
+            Vector2 v2_Current = cl_Single.Get_Isometric_Pos();
 
             if (cl_MapManager_MapManager.Get_Check_InsideMap(cl_Vector.Get_VectorInt(v2_Current), new Class_Vector().v2_Isometric_DirRight))
             {
-                cl_Single.Set_Isometric(new Vector2(v2_Current.x, v2_Current.y + 1));
+                cl_Single.Set_Isometric_Pos(new Vector2(v2_Current.x, v2_Current.y + 1));
             }
         }
 
@@ -339,37 +337,37 @@ public class Isometric_MapEditor : MonoBehaviour
                 case 2:
                     //Fence U
                     i_Choice++;
-                    if (i_Choice >= cl_MapManager_Renderer.Get_CountList_Fence_Up())
+                    if (i_Choice >= cl_MapManager_Renderer.Get_CountList_Fence_U())
                         i_Choice = 0;
 
-                    s_SpriteChoice.sprite = cl_MapManager_Renderer.Get_GameObject_Fence_Up(i_Choice).GetComponent<SpriteRenderer>().sprite;
-                    s_LayerChoice.text = "Fence U [" + cl_MapManager_Renderer.Get_SingleCode_Fence_Up(i_Choice) + "]";
+                    s_SpriteChoice.sprite = cl_MapManager_Renderer.Get_GameObject_Fence_U(i_Choice).GetComponent<SpriteRenderer>().sprite;
+                    s_LayerChoice.text = "Fence U [" + cl_MapManager_Renderer.Get_SingleCode_Fence_U(i_Choice) + "]";
                     break;
                 case 3:
                     //Fence D
                     i_Choice++;
-                    if (i_Choice >= cl_MapManager_Renderer.Get_CountList_Fence_Down())
+                    if (i_Choice >= cl_MapManager_Renderer.Get_CountList_Fence_D())
                         i_Choice = 0;
 
-                    s_SpriteChoice.sprite = cl_MapManager_Renderer.Get_GameObject_Fence_Down(i_Choice).GetComponent<SpriteRenderer>().sprite;
-                    s_LayerChoice.text = "Fence D [" + cl_MapManager_Renderer.Get_SingleCode_Fence_Down(i_Choice) + "]";
+                    s_SpriteChoice.sprite = cl_MapManager_Renderer.Get_GameObject_Fence_D(i_Choice).GetComponent<SpriteRenderer>().sprite;
+                    s_LayerChoice.text = "Fence D [" + cl_MapManager_Renderer.Get_SingleCode_Fence_D(i_Choice) + "]";
                     break;
                 case 4:
                     //Fence L
                     i_Choice++;
-                    if (i_Choice >= cl_MapManager_Renderer.Get_CountList_Fence_Left())
+                    if (i_Choice >= cl_MapManager_Renderer.Get_CountList_Fence_L())
                         i_Choice = 0;
 
-                    s_SpriteChoice.sprite = cl_MapManager_Renderer.Get_GameObject_Fence_Left(i_Choice).GetComponent<SpriteRenderer>().sprite;
-                    s_LayerChoice.text = "Fence L [" + cl_MapManager_Renderer.Get_SingleCode_Fence_Left(i_Choice) + "]";
+                    s_SpriteChoice.sprite = cl_MapManager_Renderer.Get_GameObject_Fence_L(i_Choice).GetComponent<SpriteRenderer>().sprite;
+                    s_LayerChoice.text = "Fence L [" + cl_MapManager_Renderer.Get_SingleCode_Fence_L(i_Choice) + "]";
                     break;
                 case 5:
                     //Fence R
                     i_Choice++;
-                    if (i_Choice >= cl_MapManager_Renderer.Get_CountList_Fence_Right())
+                    if (i_Choice >= cl_MapManager_Renderer.Get_CountList_Fence_R())
                         i_Choice = 0;
 
-                    s_SpriteChoice.sprite = cl_MapManager_Renderer.Get_GameObject_Fence_Right(i_Choice).GetComponent<SpriteRenderer>().sprite;
+                    s_SpriteChoice.sprite = cl_MapManager_Renderer.Get_GameObject_Fence_R(i_Choice).GetComponent<SpriteRenderer>().sprite;
                     s_LayerChoice.text = "Fence R [" + cl_MapManager_Renderer.Get_SingleCode_Fence_Right(i_Choice) + "]";
                     break;
             }
@@ -401,36 +399,36 @@ public class Isometric_MapEditor : MonoBehaviour
                     //Fence U
                     i_Choice--;
                     if (i_Choice < 0)
-                        i_Choice = cl_MapManager_Renderer.Get_CountList_Fence_Up() - 1;
+                        i_Choice = cl_MapManager_Renderer.Get_CountList_Fence_U() - 1;
 
-                    s_SpriteChoice.sprite = cl_MapManager_Renderer.Get_GameObject_Fence_Up(i_Choice).GetComponent<SpriteRenderer>().sprite;
-                    s_LayerChoice.text = "Fence U [" + cl_MapManager_Renderer.Get_SingleCode_Fence_Up(i_Choice) + "]";
+                    s_SpriteChoice.sprite = cl_MapManager_Renderer.Get_GameObject_Fence_U(i_Choice).GetComponent<SpriteRenderer>().sprite;
+                    s_LayerChoice.text = "Fence U [" + cl_MapManager_Renderer.Get_SingleCode_Fence_U(i_Choice) + "]";
                     break;
                 case 3:
                     //Fence D
                     i_Choice--;
                     if (i_Choice < 0)
-                        i_Choice = cl_MapManager_Renderer.Get_CountList_Fence_Down() - 1;
+                        i_Choice = cl_MapManager_Renderer.Get_CountList_Fence_D() - 1;
 
-                    s_SpriteChoice.sprite = cl_MapManager_Renderer.Get_GameObject_Fence_Down(i_Choice).GetComponent<SpriteRenderer>().sprite;
-                    s_LayerChoice.text = "Fence D [" + cl_MapManager_Renderer.Get_SingleCode_Fence_Down(i_Choice) + "]";
+                    s_SpriteChoice.sprite = cl_MapManager_Renderer.Get_GameObject_Fence_D(i_Choice).GetComponent<SpriteRenderer>().sprite;
+                    s_LayerChoice.text = "Fence D [" + cl_MapManager_Renderer.Get_SingleCode_Fence_D(i_Choice) + "]";
                     break;
                 case 4:
                     //Fence L
                     i_Choice--;
                     if (i_Choice < 0)
-                        i_Choice = cl_MapManager_Renderer.Get_CountList_Fence_Left() - 1;
+                        i_Choice = cl_MapManager_Renderer.Get_CountList_Fence_L() - 1;
 
-                    s_SpriteChoice.sprite = cl_MapManager_Renderer.Get_GameObject_Fence_Left(i_Choice).GetComponent<SpriteRenderer>().sprite;
-                    s_LayerChoice.text = "Fence L [" + cl_MapManager_Renderer.Get_SingleCode_Fence_Left(i_Choice) + "]";
+                    s_SpriteChoice.sprite = cl_MapManager_Renderer.Get_GameObject_Fence_L(i_Choice).GetComponent<SpriteRenderer>().sprite;
+                    s_LayerChoice.text = "Fence L [" + cl_MapManager_Renderer.Get_SingleCode_Fence_L(i_Choice) + "]";
                     break;
                 case 5:
                     //Fence R
                     i_Choice--;
                     if (i_Choice < 0)
-                        i_Choice = cl_MapManager_Renderer.Get_CountList_Fence_Right() - 1;
+                        i_Choice = cl_MapManager_Renderer.Get_CountList_Fence_R() - 1;
 
-                    s_SpriteChoice.sprite = cl_MapManager_Renderer.Get_GameObject_Fence_Right(i_Choice).GetComponent<SpriteRenderer>().sprite;
+                    s_SpriteChoice.sprite = cl_MapManager_Renderer.Get_GameObject_Fence_R(i_Choice).GetComponent<SpriteRenderer>().sprite;
                     s_LayerChoice.text = "Fence R [" + cl_MapManager_Renderer.Get_SingleCode_Fence_Right(i_Choice) + "]";
                     break;
             }
@@ -467,33 +465,33 @@ public class Isometric_MapEditor : MonoBehaviour
                     break;
                 case 2:
                     //Fence U
-                    if (cl_MapManager_Renderer.Get_CountList_Fence_Up() > 0)
+                    if (cl_MapManager_Renderer.Get_CountList_Fence_U() > 0)
                     {
-                        s_SpriteChoice.sprite = cl_MapManager_Renderer.Get_GameObject_Fence_Up(i_Choice).GetComponent<SpriteRenderer>().sprite;
+                        s_SpriteChoice.sprite = cl_MapManager_Renderer.Get_GameObject_Fence_U(i_Choice).GetComponent<SpriteRenderer>().sprite;
                     }
-                    s_LayerChoice.text = "Fence U [" + cl_MapManager_Renderer.Get_SingleCode_Fence_Up(i_Choice) + "]";
+                    s_LayerChoice.text = "Fence U [" + cl_MapManager_Renderer.Get_SingleCode_Fence_U(i_Choice) + "]";
                     break;
                 case 3:
                     //Fence
-                    if (cl_MapManager_Renderer.Get_CountList_Fence_Down() > 0)
+                    if (cl_MapManager_Renderer.Get_CountList_Fence_D() > 0)
                     {
-                        s_SpriteChoice.sprite = cl_MapManager_Renderer.Get_GameObject_Fence_Down(i_Choice).GetComponent<SpriteRenderer>().sprite;
+                        s_SpriteChoice.sprite = cl_MapManager_Renderer.Get_GameObject_Fence_D(i_Choice).GetComponent<SpriteRenderer>().sprite;
                     }
-                    s_LayerChoice.text = "Fence D [" + cl_MapManager_Renderer.Get_SingleCode_Fence_Down(i_Choice) + "]";
+                    s_LayerChoice.text = "Fence D [" + cl_MapManager_Renderer.Get_SingleCode_Fence_D(i_Choice) + "]";
                     break;
                 case 4:
                     //Fence
-                    if (cl_MapManager_Renderer.Get_CountList_Fence_Left() > 0)
+                    if (cl_MapManager_Renderer.Get_CountList_Fence_L() > 0)
                     {
-                        s_SpriteChoice.sprite = cl_MapManager_Renderer.Get_GameObject_Fence_Left(i_Choice).GetComponent<SpriteRenderer>().sprite;
+                        s_SpriteChoice.sprite = cl_MapManager_Renderer.Get_GameObject_Fence_L(i_Choice).GetComponent<SpriteRenderer>().sprite;
                     }
-                    s_LayerChoice.text = "Fence L [" + cl_MapManager_Renderer.Get_SingleCode_Fence_Left(i_Choice) + "]";
+                    s_LayerChoice.text = "Fence L [" + cl_MapManager_Renderer.Get_SingleCode_Fence_L(i_Choice) + "]";
                     break;
                 case 5:
                     //Fence
-                    if (cl_MapManager_Renderer.Get_CountList_Fence_Right() > 0)
+                    if (cl_MapManager_Renderer.Get_CountList_Fence_R() > 0)
                     {
-                        s_SpriteChoice.sprite = cl_MapManager_Renderer.Get_GameObject_Fence_Right(i_Choice).GetComponent<SpriteRenderer>().sprite;
+                        s_SpriteChoice.sprite = cl_MapManager_Renderer.Get_GameObject_Fence_R(i_Choice).GetComponent<SpriteRenderer>().sprite;
                     }
                     s_LayerChoice.text = "Fence R [" + cl_MapManager_Renderer.Get_SingleCode_Fence_Right(i_Choice) + "]";
                     break;
@@ -504,7 +502,7 @@ public class Isometric_MapEditor : MonoBehaviour
 
         if (Input.GetKeyDown(k_Edit))
         {
-            Vector2Int v2_Current = cl_Vector.Get_VectorInt(cl_Single.Get_Isometric_PosOnMap());
+            Vector2Int v2_Current = cl_Vector.Get_VectorInt(cl_Single.Get_Isometric_Pos());
             switch (i_Layer)
             {
                 case 0:
@@ -517,19 +515,19 @@ public class Isometric_MapEditor : MonoBehaviour
                     break;
                 case 2:
                     //Fence
-                    cl_MapManager_MapManager.Set_MatrixCode_Fence_Up(v2_Current, cl_MapManager_Renderer.Get_SingleCode_Fence_Up(i_Choice));
+                    cl_MapManager_MapManager.Set_MatrixCode_Fence_U(v2_Current, cl_MapManager_Renderer.Get_SingleCode_Fence_U(i_Choice));
                     break;
                 case 3:
                     //Fence
-                    cl_MapManager_MapManager.Set_MatrixCode_Fence_Down(v2_Current, cl_MapManager_Renderer.Get_SingleCode_Fence_Down(i_Choice));
+                    cl_MapManager_MapManager.Set_MatrixCode_Fence_D(v2_Current, cl_MapManager_Renderer.Get_SingleCode_Fence_D(i_Choice));
                     break;
                 case 4:
                     //Fence
-                    cl_MapManager_MapManager.Set_MatrixCode_Fence_Left(v2_Current, cl_MapManager_Renderer.Get_SingleCode_Fence_Left(i_Choice));
+                    cl_MapManager_MapManager.Set_MatrixCode_Fence_L(v2_Current, cl_MapManager_Renderer.Get_SingleCode_Fence_L(i_Choice));
                     break;
                 case 5:
                     //Fence
-                    cl_MapManager_MapManager.Set_MatrixCode_Fence_Right(v2_Current, cl_MapManager_Renderer.Get_SingleCode_Fence_Right(i_Choice));
+                    cl_MapManager_MapManager.Set_MatrixCode_Fence_R(v2_Current, cl_MapManager_Renderer.Get_SingleCode_Fence_Right(i_Choice));
                     break;
             }
 
@@ -541,7 +539,7 @@ public class Isometric_MapEditor : MonoBehaviour
 
         if (Input.GetKeyDown(k_Remove))
         {
-            Vector2Int v2_Current = cl_Vector.Get_VectorInt(cl_Single.Get_Isometric_PosOnMap());
+            Vector2Int v2_Current = cl_Vector.Get_VectorInt(cl_Single.Get_Isometric_Pos());
             switch (i_Layer)
             {
                 case 0:
@@ -554,19 +552,19 @@ public class Isometric_MapEditor : MonoBehaviour
                     break;
                 case 2:
                     //Fence
-                    cl_MapManager_MapManager.Set_MatrixCode_Fence_Up(v2_Current, cl_MapManager_Renderer.Get_EmtyCode());
+                    cl_MapManager_MapManager.Set_MatrixCode_Fence_U(v2_Current, cl_MapManager_Renderer.Get_EmtyCode());
                     break;
                 case 3:
                     //Fence
-                    cl_MapManager_MapManager.Set_MatrixCode_Fence_Down(v2_Current, cl_MapManager_Renderer.Get_EmtyCode());
+                    cl_MapManager_MapManager.Set_MatrixCode_Fence_D(v2_Current, cl_MapManager_Renderer.Get_EmtyCode());
                     break;
                 case 4:
                     //Fence
-                    cl_MapManager_MapManager.Set_MatrixCode_Fence_Left(v2_Current, cl_MapManager_Renderer.Get_EmtyCode());
+                    cl_MapManager_MapManager.Set_MatrixCode_Fence_L(v2_Current, cl_MapManager_Renderer.Get_EmtyCode());
                     break;
                 case 5:
                     //Fence
-                    cl_MapManager_MapManager.Set_MatrixCode_Fence_Right(v2_Current, cl_MapManager_Renderer.Get_EmtyCode());
+                    cl_MapManager_MapManager.Set_MatrixCode_Fence_R(v2_Current, cl_MapManager_Renderer.Get_EmtyCode());
                     break;
             }
 
@@ -626,7 +624,7 @@ public class Isometric_MapEditor : MonoBehaviour
     /// </summary>
     public void Set_MapGenerate_NewMap()
     {
-        cl_Single.Set_Isometric(new Vector2(0, 0));
+        cl_Single.Set_Isometric_Pos(new Vector2(0, 0));
 
         Set_Debug_SpawmPoint_Remove();
         cl_MapManager_MapManager.Set_Map_Remove();
@@ -636,7 +634,7 @@ public class Isometric_MapEditor : MonoBehaviour
             int.Parse(i_MapSize_X.text),
             int.Parse(i_MapSize_Y.text)));
 
-        cl_MapManager_MapManager.Set_Map_StartGenerate(true);
+        cl_MapManager_MapManager.Set_Map_Generate(true);
     }
 
     //Public (Set Matrix Map Code from File)
@@ -670,6 +668,7 @@ public class Isometric_MapEditor : MonoBehaviour
         cl_File.Set_Act_Read_Clear();
         cl_File.Set_Act_Read_Start(s_File);
 
+        //Size
         int i_MapXCount = cl_File.Get_Read_Auto_Int();
         int i_MapYCount = cl_File.Get_Read_Auto_Int();
 
@@ -678,12 +677,18 @@ public class Isometric_MapEditor : MonoBehaviour
 
         cl_MapManager_MapString.Set_MapSize(new Vector2Int(i_MapXCount, i_MapYCount));
 
+        //Primary
         cl_MapManager_MapString.Set_MapCode_Ground(cl_File.Get_Read_Auto_String());
         cl_MapManager_MapString.Set_MapCode_Object(cl_File.Get_Read_Auto_String());
-        cl_MapManager_MapString.Set_MapCode_Fence_Up(cl_File.Get_Read_Auto_String());
-        cl_MapManager_MapString.Set_MapCode_Fence_Down(cl_File.Get_Read_Auto_String());
-        cl_MapManager_MapString.Set_MapCode_Fence_Left(cl_File.Get_Read_Auto_String());
-        cl_MapManager_MapString.Set_MapCode_Fence_Right(cl_File.Get_Read_Auto_String());
+
+        //Fence
+        cl_MapManager_MapString.Set_MapCode_Fence_U(cl_File.Get_Read_Auto_String());
+        cl_MapManager_MapString.Set_MapCode_Fence_D(cl_File.Get_Read_Auto_String());
+        cl_MapManager_MapString.Set_MapCode_Fence_L(cl_File.Get_Read_Auto_String());
+        cl_MapManager_MapString.Set_MapCode_Fence_R(cl_File.Get_Read_Auto_String());
+
+        //Floor
+        cl_MapManager_MapString.Set_MapCode_Floor(cl_File.Get_Read_Auto_String());
 
         cl_MapManager_MapString.Set_List_SpawmPoint_Reset();
         int i_SpawmPoint = cl_File.Get_Read_Auto_Int();
@@ -695,7 +700,7 @@ public class Isometric_MapEditor : MonoBehaviour
         }
         Set_Debug_SpawmPoint_New();
 
-        cl_MapManager_MapManager.Set_Map_StartGenerate(false);
+        cl_MapManager_MapManager.Set_Map_Generate(false);
     }
 
     private void Set_MapCode_ToFile(bool b_TempFile)
@@ -712,15 +717,22 @@ public class Isometric_MapEditor : MonoBehaviour
 
         cl_File.Set_Act_Write_Clear();
 
+        //Size
         cl_File.Set_Act_Write_Add(cl_MapManager_MapString.Get_MapSize().x);
         cl_File.Set_Act_Write_Add(cl_MapManager_MapString.Get_MapSize().y);
 
+        //Primary
         cl_File.Set_Act_Write_Add(cl_MapManager_MapString.Get_MapCode_Ground());
         cl_File.Set_Act_Write_Add(cl_MapManager_MapString.Get_MapCode_Object());
-        cl_File.Set_Act_Write_Add(cl_MapManager_MapString.Get_MapCode_Fence_Up());
-        cl_File.Set_Act_Write_Add(cl_MapManager_MapString.Get_MapCode_Fence_Down());
-        cl_File.Set_Act_Write_Add(cl_MapManager_MapString.Get_MapCode_Fence_Left());
-        cl_File.Set_Act_Write_Add(cl_MapManager_MapString.Get_MapCode_Fence_Right());
+
+        //Fence
+        cl_File.Set_Act_Write_Add(cl_MapManager_MapString.Get_MapCode_Fence_U());
+        cl_File.Set_Act_Write_Add(cl_MapManager_MapString.Get_MapCode_Fence_D());
+        cl_File.Set_Act_Write_Add(cl_MapManager_MapString.Get_MapCode_Fence_L());
+        cl_File.Set_Act_Write_Add(cl_MapManager_MapString.Get_MapCode_Fence_R());
+
+        //Floor
+        cl_File.Set_Act_Write_Add(cl_MapManager_MapString.Get_MapCode_Floor());
 
         cl_File.Set_Act_Write_Add(cl_MapManager_MapString.Get_List_SpawmPoint().Count);
         for (int i = 0; i < cl_MapManager_MapString.Get_List_SpawmPoint().Count; i++)
@@ -764,7 +776,7 @@ public class Isometric_MapEditor : MonoBehaviour
     {
         for (int i = 0; i < cl_MapManager_MapString.Get_List_SpawmPoint().Count; i++)
         {
-            if (cl_Single.Get_Isometric_PosOnMap() == cl_MapManager_MapString.Get_List_SpawmPoint()[i])
+            if (cl_Single.Get_Isometric_Pos() == cl_MapManager_MapString.Get_List_SpawmPoint()[i])
             {
                 cl_Object.Set_Destroy_GameObject(lg_Spawm[i]);
                 cl_MapManager_MapString.Set_List_SpawmPoint_Remove(i);
@@ -772,9 +784,9 @@ public class Isometric_MapEditor : MonoBehaviour
                 return;
             }
         }
-        Set_Debug_SpawmPoint_Prefab(new Vector2Int((int)cl_Single.Get_Isometric_PosOnMap().x, (int)cl_Single.Get_Isometric_PosOnMap().y));
+        Set_Debug_SpawmPoint_Prefab(new Vector2Int((int)cl_Single.Get_Isometric_Pos().x, (int)cl_Single.Get_Isometric_Pos().y));
         cl_MapManager_MapString.Set_List_SpawmPoint_Add(
-            new Vector2Int((int)cl_Single.Get_Isometric_PosOnMap().x, (int)cl_Single.Get_Isometric_PosOnMap().y));
+            new Vector2Int((int)cl_Single.Get_Isometric_Pos().x, (int)cl_Single.Get_Isometric_Pos().y));
     }
 
     /// <summary>
@@ -785,7 +797,7 @@ public class Isometric_MapEditor : MonoBehaviour
     {
         GameObject g_SpawmPoint = cl_Object.Set_Prepab_Create(this.g_SpawmPoint, g_MapManager.transform);
 
-        g_SpawmPoint.GetComponent<Isometric_Single>().Set_Isometric(v2_Pos);
+        g_SpawmPoint.GetComponent<Isometric_Single>().Set_Isometric_Pos(v2_Pos);
         g_SpawmPoint.GetComponent<Isometric_Single>().Set_Isometric_OffsetOnMap(cl_MapManager_MapManager.Get_Offset());
         g_SpawmPoint.GetComponent<Isometric_Single>().Set_isObject(true);
         g_SpawmPoint.SetActive(true);

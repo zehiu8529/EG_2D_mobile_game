@@ -328,14 +328,14 @@ public class Class_Vector
         return new Vector3(v3_Pos.x + v3_Pos.y, 0.5f * (v3_Pos.y - v3_Pos.x), v3_Pos.z);
     }
 
+    #endregion
+
     //Chance Transform Back to Isometric Pos
 
     //public Vector2 Get_Pos_IsometricToXY(Vector2 v_PosOnMap)
     //{
     //    return new Vector2(0.5f * v_PosOnMap.x - v_PosOnMap.y, 0.5f * v_PosOnMap.x + v_PosOnMap.y);
     //}
-
-    #endregion
 
     #endregion
 

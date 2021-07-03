@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6479170829722102763
 Transform:
   m_ObjectHideFlags: 0
@@ -71,7 +71,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1901446020532504529, guid: 3162467fbecc8a14982c22781a2e9b50,
+  m_Sprite: {fileID: 8557925959227051367, guid: 3162467fbecc8a14982c22781a2e9b50,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -97,9 +97,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   s_Tag: IsometricMap
   g_MapManager: {fileID: 0}
-  v2_PosOnMap: {x: 0, y: 0}
-  v2_OffsetOnMap: {x: 0, y: 0}
-  v2_CentreOnSquare: {x: 0, y: 0}
+  v2_Pos: {x: 0, y: 0}
+  i_Floor: 0
+  v2_Offset: {x: 0, y: 0}
+  v2_Centre: {x: 0, y: 0}
   b_isObject: 1
   f_Centre: 0.1
   f_Depth: 0
