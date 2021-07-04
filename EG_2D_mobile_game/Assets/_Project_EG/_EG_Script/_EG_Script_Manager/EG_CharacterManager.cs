@@ -20,7 +20,7 @@ public class EG_CharacterManager : MonoBehaviour
     /// <summary>
     /// Client Character Choice
     /// </summary>
-    private int i_ClientCharacterChoice = -1;
+    private int i_ClientCharacterChoice = 0;
 
     /// <summary>
     /// Button Choice Client Character

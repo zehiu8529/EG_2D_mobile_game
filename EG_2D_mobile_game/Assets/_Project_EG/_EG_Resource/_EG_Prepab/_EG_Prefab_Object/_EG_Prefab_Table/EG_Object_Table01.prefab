@@ -122,7 +122,7 @@ MonoBehaviour:
   i_Floor: 0
   v2_Offset: {x: 0, y: 0}
   v2_Centre: {x: 0, y: 0}
-  b_isObject: 1
+  b_onGround: 1
   f_Centre: 0
   f_Depth: 0
   c_SingleCode: 49

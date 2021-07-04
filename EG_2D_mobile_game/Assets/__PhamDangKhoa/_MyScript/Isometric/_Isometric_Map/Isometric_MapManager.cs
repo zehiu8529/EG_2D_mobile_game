@@ -26,18 +26,14 @@ public class Isometric_MapManager : MonoBehaviour
     /// <summary>
     /// Tag for other Isometric Object to Find
     /// </summary>
-    [Header("Isometric Map Tag")]
+    [Header("Isometric Map-Manager")]
     [SerializeField]
     private string s_Tag = "IsometricMap";
 
     /// <summary>
-    /// Isomtric Map X Length Dir UP and DOWN and Y Lenght Dir LEFT and RIGHT
-    /// </summary>
-    [Header("Size Map Code")]
-
-    /// <summary>
     /// Pos Offset for Map (With Offset(0,0), Start in Isometric Square(0,0))
     /// </summary>
+    [Header("Offset")]
     [SerializeField]
     private Vector2 v2_Offset = new Vector2();
 
@@ -379,27 +375,27 @@ public class Isometric_MapManager : MonoBehaviour
             {
                 if (Get_MatrixCode_Ground(new Vector2Int(i, j)) != cl_MapRenderer.Get_EmtyCode())
                 {
-                    Get_GameObject_Ground(new Vector2Int(i, j)).GetComponent<Isometric_Single>().Set_Isometric_OffsetOnMap(this.v2_Offset);
+                    Get_GameObject_Ground(new Vector2Int(i, j)).GetComponent<Isometric_Single>().Set_Isometric_Offset(this.v2_Offset);
                 }
                 if (Get_MatrixCode_Object(new Vector2Int(i, j)) != cl_MapRenderer.Get_EmtyCode())
                 {
-                    Get_GameObject_Object(new Vector2Int(i, j)).GetComponent<Isometric_Single>().Set_Isometric_OffsetOnMap(this.v2_Offset);
+                    Get_GameObject_Object(new Vector2Int(i, j)).GetComponent<Isometric_Single>().Set_Isometric_Offset(this.v2_Offset);
                 }
                 if (Get_MatrixCode_Fence_U(new Vector2Int(i, j)) != cl_MapRenderer.Get_EmtyCode())
                 {
-                    Get_GameObject_Fence_U(new Vector2Int(i, j)).GetComponent<Isometric_Single>().Set_Isometric_OffsetOnMap(this.v2_Offset);
+                    Get_GameObject_Fence_U(new Vector2Int(i, j)).GetComponent<Isometric_Single>().Set_Isometric_Offset(this.v2_Offset);
                 }
                 if (Get_MatrixCode_Fence_D(new Vector2Int(i, j)) != cl_MapRenderer.Get_EmtyCode())
                 {
-                    Get_GameObject_Fence_D(new Vector2Int(i, j)).GetComponent<Isometric_Single>().Set_Isometric_OffsetOnMap(this.v2_Offset);
+                    Get_GameObject_Fence_D(new Vector2Int(i, j)).GetComponent<Isometric_Single>().Set_Isometric_Offset(this.v2_Offset);
                 }
                 if (Get_MatrixCode_Fence_L(new Vector2Int(i, j)) != cl_MapRenderer.Get_EmtyCode())
                 {
-                    Get_GameObject_Fence_L(new Vector2Int(i, j)).GetComponent<Isometric_Single>().Set_Isometric_OffsetOnMap(this.v2_Offset);
+                    Get_GameObject_Fence_L(new Vector2Int(i, j)).GetComponent<Isometric_Single>().Set_Isometric_Offset(this.v2_Offset);
                 }
                 if (Get_MatrixCode_Fence_R(new Vector2Int(i, j)) != cl_MapRenderer.Get_EmtyCode())
                 {
-                    Get_GameObject_Fence_R(new Vector2Int(i, j)).GetComponent<Isometric_Single>().Set_Isometric_OffsetOnMap(this.v2_Offset);
+                    Get_GameObject_Fence_R(new Vector2Int(i, j)).GetComponent<Isometric_Single>().Set_Isometric_Offset(this.v2_Offset);
                 }
             }
         }
@@ -1358,8 +1354,8 @@ public class Isometric_MapManager : MonoBehaviour
         GameObject g_GameObject = cl_Object.Set_Prepab_Create(g_Prefab, transform);
 
         g_GameObject.GetComponent<Isometric_Single>().Set_Isometric_Pos(v2_Pos);
-        g_GameObject.GetComponent<Isometric_Single>().Set_Isometric_OffsetOnMap(v2_Offset);
-        g_GameObject.GetComponent<Isometric_Single>().Set_isObject(b_isObject);
+        g_GameObject.GetComponent<Isometric_Single>().Set_Isometric_Offset(v2_Offset);
+        g_GameObject.GetComponent<Isometric_Single>().Set_onGround(b_isObject);
         g_GameObject.SetActive(true);
 
         return g_GameObject;

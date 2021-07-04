@@ -120,10 +120,11 @@ MonoBehaviour:
   s_Tag: IsometricMap
   g_MapManager: {fileID: 0}
   v2_Pos: {x: 0, y: 0}
-  i_Floor: 0
+  f_Floor: 0
   v2_Offset: {x: 0, y: 0}
+  b_isStair: 0
   v2_Centre: {x: 0, y: 0}
-  b_isObject: 1
+  b_onGround: 1
   f_Centre: 0.3
   f_Depth: 0
   c_SingleCode: 65
@@ -149,8 +150,6 @@ MonoBehaviour:
   b_DelayControl: 1
   f_TimeDelay: 0.2
   f_MovePercent: 0.5
-  v2_PosMoveTo: {x: 0, y: 0}
-  v2_PosStandOn: {x: 0, y: 0}
 --- !u!114 &7962453409562748207
 MonoBehaviour:
   m_ObjectHideFlags: 0

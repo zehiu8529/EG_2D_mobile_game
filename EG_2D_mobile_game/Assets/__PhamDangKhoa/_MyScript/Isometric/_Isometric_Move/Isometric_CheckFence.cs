@@ -58,7 +58,7 @@ public class Isometric_CheckFence : MonoBehaviour
         //If Move Dir Up
         {
             if (
-                cl_MapManager_MapManager.Get_MatrixCode_Fence_D(v2_Pos + v2_Dir) !=
+                cl_MapManager_MapManager.Get_MatrixCode_Fence_U(v2_Pos) !=
                 cl_MapManager_MapRenderer.Get_EmtyCode())
             {
                 return true;
@@ -69,7 +69,7 @@ public class Isometric_CheckFence : MonoBehaviour
         //If Move Dir Down
         {
             if (
-                cl_MapManager_MapManager.Get_MatrixCode_Fence_U(v2_Pos + v2_Dir) !=
+                cl_MapManager_MapManager.Get_MatrixCode_Fence_D(v2_Pos) !=
                 cl_MapManager_MapRenderer.Get_EmtyCode())
             {
                 return true;
@@ -80,7 +80,7 @@ public class Isometric_CheckFence : MonoBehaviour
         //If Move Dir Left
         {
             if (
-                cl_MapManager_MapManager.Get_MatrixCode_Fence_R(v2_Pos + v2_Dir) !=
+                cl_MapManager_MapManager.Get_MatrixCode_Fence_L(v2_Pos) !=
                 cl_MapManager_MapRenderer.Get_EmtyCode())
             {
                 return true;
@@ -91,7 +91,7 @@ public class Isometric_CheckFence : MonoBehaviour
         //If Move Dir Right
         {
             if(
-                cl_MapManager_MapManager.Get_MatrixCode_Fence_L(v2_Pos + v2_Dir) !=
+                cl_MapManager_MapManager.Get_MatrixCode_Fence_R(v2_Pos) !=
                 cl_MapManager_MapRenderer.Get_EmtyCode())
             {
                 return true;

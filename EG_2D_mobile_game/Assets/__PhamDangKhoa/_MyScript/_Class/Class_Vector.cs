@@ -240,7 +240,7 @@ public class Class_Vector
     /// <summary>
     /// Get Fixed Depth of Ground Vector
     /// </summary>
-    /// <param name="v2_Pos"></param>
+    /// <param name="v2_Pos">Dir X is [UP;DOWN] and Dir Y [LEFT;RIGHT]</param>
     /// <returns>Use for 'Get_Isometric_TransformPosition()'</returns>
     public Vector3Int Get_Isometric_FixedDepth(Vector2Int v2_Pos)
     {
@@ -252,7 +252,7 @@ public class Class_Vector
     /// <summary>
     /// Get Fixed Depth of Ground Vector
     /// </summary>
-    /// <param name="v2_Pos"></param>
+    /// <param name="v2_Pos">Dir X is [UP;DOWN] and Dir Y [LEFT;RIGHT]</param>
     /// <returns>Use for 'Get_Isometric_TransformPosition()'</returns>
     public Vector3 Get_Isometric_FixedDepth(Vector2 v2_Pos)
     {
@@ -264,8 +264,9 @@ public class Class_Vector
     /// <summary>
     /// Get Fixed Depth of Object Vector ontop Ground
     /// </summary>
-    /// <param name="v2_Pos"></param>
-    /// <param name="f_Depth">Front of Ground</param>
+    /// <param name="v2_Pos">Dir X is [UP;DOWN] and Dir Y [LEFT;RIGHT]</param>
+    /// <param name="f_Depth"></param>
+    /// <param name="f_Centre">Centre on Ground</param>
     /// <returns>Use for 'Get_Isometric_TransformPosition()'</returns>
     public Vector3 Get_Isometric_FixedDepth(Vector2 v2_Pos, float f_Depth, float f_Centre)
     {
@@ -284,13 +285,13 @@ public class Class_Vector
     /// <summary>
     /// Get Fixed Depth of Ground Vector
     /// </summary>
-    /// <param name="v2_Pos"></param>
+    /// <param name="v2_Pos">Dir X is [UP;DOWN] and Dir Y [LEFT;RIGHT]</param>
     /// <returns>Use for 'Get_Isometric_TransformPosition()'</returns>
-    public Vector3 Get_Isometric_FixedDepth(Vector2 v2_Pos, int i_Floor, Vector2Int v2_MapSize)
+    public Vector3 Get_Isometric_FixedDepth(Vector2 v2_Pos, float f_Floor, Vector2Int v2_MapSize)
     {
         Vector3 v3_Pos = (Vector3)v2_Pos + new Vector3(0, 0, v2_Pos.x * -1 + v2_Pos.y);
 
-        v3_Pos.z -= ((i_Floor + 0) * v2_MapSize.y);
+        v3_Pos.z -= ((f_Floor + 0) * v2_MapSize.y);
 
         return v3_Pos;
     }
@@ -298,15 +299,15 @@ public class Class_Vector
     /// <summary>
     /// Get Fixed Depth of Object Vector ontop Ground
     /// </summary>
-    /// <param name="v2_Pos"></param>
-    /// <param name="f_Depth">Front of Ground</param>
+    /// <param name="v2_Pos">Dir X is [UP;DOWN] and Dir Y [LEFT;RIGHT]</param>
+    /// <param name="f_Depth"></param>
     /// <param name="f_Centre">Centre on Ground</param>
     /// <returns>Use for 'Get_Isometric_TransformPosition()'</returns>
-    public Vector3 Get_Isometric_FixedDepth(Vector2 v2_Pos, int i_Floor, float f_Depth, float f_Centre, Vector2Int v2_MapSize)
+    public Vector3 Get_Isometric_FixedDepth(Vector2 v2_Pos, float f_Floor, float f_Depth, float f_Centre, Vector2Int v2_MapSize)
     {
         Vector3 v3_Pos = (Vector3)v2_Pos + new Vector3(0, 0, v2_Pos.x * -1 + v2_Pos.y);
 
-        v3_Pos.z -= ((i_Floor + 1) * v2_MapSize.y);
+        v3_Pos.z -= ((f_Floor + 1) * v2_MapSize.y);
 
         v3_Pos.z += f_Depth;
 

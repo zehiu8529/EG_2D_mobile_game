@@ -3174,6 +3174,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 974773404}
+        m_MethodName: Set_Map_Generate
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &756600491
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3843,14 +3854,14 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 1720167904}
-        m_MethodName: StartTimer
-        m_Mode: 4
+      - m_Target: {fileID: 0}
+        m_MethodName: 
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
-          m_FloatArgument: 900
+          m_FloatArgument: 10
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
@@ -4686,7 +4697,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   s_Tag: IsometricMap
   v2_Offset: {x: 0, y: 0}
-  b_StartGenerate: 1
 --- !u!114 &974773405
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4704,6 +4714,10 @@ MonoBehaviour:
   - {fileID: 2105299799677455540, guid: 35c003c6c4456bd4f8056085c24b451b, type: 3}
   - {fileID: 7735754569224289513, guid: 098a894f0a5c6814ca81800f222f037a, type: 3}
   - {fileID: 8680859505868499736, guid: f77d5fd050c210b45af4684a51be4805, type: 3}
+  - {fileID: 651364459886309644, guid: dd533b40811213b48aad13811d5b1931, type: 3}
+  - {fileID: 3186468488396178752, guid: ab79fe4fa46456b4aaadf6d170a9c8b6, type: 3}
+  - {fileID: 8555918917784625976, guid: 595483bdbc8c6be469eb64cdeee19fc4, type: 3}
+  - {fileID: 5788759573677310219, guid: c198b704f27781d41b8eeebb77a8cc79, type: 3}
   l_Object:
   - {fileID: 4460797128710157806, guid: 9149e6bc29cce9a428402b6b24a8bdef, type: 3}
   - {fileID: 3385430312957717841, guid: af6aa17eeb942214284dfa92ed659d4b, type: 3}
@@ -4712,13 +4726,13 @@ MonoBehaviour:
   - {fileID: 5786968988204015352, guid: fbda9acae48b03f4798676433c741742, type: 3}
   - {fileID: 1555752416678142943, guid: 41928973c3c920444beb724913a184d8, type: 3}
   - {fileID: 2568581412078353803, guid: 8847a9b664a31484fa3bbcac9b60345d, type: 3}
-  l_Fence_Up:
+  l_Fence_U:
   - {fileID: 2386243090200919498, guid: 3ec54d6c510fc544dbfbd5d7bc5bf305, type: 3}
-  l_Fence_Down:
+  l_Fence_D:
   - {fileID: 9001288590841572552, guid: 7f9d2951d8e863345830a6fbdaed7b63, type: 3}
-  l_Fence_Left:
+  l_Fence_L:
   - {fileID: 9187171674658127747, guid: 4a9112bc5dde1684dba62ef4e5e6e4df, type: 3}
-  l_Fence_Right:
+  l_Fence_R:
   - {fileID: 7353951143779803940, guid: e2fe148196cf04b4d9ef9708fc78acf1, type: 3}
 --- !u!114 &974773406
 MonoBehaviour:
@@ -4732,15 +4746,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b4cba5ef4eb2ba4aba219fe778444c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  s_MapCode_Ground: ~~~~~~~~~~~~AaA~BbBbB~~aAa~bBbBb~~AaA~BbBbB~~~A~~bBbBb~~AAA~BbBbB~~AAA~bBbBb~~AAAABbBbB~~AAA~bBbBb~~AAA~BbBbB~~~~~~~~~~~~
-  s_MapCode_Object: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~1~2~~~~~~~~~~~~~~~~~~~4~3~~~~~~~~~~~~~~~~~~~5~6~~~~~~~~~~~~~~~~~~~~~7~~~~~~~~~~~~~~~~~~~~~~~~
-  s_MapCode_Fence_Up: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~U~U~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~U~~~~~~~~~~~~~~~~~~UUU~UUUUU~
-  s_MapCode_Fence_Down: ~DDD~DDDDD~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~D~D~~~~~~~~~~~~~~~~~~~~~~D~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  s_MapCode_Fence_Left: ~~~~~~~~~~~~~~~L~~~~~L~~~~L~~~~~L~~~~L~~~~~L~~~L~~~~~~L~~~~L~~~~~L~~~~L~~~~~L~~~~~~~~~~L~~~~L~~~~~L~~~~L~~~~~L~~~~~~~~~~~
-  s_MapCode_Fence_Right: ~~~~~~~~~~~R~~~R~~~~~~R~~~R~~~~~~R~~~R~~~~~~~R~~R~~~~~~R~~~R~~~~~~R~~~R~~~~~~R~~~~~~~~~~R~~~R~~~~~~R~~~R~~~~~~~~~~~~~~~~~
-  v2_MapCode_Size: {x: 11, y: 11}
+  s_MapCode_Ground: AAAAA~AaA~bBbAAAAALaAaLBbBAAAAA~AaA~bBbAAAAA~aAa~~D~AAAAA~AaAaAaAAAAAA~aAaAaAaAAAAA~AaAaAaAAAAAA~~~~~~A~AAAAA~BbBbBbBA~~~A~bBbBbBbA~~~ALBbBbBbBA~~~A~bBbBbBbAAAAA~BbBbBbB
+  s_MapCode_Object: ~~~~~~~~~~~~~~~~~~~~~~~~1~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~4~5~6~~~~~~~~~~~~~~~~~~~~~3~2~7~~~~~~~~~~~~~~
+  s_MapCode_Fence_U: UUUUU~UUU~UUU~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~UU~U~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~UUUUU~U~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~UUU~~~~~~~~~
+  s_MapCode_Fence_D: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~D~D~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~DDDDD~D~~~~~~~~~~~~~~DDD~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~DDDDD~DDDDDDD
+  s_MapCode_Fence_L: L~~~~~L~~~L~~L~~~~~~~~~~~~L~~~~~L~~~L~~L~~~~~L~~~~~~L~~~~~L~~~~~~L~~~~~L~~~~~~L~~~~~L~~~~~~L~~~~~~~~~~L~L~~~~~L~~~~~~L~~~L~L~~~~~~L~~~L~~~~~~~~L~~~L~L~~~~~~L~~~~~L~~~~~~
+  s_MapCode_Fence_R: ~~~~R~~~R~~~R~~~~~~~~~~~~R~~~~R~~~R~~~R~~~~R~~~R~~~~~~~~R~~~~~~~R~~~~R~~~~~~~R~~~~R~~~~~~~R~~~~R~~~~~~R~~~~~R~~~~~~~RR~~~R~~~~~~~RR~~~~~~~~~~~RR~~~R~~~~~~~R~~~~R~~~~~~~R
+  s_MapCode_Floor: 0000001111222000001111222200000011112220000001111121000000111111100000011111110000001111111000000000001000000011111110000001111111000001111111100000011111110000001111111
+  l2_MapCode_Under: []
+  v2_MapCode_Size: {x: 13, y: 13}
   l_SpawmPoint:
-  - {x: 2, y: 2}
+  - {x: 1, y: 1}
 --- !u!4 &974773407
 Transform:
   m_ObjectHideFlags: 0
@@ -9164,7 +9180,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 3
+  orthographic size: 10
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2

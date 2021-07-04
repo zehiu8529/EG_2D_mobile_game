@@ -876,8 +876,8 @@ public class Isometric_MapEditor : MonoBehaviour
         GameObject g_SpawmPoint = cl_Object.Set_Prepab_Create(this.g_SpawmPoint, g_MapManager.transform);
 
         g_SpawmPoint.GetComponent<Isometric_Single>().Set_Isometric_Pos(v2_Pos);
-        g_SpawmPoint.GetComponent<Isometric_Single>().Set_Isometric_OffsetOnMap(cl_MapManager_MapManager.Get_Offset());
-        g_SpawmPoint.GetComponent<Isometric_Single>().Set_isObject(true);
+        g_SpawmPoint.GetComponent<Isometric_Single>().Set_Isometric_Offset(cl_MapManager_MapManager.Get_Offset());
+        g_SpawmPoint.GetComponent<Isometric_Single>().Set_onGround(true);
         g_SpawmPoint.SetActive(true);
 
         lg_Spawm.Add(g_SpawmPoint);

@@ -10,14 +10,12 @@ using UnityEngine;
 /// </remarks>
 public class Isometric_Single : MonoBehaviour
 {
-    //Notice: This Script will auto Run in Edit Mode, and not when in Play Mode if this is Ground
-
     #region Public Varible
 
     /// <summary>
     /// Tag Isometric Object to Find
     /// </summary>
-    [Header("Map Manager Tag")]
+    [Header("Isometric Map-Manager")]
     [SerializeField]
     private string s_Tag = "IsometricMap";
 
@@ -30,7 +28,7 @@ public class Isometric_Single : MonoBehaviour
     /// <summary>
     /// Pos on Map this Object
     /// </summary>
-    [Header("On Map")]
+    [Header("Isometric On-Map")]
     [SerializeField]
     private Vector2 v2_Pos = new Vector2();
 
@@ -39,7 +37,7 @@ public class Isometric_Single : MonoBehaviour
     /// </summary>
     [SerializeField]
     [Range(0,9)]
-    private int i_Floor = 0;
+    private float f_Floor = 0;
 
     /// <summary>
     /// Pos Offset for Map
@@ -48,18 +46,24 @@ public class Isometric_Single : MonoBehaviour
     private Vector2 v2_Offset = new Vector2(0, 0);
 
     /// <summary>
+    /// Check if this Isometric is STAIR
+    /// </summary>
+    [SerializeField]
+    bool b_isStair = false;
+
+    /// <summary>
     /// Fix
     /// </summary>
-    [Header("On Square")]
+    [Header("Isometric On-Square")]
     [SerializeField]
     private Vector2 v2_Centre = new Vector2(0, 0);
 
     /// <summary>
-    /// Check if this Object is Ground (not Character, Burden, etc...)
+    /// Check if this Isometric is ON-TOP of GROUND
     /// </summary>
-    [Header("Is Object (Isn't Ground) on Map")]
+    [Header("Isometric On-Ground")]
     [SerializeField]
-    private bool b_isObject = false;
+    private bool b_onGround = false;
 
     /// <summary>
     /// Object Stand on Centre Ground
@@ -69,15 +73,19 @@ public class Isometric_Single : MonoBehaviour
     private float f_Centre = 0f;
 
     /// <summary>
-    /// Layer of this Isometric between other Isometric (Set 'i_Layer_Max' in 'IsometricMap' Object)
+    /// Depth Z of Isometric
     /// </summary>
+    /// <remarks>
+    /// If Isometric is FENCE, set | U=0.9f ; D=-0.9f ; L=-0.9f ; R=0.9f | in Unity Editor Inspector
+    /// </remarks>
     [SerializeField]
+    [Range(-1,1)]
     private float f_Depth = 0;
 
     /// <summary>
     /// Single Code for Isometric Ground, Object, Fence on Map
     /// </summary>
-    [Header("Single Code on Map")]
+    [Header("Isometric Single-Code")]
     [SerializeField]
     private char c_SingleCode = 'A';
 
@@ -125,13 +133,13 @@ public class Isometric_Single : MonoBehaviour
     {
         Class_Vector cl_Vector = new Class_Vector();
 
-        if (b_isObject)
+        if (b_onGround)
         {
             if (cl_MapManager != null)
             {
                 v3_Pos = cl_Vector.Get_Isometric_FixedDepth(
                     v2_Pos + v2_Offset,
-                    i_Floor,
+                    f_Floor,
                     f_Depth, 
                     f_Centre, 
                     cl_MapString.Get_MapSize());
@@ -150,7 +158,7 @@ public class Isometric_Single : MonoBehaviour
             {
                 v3_Pos = cl_Vector.Get_Isometric_FixedDepth(
                     v2_Pos + v2_Offset,
-                    i_Floor,
+                    f_Floor,
                     cl_MapString.Get_MapSize());
             }
             else
@@ -162,7 +170,7 @@ public class Isometric_Single : MonoBehaviour
 
         Vector3 v3_Transform = cl_Vector.Get_Isometric_TransformPosition(v3_Pos);
         v3_Transform += new Vector3(v2_Centre.x, v2_Centre.y, 0);
-        v3_Transform.y += i_Floor;
+        v3_Transform.y += f_Floor;
 
         this.transform.position = v3_Transform;
     }
@@ -174,7 +182,7 @@ public class Isometric_Single : MonoBehaviour
     /// <summary>
     /// Set Pos for this Isometric
     /// </summary>
-    /// <param name="v2_Pos"></param>
+    /// <param name="v2_Pos">Dir X is [UP;DOWN] and Dir Y [LEFT;RIGHT]</param>
     public void Set_Isometric_Pos(Vector2 v2_Pos)
     {
         this.v2_Pos = v2_Pos;
@@ -195,10 +203,10 @@ public class Isometric_Single : MonoBehaviour
     /// <summary>
     /// Set Floor for this Isometric
     /// </summary>
-    /// <param name="i_Floor"></param>
-    public void Set_Isometric_Floor(int i_Floor)
+    /// <param name="f_Floor"></param>
+    public void Set_Isometric_Floor(float f_Floor)
     {
-        this.i_Floor = i_Floor;
+        this.f_Floor = f_Floor;
 
         Set_Isometric_Transform();
     }
@@ -206,11 +214,11 @@ public class Isometric_Single : MonoBehaviour
     /// <summary>
     /// Set Pos and Floor for this Isometric
     /// </summary>
-    /// <param name="v2_PosOnMap"></param>
-    public void Set_Isometric(Vector2 v2_PosOnMap, int i_Floor)
+    /// <param name="v2_Pos">Dir X is [UP;DOWN] and Dir Y [LEFT;RIGHT]</param>
+    public void Set_Isometric(Vector2 v2_Pos, int i_Floor)
     {
-        this.v2_Pos = v2_PosOnMap;
-        this.i_Floor = i_Floor;
+        this.v2_Pos = v2_Pos;
+        this.f_Floor = i_Floor;
 
         Set_Isometric_Transform();
     }
@@ -218,11 +226,11 @@ public class Isometric_Single : MonoBehaviour
     /// <summary>
     /// Set Pos and Floor for this Isometric
     /// </summary>
-    /// <param name="f_PosOnMap_x"></param>
-    /// <param name="f_PosOnMap_y"></param>
-    public void Set_Isometric(float f_PosOnMap_x, float f_PosOnMap_y, int i_Floor)
+    /// <param name="f_Pos_x">Dir X is [UP;DOWN]</param>
+    /// <param name="f_Pos_y">Dir Y [LEFT;RIGHT]</param>
+    public void Set_Isometric(float f_Pos_x, float f_Pos_y, int i_Floor)
     {
-        Set_Isometric(new Vector2(f_PosOnMap_x, f_PosOnMap_y), i_Floor);
+        Set_Isometric(new Vector2(f_Pos_x, f_Pos_y), i_Floor);
     }
 
     /// <summary>
@@ -238,9 +246,9 @@ public class Isometric_Single : MonoBehaviour
     /// Get Floor of this Isometric
     /// </summary>
     /// <returns></returns>
-    public int Get_Isometric_Floor()
+    public float Get_Isometric_Floor()
     {
-        return this.i_Floor;
+        return this.f_Floor;
     }
 
     #endregion
@@ -250,10 +258,10 @@ public class Isometric_Single : MonoBehaviour
     /// <summary>
     /// Set Offset for this Isometric
     /// </summary>
-    /// <param name="v2_Pos"></param>
-    public void Set_Isometric_OffsetOnMap(Vector2 v2_OffsetOnMap)
+    /// <param name="v2_Pos">Dir X is [UP;DOWN] and Dir Y [LEFT;RIGHT]</param>
+    public void Set_Isometric_Offset(Vector2 v2_Offset)
     {
-        this.v2_Offset = v2_OffsetOnMap;
+        this.v2_Offset = v2_Offset;
 
         Set_Isometric_Transform();
     }
@@ -262,31 +270,44 @@ public class Isometric_Single : MonoBehaviour
     /// Get Offset of this Isometric
     /// </summary>
     /// <returns></returns>
-    public Vector2 Get_Isometric_OffsetOnMap()
+    public Vector2 Get_Isometric_Offset()
     {
         return v2_Offset;
     }
 
     #endregion
 
-    #region Is Object
+    #region On Ground
 
     /// <summary>
-    /// Set Object check for this Isometric
+    /// Set On-Ground check for this Isometric
     /// </summary>
     /// <returns></returns>
-    public bool Get_isObject()
+    public bool Get_onGround()
     {
-        return b_isObject;
+        return b_onGround;
     }
 
     /// <summary>
-    /// Get Object check for this Isometric
+    /// Get On-Ground check for this Isometric
     /// </summary>
-    /// <param name="b_isObject"></param>
-    public void Set_isObject(bool b_isObject)
+    /// <param name="b_onGround"></param>
+    public void Set_onGround(bool b_onGround)
     {
-        this.b_isObject = b_isObject;
+        this.b_onGround = b_onGround;
+    }
+
+    #endregion
+
+    #region Is Stair
+
+    /// <summary>
+    /// Get Is-Stair check for this Isometric
+    /// </summary>
+    /// <returns></returns>
+    public bool Get_isStair()
+    {
+        return this.b_isStair;
     }
 
     #endregion

@@ -23,7 +23,7 @@ public class Isometric_MoveControl : MonoBehaviour
     /// <summary>
     /// Tag for other Isometric Object to Find
     /// </summary>
-    [Header("Isometric Map Tag")]
+    [Header("Isometric Map-Manager")]
     [SerializeField]
     private string s_Tag = "IsometricMap";
 
@@ -124,12 +124,12 @@ public class Isometric_MoveControl : MonoBehaviour
     /// <summary>
     /// Pos Move To
     /// </summary>
-    public Vector2Int v2_PosMoveTo; 
+    private Vector2Int v2_PosMoveTo; 
 
     /// <summary>
     /// Pos Stand On after Move
     /// </summary>
-    public Vector2Int v2_PosStandOn;
+    private Vector2Int v2_PosStandOn;
 
     /// <summary>
     /// Smooth Damp Velocity x
@@ -139,6 +139,10 @@ public class Isometric_MoveControl : MonoBehaviour
     /// Smooth Damp Velocity y
     /// </summary>
     private float f_Velocity_y = 0.0f;
+    /// <summary>
+    /// Smooth Damp Velocity Floor
+    /// </summary>
+    private float f_Velocity_Floor = 0.0f;
 
     /// <summary>
     /// Face Base on Dir Move (Start at Face Right)
@@ -583,6 +587,7 @@ public class Isometric_MoveControl : MonoBehaviour
 
         Set_Move_x(v2_PosMoveTo.x);
         Set_Move_y(v2_PosMoveTo.y);
+        Set_Move_Floor();
     }
 
     /// <summary>
@@ -611,6 +616,21 @@ public class Isometric_MoveControl : MonoBehaviour
             ref f_Velocity_y, 
             f_TimeDelay * f_MovePercent);
         cl_Single.Set_Isometric_Pos(cl_Single.Get_Isometric_Pos().x, f_y_MoveNew);
+    }
+
+    private void Set_Move_Floor()
+    {
+        float f_FloorMoveTo = 
+            (cl_MapManager_MapManager.Get_GameObject_Ground(v2_PosMoveTo).GetComponent<Isometric_Single>().Get_isStair()) ? 
+            cl_MapManager_MapManager.Get_GameObject_Ground(v2_PosMoveTo).GetComponent<Isometric_Single>().Get_Isometric_Floor() - 0.5f :
+            cl_MapManager_MapManager.Get_GameObject_Ground(v2_PosMoveTo).GetComponent<Isometric_Single>().Get_Isometric_Floor();
+
+        float f_FloorNew = Mathf.SmoothDamp(
+            cl_Single.Get_Isometric_Floor(),
+            f_FloorMoveTo,
+            ref f_Velocity_Floor,
+            f_TimeDelay * f_MovePercent);
+        cl_Single.Set_Isometric_Floor(f_FloorNew);
     }
 
     #endregion
