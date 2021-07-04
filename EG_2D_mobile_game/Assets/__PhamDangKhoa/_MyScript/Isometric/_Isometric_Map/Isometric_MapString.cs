@@ -417,6 +417,16 @@ public class Isometric_MapString : MonoBehaviour
             return '8';
         if (i_Floor == 9)
             return '9';
+        if(i_Floor < 0)
+        {
+            Debug.LogError("Get_Floor: Out of Floor!");
+            return '0';
+        }
+        if (i_Floor > 9)
+        {
+            Debug.LogError("Get_Floor: Out of Floor!");
+            return '9';
+        }
         Debug.LogError("Get_Floor: Out of Floor!");
         return '~';
     }
@@ -449,7 +459,7 @@ public class Isometric_MapString : MonoBehaviour
         if (c_Floor == '9')
             return 9;
         Debug.LogError("Get_Floor: Out of Floor!");
-        return -1;
+        return 0;
     }
 
     #endregion

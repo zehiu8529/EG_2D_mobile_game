@@ -466,8 +466,7 @@ public class Isometric_MapManager : MonoBehaviour
     /// <summary>
     /// Set Code to a SQUARE of GROUND Map Code
     /// </summary>
-    /// <param name="v2_Pos.x">Dir UP and DOWN</param>
-    /// <param name="v2_Pos.y">Dir LEFT and RIGHT</param>
+    /// <param name="v2_Pos">Dir X is [UP;DOWN] and Dir Y [LEFT;RIGHT]</param>
     /// <param name="c_GroundCode"></param>
     public void Set_MatrixCode_Ground(Vector2Int v2_Pos, char c_GroundCode)
     {
@@ -491,8 +490,7 @@ public class Isometric_MapManager : MonoBehaviour
     /// <summary>
     /// Get Code from a SQUARE of GROUND Map Code
     /// </summary>
-    /// <param name="v2_Pos.x">Dir UP and DOWN</param>
-    /// <param name="v2_Pos.y">Dir LEFT and RIGHT</param>
+    /// <param name="v2_Pos">Dir X is [UP;DOWN] and Dir Y [LEFT;RIGHT]</param>
     /// <returns></returns>
     public char Get_MatrixCode_Ground(Vector2Int v2_Pos)
     {
@@ -505,7 +503,7 @@ public class Isometric_MapManager : MonoBehaviour
     /// <summary>
     /// Get Isometric GameObject on GROUND Map
     /// </summary>
-    /// <param name="v2_Pos"></param>
+    /// <param name="v2_Pos">Dir X is [UP;DOWN] and Dir Y [LEFT;RIGHT]</param>
     /// <returns></returns>
     public GameObject Get_GameObject_Ground(Vector2Int v2_Pos)
     {
@@ -556,8 +554,7 @@ public class Isometric_MapManager : MonoBehaviour
     /// <summary>
     /// Set Code to a SQUARE of OBJECT Map Code
     /// </summary>
-    /// <param name="v2_Pos.x">Dir UP and DOWN</param>
-    /// <param name="v2_Pos.y">Dir LEFT and RIGHT</param>
+    /// <param name="v2_Pos">Dir X is [UP;DOWN] and Dir Y [LEFT;RIGHT]</param>
     /// <param name="c_ObjectCode"></param>
     public void Set_MatrixCode_Object(Vector2Int v2_Pos, char c_ObjectCode)
     {
@@ -581,8 +578,7 @@ public class Isometric_MapManager : MonoBehaviour
     /// <summary>
     /// Get Code from a SQUARE of OBJECT Map Code
     /// </summary>
-    /// <param name="v2_Pos.x">Dir UP and DOWN</param>
-    /// <param name="v2_Pos.y">Dir LEFT and RIGHT</param>
+    /// <param name="v2_Pos">Dir X is [UP;DOWN] and Dir Y [LEFT;RIGHT]</param>
     /// <returns></returns>
     public char Get_MatrixCode_Object(Vector2Int v2_Pos)
     {
@@ -595,7 +591,7 @@ public class Isometric_MapManager : MonoBehaviour
     /// <summary>
     /// Get Isometric GameObject on OBJECT Map
     /// </summary>
-    /// <param name="v2_Pos"></param>
+    /// <param name="v2_Pos">Dir X is [UP;DOWN] and Dir Y [LEFT;RIGHT]</param>
     /// <returns></returns>
     public GameObject Get_GameObject_Object(Vector2Int v2_Pos)
     {
@@ -646,8 +642,7 @@ public class Isometric_MapManager : MonoBehaviour
     /// <summary>
     /// Set Code to a SQUARE of FENCE UP Map Code
     /// </summary>
-    /// <param name="v2_Pos.x">Dir UP and DOWN</param>
-    /// <param name="v2_Pos.y">Dir LEFT and RIGHT</param>
+    /// <param name="v2_Pos">Dir X is [UP;DOWN] and Dir Y [LEFT;RIGHT]</param>
     /// <param name="c_FenceUpCode"></param>
     public void Set_MatrixCode_Fence_U(Vector2Int v2_Pos, char c_FenceUpCode)
     {
@@ -671,8 +666,7 @@ public class Isometric_MapManager : MonoBehaviour
     /// <summary>
     /// Get Code from a SQUARE of FENCE UP Map Code
     /// </summary>
-    /// <param name="v2_Pos.x">Dir UP and DOWN</param>
-    /// <param name="v2_Pos.y">Dir LEFT and RIGHT</param>
+    /// <param name="v2_Pos">Dir X is [UP;DOWN] and Dir Y [LEFT;RIGHT]</param>
     /// <returns></returns>
     public char Get_MatrixCode_Fence_U(Vector2Int v2_Pos)
     {
@@ -685,7 +679,7 @@ public class Isometric_MapManager : MonoBehaviour
     /// <summary>
     /// Get Isometric GameObject on FENCE UP Map
     /// </summary>
-    /// <param name="v2_Pos"></param>
+    /// <param name="v2_Pos">Dir X is [UP;DOWN] and Dir Y [LEFT;RIGHT]</param>
     /// <returns></returns>
     public GameObject Get_GameObject_Fence_U(Vector2Int v2_Pos)
     {
@@ -736,8 +730,7 @@ public class Isometric_MapManager : MonoBehaviour
     /// <summary>
     /// Set Code to a SQUARE of FENCE DOWN Map Code
     /// </summary>
-    /// <param name="v2_Pos.x">Dir UP and DOWN</param>
-    /// <param name="v2_Pos.y">Dir LEFT and RIGHT</param>
+    /// <param name="v2_Pos">Dir X is [UP;DOWN] and Dir Y [LEFT;RIGHT]</param>
     /// <param name="c_FenceDownCode"></param>
     public void Set_MatrixCode_Fence_D(Vector2Int v2_Pos, char c_FenceDownCode)
     {
@@ -761,8 +754,7 @@ public class Isometric_MapManager : MonoBehaviour
     /// <summary>
     /// Get Code from a SQUARE of FENCE DOWN Map Code
     /// </summary>
-    /// <param name="v2_Pos.x">Dir UP and DOWN</param>
-    /// <param name="v2_Pos.y">Dir LEFT and RIGHT</param>
+    /// <param name="v2_Pos">Dir X is [UP;DOWN] and Dir Y [LEFT;RIGHT]</param>
     /// <returns></returns>
     public char Get_MatrixCode_Fence_D(Vector2Int v2_Pos)
     {
@@ -775,7 +767,7 @@ public class Isometric_MapManager : MonoBehaviour
     /// <summary>
     /// Get Isometric GameObject on FENCE UP Map
     /// </summary>
-    /// <param name="v2_Pos"></param>
+    /// <param name="v2_Pos">Dir X is [UP;DOWN] and Dir Y [LEFT;RIGHT]</param>
     /// <returns></returns>
     public GameObject Get_GameObject_Fence_D(Vector2Int v2_Pos)
     {
@@ -826,8 +818,7 @@ public class Isometric_MapManager : MonoBehaviour
     /// <summary>
     /// Set Code to a SQUARE of FENCE LEFT Map Code
     /// </summary>
-    /// <param name="v2_Pos.x">Dir UP and DOWN</param>
-    /// <param name="v2_Pos.y">Dir LEFT and RIGHT</param>
+    /// <param name="v2_Pos">Dir X is [UP;DOWN] and Dir Y [LEFT;RIGHT]</param>
     /// <param name="c_FenceLeftCode"></param>
     public void Set_MatrixCode_Fence_L(Vector2Int v2_Pos, char c_FenceLeftCode)
     {
@@ -851,8 +842,7 @@ public class Isometric_MapManager : MonoBehaviour
     /// <summary>
     /// Get Code from a SQUARE of FENCE LEFT Map Code
     /// </summary>
-    /// <param name="v2_Pos.x">Dir UP and DOWN</param>
-    /// <param name="v2_Pos.y">Dir LEFT and RIGHT</param>
+    /// <param name="v2_Pos">Dir X is [UP;DOWN] and Dir Y [LEFT;RIGHT]</param>
     /// <returns></returns>
     public char Get_MatrixCode_Fence_L(Vector2Int v2_Pos)
     {
@@ -865,7 +855,7 @@ public class Isometric_MapManager : MonoBehaviour
     /// <summary>
     /// Get Isometric GameObject on FENCE LEFT Map
     /// </summary>
-    /// <param name="v2_Pos"></param>
+    /// <param name="v2_Pos">Dir X is [UP;DOWN] and Dir Y [LEFT;RIGHT]</param>
     /// <returns></returns>
     public GameObject Get_GameObject_Fence_L(Vector2Int v2_Pos)
     {
@@ -916,8 +906,7 @@ public class Isometric_MapManager : MonoBehaviour
     /// <summary>
     /// Set Code to a SQUARE of FENCE RIGHT Map Code
     /// </summary>
-    /// <param name="v2_Pos.x">Dir UP and DOWN</param>
-    /// <param name="v2_Pos.y">Dir LEFT and RIGHT</param>
+    /// <param name="v2_Pos">Dir X is [UP;DOWN] and Dir Y [LEFT;RIGHT]</param>
     /// <param name="c_FenceRightCode"></param>
     public void Set_MatrixCode_Fence_R(Vector2Int v2_Pos, char c_FenceRightCode)
     {
@@ -941,8 +930,7 @@ public class Isometric_MapManager : MonoBehaviour
     /// <summary>
     /// Get Code from a SQUARE of FENCE RIGHT Map Code
     /// </summary>
-    /// <param name="v2_Pos.x">Dir UP and DOWN</param>
-    /// <param name="v2_Pos.y">Dir LEFT and RIGHT</param>
+    /// <param name="v2_Pos">Dir X is [UP;DOWN] and Dir Y [LEFT;RIGHT]</param>
     /// <returns></returns>
     public char Get_MatrixCode_Fence_R(Vector2Int v2_Pos)
     {
@@ -955,7 +943,7 @@ public class Isometric_MapManager : MonoBehaviour
     /// <summary>
     /// Get Isometric GameObject on FENCE RIGHT Map
     /// </summary>
-    /// <param name="v2_Pos"></param>
+    /// <param name="v2_Pos">Dir X is [UP;DOWN] and Dir Y [LEFT;RIGHT]</param>
     /// <returns></returns>
     public GameObject Get_GameObject_Fence_R(Vector2Int v2_Pos)
     {
@@ -1061,16 +1049,39 @@ public class Isometric_MapManager : MonoBehaviour
         Set_Floor_Fence_R(v2_Pos, i_Floor);
     }
 
+    /// <summary>
+    /// Get Code from a SQUARE of FLOOR Map Code
+    /// </summary>
+    /// <param name="v2_Pos">Dir X is [UP;DOWN] and Dir Y [LEFT;RIGHT]</param>
+    /// <returns></returns>
+    public char Get_MatrixCode_Floor(Vector2Int v2_Pos)
+    {
+        if (!Get_Check_InsideMap(v2_Pos))
+            return cl_MapRenderer.Get_EmtyCode();
+
+        return l2_Map_FloorCode[v2_Pos.x][v2_Pos.y];
+    }
+
+    /// <summary>
+    /// Get Code from a SQUARE of FLOOR Map Code
+    /// </summary>
+    /// <param name="v2_Pos">Dir X is [UP;DOWN] and Dir Y [LEFT;RIGHT]</param>
+    /// <returns></returns>
+    public int Get_MatrixCode_Floor_ToInt(Vector2Int v2_Pos)
+    {
+        return cl_MapString.Get_Floor(Get_MatrixCode_Floor(v2_Pos));
+    }
+
     #endregion
 
-    #region Private (Map Single)
+    #region Private (Single Code)
 
     //Primary
 
     /// <summary>
     /// Set Floor to GROUND
     /// </summary>
-    /// <param name="v2_Pos"></param>
+    /// <param name="v2_Pos">Dir X is [UP;DOWN] and Dir Y [LEFT;RIGHT]</param>
     /// <param name="i_Floor"></param>
     private void Set_Floor_Ground(Vector2Int v2_Pos, int i_Floor)
     {
@@ -1086,7 +1097,7 @@ public class Isometric_MapManager : MonoBehaviour
     /// <summary>
     /// Set Current Floor to GROUND
     /// </summary>
-    /// <param name="v2_Pos"></param>
+    /// <param name="v2_Pos">Dir X is [UP;DOWN] and Dir Y [LEFT;RIGHT]</param>
     private void Set_Floor_Ground(Vector2Int v2_Pos)
     {
         if (!Get_Check_InsideMap(v2_Pos))
@@ -1106,7 +1117,7 @@ public class Isometric_MapManager : MonoBehaviour
     /// <summary>
     /// Set Floor to OBJECT
     /// </summary>
-    /// <param name="v2_Pos"></param>
+    /// <param name="v2_Pos">Dir X is [UP;DOWN] and Dir Y [LEFT;RIGHT]</param>
     /// <param name="i_Floor"></param>
     private void Set_Floor_Object(Vector2Int v2_Pos, int i_Floor)
     {
@@ -1122,7 +1133,7 @@ public class Isometric_MapManager : MonoBehaviour
     /// <summary>
     /// Set Current Floor to OBJECT
     /// </summary>
-    /// <param name="v2_Pos"></param>
+    /// <param name="v2_Pos">Dir X is [UP;DOWN] and Dir Y [LEFT;RIGHT]</param>
     private void Set_Floor_Object(Vector2Int v2_Pos)
     {
         if (!Get_Check_InsideMap(v2_Pos))
@@ -1144,7 +1155,7 @@ public class Isometric_MapManager : MonoBehaviour
     /// <summary>
     /// Set Floor to FENCE UP
     /// </summary>
-    /// <param name="v2_Pos"></param>
+    /// <param name="v2_Pos">Dir X is [UP;DOWN] and Dir Y [LEFT;RIGHT]</param>
     /// <param name="i_Floor"></param>
     private void Set_Floor_Fence_U(Vector2Int v2_Pos, int i_Floor)
     {
@@ -1160,7 +1171,7 @@ public class Isometric_MapManager : MonoBehaviour
     /// <summary>
     /// Set Current Floor to FENCE UP
     /// </summary>
-    /// <param name="v2_Pos"></param>
+    /// <param name="v2_Pos">Dir X is [UP;DOWN] and Dir Y [LEFT;RIGHT]</param>
     private void Set_Floor_Fence_U(Vector2Int v2_Pos)
     {
         if (!Get_Check_InsideMap(v2_Pos))
@@ -1180,7 +1191,7 @@ public class Isometric_MapManager : MonoBehaviour
     /// <summary>
     /// Set Floor to FENCE DOWN
     /// </summary>
-    /// <param name="v2_Pos"></param>
+    /// <param name="v2_Pos">Dir X is [UP;DOWN] and Dir Y [LEFT;RIGHT]</param>
     /// <param name="i_Floor"></param>
     private void Set_Floor_Fence_D(Vector2Int v2_Pos, int i_Floor)
     {
@@ -1196,7 +1207,7 @@ public class Isometric_MapManager : MonoBehaviour
     /// <summary>
     /// Set Current Floor to FENCE DOWN
     /// </summary>
-    /// <param name="v2_Pos"></param>
+    /// <param name="v2_Pos">Dir X is [UP;DOWN] and Dir Y [LEFT;RIGHT]</param>
     private void Set_Floor_Fence_D(Vector2Int v2_Pos)
     {
         if (!Get_Check_InsideMap(v2_Pos))
@@ -1216,7 +1227,7 @@ public class Isometric_MapManager : MonoBehaviour
     /// <summary>
     /// Set Floor to FENCE LEFT
     /// </summary>
-    /// <param name="v2_Pos"></param>
+    /// <param name="v2_Pos">Dir X is [UP;DOWN] and Dir Y [LEFT;RIGHT]</param>
     /// <param name="i_Floor"></param>
     private void Set_Floor_Fence_L(Vector2Int v2_Pos, int i_Floor)
     {
@@ -1232,7 +1243,7 @@ public class Isometric_MapManager : MonoBehaviour
     /// <summary>
     /// Set Current Floor to FENCE LEFT
     /// </summary>
-    /// <param name="v2_Pos"></param>
+    /// <param name="v2_Pos">Dir X is [UP;DOWN] and Dir Y [LEFT;RIGHT]</param>
     private void Set_Floor_Fence_L(Vector2Int v2_Pos)
     {
         if (!Get_Check_InsideMap(v2_Pos))
@@ -1252,7 +1263,7 @@ public class Isometric_MapManager : MonoBehaviour
     /// <summary>
     /// Set Floor to FENCE RIGHT
     /// </summary>
-    /// <param name="v2_Pos"></param>
+    /// <param name="v2_Pos">Dir X is [UP;DOWN] and Dir Y [LEFT;RIGHT]</param>
     /// <param name="i_Floor"></param>
     private void Set_Floor_Fence_R(Vector2Int v2_Pos, int i_Floor)
     {
@@ -1268,7 +1279,7 @@ public class Isometric_MapManager : MonoBehaviour
     /// <summary>
     /// Set Current Floor to FENCE RIGHT
     /// </summary>
-    /// <param name="v2_Pos"></param>
+    /// <param name="v2_Pos">Dir X is [UP;DOWN] and Dir Y [LEFT;RIGHT]</param>
     private void Set_Floor_Fence_R(Vector2Int v2_Pos)
     {
         if (!Get_Check_InsideMap(v2_Pos))
@@ -1287,7 +1298,7 @@ public class Isometric_MapManager : MonoBehaviour
 
     #endregion
 
-    #region Private
+    #region Private (Matrix Code)
 
     /// <summary>
     /// Get MAP CODE of FLOOR
@@ -1333,7 +1344,7 @@ public class Isometric_MapManager : MonoBehaviour
     /// <summary>
     /// Create Isometric GameObject inside Map Manager GameObject
     /// </summary>
-    /// <param name="v2_Pos"></param>
+    /// <param name="v2_Pos">Dir X is [UP;DOWN] and Dir Y [LEFT;RIGHT]</param>
     /// <param name="g_Prefab"></param>
     /// <param name="b_isObject"></param>
     private GameObject Set_GameObject_Create(Vector2Int v2_Pos, GameObject g_Prefab, bool b_isObject)
@@ -1357,7 +1368,7 @@ public class Isometric_MapManager : MonoBehaviour
     /// <summary>
     /// Remove Isometric GameObject
     /// </summary>
-    /// <param name="v2_Pos"></param>
+    /// <param name="v2_Pos">Dir X is [UP;DOWN] and Dir Y [LEFT;RIGHT]</param>
     private void Set_GameObject_Remove(GameObject g_Prefab)
     {
         cl_Object.Set_Destroy_GameObject(g_Prefab);
