@@ -119,11 +119,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   s_Tag: IsometricMap
   g_MapManager: {fileID: 0}
-  v2_PosOnMap: {x: 3, y: 0}
-  v2_OffsetOnMap: {x: 0, y: 0}
-  v2_CentreOnSquare: {x: 0, y: 0}
-  b_isObject: 1
-  f_Centre: 1.3
+  v2_Pos: {x: 0, y: 0}
+  f_Floor: 0
+  v2_Offset: {x: 0, y: 0}
+  b_isStair: 0
+  v2_Centre: {x: 0, y: 0}
+  b_onGround: 1
+  f_Centre: 0.3
   f_Depth: 0
   c_SingleCode: 65
 --- !u!114 &246709113450402633
@@ -148,8 +150,6 @@ MonoBehaviour:
   b_DelayControl: 1
   f_TimeDelay: 0.2
   f_MovePercent: 0.5
-  v2_PosMoveTo: {x: 0, y: 0}
-  v2_PosStandOn: {x: 0, y: 0}
 --- !u!114 &7254209784986483933
 MonoBehaviour:
   m_ObjectHideFlags: 0

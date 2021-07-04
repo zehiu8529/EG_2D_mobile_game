@@ -115,9 +115,9 @@ public class EG_ClientTable : MonoBehaviour
                         //0
                         l_Data.Add(cl_EGSocketManager.s_Command_Table);
                         //1
-                        l_Data.Add(cl_Single.Get_Isometric_PosOnMap().x.ToString());
+                        l_Data.Add(cl_Single.Get_Isometric_Pos().x.ToString());
                         //2
-                        l_Data.Add(cl_Single.Get_Isometric_PosOnMap().y.ToString());
+                        l_Data.Add(cl_Single.Get_Isometric_Pos().y.ToString());
 
                         Class_String cl_String = new Class_String();
 

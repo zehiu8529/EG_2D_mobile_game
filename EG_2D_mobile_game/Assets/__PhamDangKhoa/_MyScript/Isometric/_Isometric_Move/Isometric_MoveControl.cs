@@ -23,7 +23,7 @@ public class Isometric_MoveControl : MonoBehaviour
     /// <summary>
     /// Tag for other Isometric Object to Find
     /// </summary>
-    [Header("Isometric Map Tag")]
+    [Header("Isometric Map-Manager")]
     [SerializeField]
     private string s_Tag = "IsometricMap";
 
@@ -124,12 +124,12 @@ public class Isometric_MoveControl : MonoBehaviour
     /// <summary>
     /// Pos Move To
     /// </summary>
-    public Vector2Int v2_PosMoveTo; 
+    private Vector2Int v2_PosMoveTo; 
 
     /// <summary>
     /// Pos Stand On after Move
     /// </summary>
-    public Vector2Int v2_PosStandOn;
+    private Vector2Int v2_PosStandOn;
 
     /// <summary>
     /// Smooth Damp Velocity x
@@ -139,6 +139,10 @@ public class Isometric_MoveControl : MonoBehaviour
     /// Smooth Damp Velocity y
     /// </summary>
     private float f_Velocity_y = 0.0f;
+    /// <summary>
+    /// Smooth Damp Velocity Floor
+    /// </summary>
+    private float f_Velocity_Floor = 0.0f;
 
     /// <summary>
     /// Face Base on Dir Move (Start at Face Right)
@@ -165,9 +169,9 @@ public class Isometric_MoveControl : MonoBehaviour
 
         cl_MapManager_MapManager = g_MapManager.GetComponent<Isometric_MapManager>();
 
-        v2_PosMoveTo = new Vector2Int((int)cl_Single.Get_Isometric_PosOnMap().x, (int)cl_Single.Get_Isometric_PosOnMap().y);
-        v2_PosStandOn = new Vector2Int((int)cl_Single.Get_Isometric_PosOnMap().x, (int)cl_Single.Get_Isometric_PosOnMap().y);
-        cl_Single.Set_Isometric_PosOnMap(v2_PosStandOn);
+        v2_PosMoveTo = new Vector2Int((int)cl_Single.Get_Isometric_Pos().x, (int)cl_Single.Get_Isometric_Pos().y);
+        v2_PosStandOn = new Vector2Int((int)cl_Single.Get_Isometric_Pos().x, (int)cl_Single.Get_Isometric_Pos().y);
+        cl_Single.Set_Isometric_Pos(v2_PosStandOn);
     }
 
     private void Update()
@@ -583,6 +587,7 @@ public class Isometric_MoveControl : MonoBehaviour
 
         Set_Move_x(v2_PosMoveTo.x);
         Set_Move_y(v2_PosMoveTo.y);
+        Set_Move_Floor();
     }
 
     /// <summary>
@@ -592,11 +597,11 @@ public class Isometric_MoveControl : MonoBehaviour
     private void Set_Move_x(float f_x_MoveTo)
     {
         float f_x_MoveNew = Mathf.SmoothDamp(
-            cl_Single.Get_Isometric_PosOnMap().x, 
+            cl_Single.Get_Isometric_Pos().x, 
             f_x_MoveTo, 
             ref f_Velocity_x, 
             f_TimeDelay * f_MovePercent);
-        cl_Single.Set_Isometric_PosOnMap(f_x_MoveNew, cl_Single.Get_Isometric_PosOnMap().y);
+        cl_Single.Set_Isometric_Pos(f_x_MoveNew, cl_Single.Get_Isometric_Pos().y);
     }
 
     /// <summary>
@@ -606,11 +611,26 @@ public class Isometric_MoveControl : MonoBehaviour
     private void Set_Move_y(float f_y_MoveTo)
     {
         float f_y_MoveNew = Mathf.SmoothDamp(
-            cl_Single.Get_Isometric_PosOnMap().y, 
+            cl_Single.Get_Isometric_Pos().y, 
             f_y_MoveTo, 
             ref f_Velocity_y, 
             f_TimeDelay * f_MovePercent);
-        cl_Single.Set_Isometric_PosOnMap(cl_Single.Get_Isometric_PosOnMap().x, f_y_MoveNew);
+        cl_Single.Set_Isometric_Pos(cl_Single.Get_Isometric_Pos().x, f_y_MoveNew);
+    }
+
+    private void Set_Move_Floor()
+    {
+        float f_FloorMoveTo = 
+            (cl_MapManager_MapManager.Get_GameObject_Ground(v2_PosMoveTo).GetComponent<Isometric_Single>().Get_isStair()) ? 
+            cl_MapManager_MapManager.Get_GameObject_Ground(v2_PosMoveTo).GetComponent<Isometric_Single>().Get_Isometric_Floor() - 0.5f :
+            cl_MapManager_MapManager.Get_GameObject_Ground(v2_PosMoveTo).GetComponent<Isometric_Single>().Get_Isometric_Floor();
+
+        float f_FloorNew = Mathf.SmoothDamp(
+            cl_Single.Get_Isometric_Floor(),
+            f_FloorMoveTo,
+            ref f_Velocity_Floor,
+            f_TimeDelay * f_MovePercent);
+        cl_Single.Set_Isometric_Floor(f_FloorNew);
     }
 
     #endregion

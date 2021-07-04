@@ -40,28 +40,28 @@ public class Isometric_MapRenderer : MonoBehaviour
     /// </summary>
     [Header("Fence Up Square")]
     [SerializeField]
-    private List<GameObject> l_Fence_Up;
+    private List<GameObject> l_Fence_U;
 
     /// <summary>
     /// List Isometric GameObject Fence Down
     /// </summary>
     [Header("Fence Down Square")]
     [SerializeField]
-    private List<GameObject> l_Fence_Down;
+    private List<GameObject> l_Fence_D;
 
     /// <summary>
     /// List Isometric GameObject Fence Left
     /// </summary>
     [Header("Fence Left Square")]
     [SerializeField]
-    private List<GameObject> l_Fence_Left;
+    private List<GameObject> l_Fence_L;
 
     /// <summary>
     /// List Isometric GameObject Fence Right
     /// </summary>
     [Header("Fence Right Square")]
     [SerializeField]
-    private List<GameObject> l_Fence_Right;
+    private List<GameObject> l_Fence_R;
 
     /// <summary>
     /// Emty Code use for GROUND, OBJECT and FENCE CODE
@@ -142,13 +142,13 @@ public class Isometric_MapRenderer : MonoBehaviour
     /// </summary>
     public void Set_Check_SingleCode_Fence_Up()
     {
-        for (int i = 0; i < l_Fence_Up.Count - 1; i++)
+        for (int i = 0; i < l_Fence_U.Count - 1; i++)
         {
-            for (int j = i + 1; j < l_Fence_Up.Count; j++)
+            for (int j = i + 1; j < l_Fence_U.Count; j++)
             {
-                if (Get_SingleCode_Fence_Up(i) == Get_SingleCode_Fence_Up(j))
+                if (Get_SingleCode_Fence_U(i) == Get_SingleCode_Fence_U(j))
                 {
-                    Debug.LogWarning("Set_Check_SingleCode_Fence_Up: Same Single Code '" + Get_SingleCode_Fence_Up(i) + " ' at index '" + j + "'");
+                    Debug.LogWarning("Set_Check_SingleCode_Fence_Up: Same Single Code '" + Get_SingleCode_Fence_U(i) + " ' at index '" + j + "'");
                     break;
                 }
             }
@@ -160,13 +160,13 @@ public class Isometric_MapRenderer : MonoBehaviour
     /// </summary>
     public void Set_Check_SingleCode_Fence_Down()
     {
-        for (int i = 0; i < l_Fence_Down.Count - 1; i++)
+        for (int i = 0; i < l_Fence_D.Count - 1; i++)
         {
-            for (int j = i + 1; j < l_Fence_Down.Count; j++)
+            for (int j = i + 1; j < l_Fence_D.Count; j++)
             {
-                if (Get_SingleCode_Fence_Down(i) == Get_SingleCode_Fence_Down(j))
+                if (Get_SingleCode_Fence_D(i) == Get_SingleCode_Fence_D(j))
                 {
-                    Debug.LogWarning("Set_Check_SingleCode_Fence_Down: Same Single Code '" + Get_SingleCode_Fence_Down(i) + " ' at index '" + j + "'");
+                    Debug.LogWarning("Set_Check_SingleCode_Fence_Down: Same Single Code '" + Get_SingleCode_Fence_D(i) + " ' at index '" + j + "'");
                     break;
                 }
             }
@@ -178,13 +178,13 @@ public class Isometric_MapRenderer : MonoBehaviour
     /// </summary>
     public void Set_Check_SingleCode_Fence_Left()
     {
-        for (int i = 0; i < l_Fence_Left.Count - 1; i++)
+        for (int i = 0; i < l_Fence_L.Count - 1; i++)
         {
-            for (int j = i + 1; j < l_Fence_Left.Count; j++)
+            for (int j = i + 1; j < l_Fence_L.Count; j++)
             {
-                if (Get_SingleCode_Fence_Left(i) == Get_SingleCode_Fence_Left(j))
+                if (Get_SingleCode_Fence_L(i) == Get_SingleCode_Fence_L(j))
                 {
-                    Debug.LogWarning("Set_Check_SingleCode_Fence_Left: Same Single Code '" + Get_SingleCode_Fence_Left(i) + " ' at index '" + j + "'");
+                    Debug.LogWarning("Set_Check_SingleCode_Fence_Left: Same Single Code '" + Get_SingleCode_Fence_L(i) + " ' at index '" + j + "'");
                     break;
                 }
             }
@@ -196,9 +196,9 @@ public class Isometric_MapRenderer : MonoBehaviour
     /// </summary>
     public void Set_Check_SingleCode_Fence_Right()
     {
-        for (int i = 0; i < l_Fence_Right.Count - 1; i++)
+        for (int i = 0; i < l_Fence_R.Count - 1; i++)
         {
-            for (int j = i + 1; j < l_Fence_Right.Count; j++)
+            for (int j = i + 1; j < l_Fence_R.Count; j++)
             {
                 if (Get_SingleCode_Fence_Right(i) == Get_SingleCode_Fence_Right(j))
                 {
@@ -355,11 +355,11 @@ public class Isometric_MapRenderer : MonoBehaviour
     /// Get Count List of Fence Up
     /// </summary>
     /// <returns></returns>
-    public int Get_CountList_Fence_Up()
+    public int Get_CountList_Fence_U()
     {
-        if (l_Fence_Up.Count == l_Fence_Up.Count)
+        if (l_Fence_U.Count == l_Fence_U.Count)
         {
-            return l_Fence_Up.Count;
+            return l_Fence_U.Count;
         }
         Debug.LogError("Get_CountList_Fence_Up: Both List not same Count!");
         return 0;
@@ -370,14 +370,14 @@ public class Isometric_MapRenderer : MonoBehaviour
     /// </summary>
     /// <param name="i_FenceUpListIndex"></param>
     /// <returns></returns>
-    public GameObject Get_GameObject_Fence_Up(int i_FenceUpListIndex)
+    public GameObject Get_GameObject_Fence_U(int i_FenceUpListIndex)
     {
-        if (i_FenceUpListIndex < 0 || i_FenceUpListIndex >= Get_CountList_Fence_Up())
+        if (i_FenceUpListIndex < 0 || i_FenceUpListIndex >= Get_CountList_Fence_U())
         {
             Debug.LogError("Get_GameObject_Fence_Up: Out Index of List Fence_Up!");
             return null;
         }
-        return l_Fence_Up[i_FenceUpListIndex];
+        return l_Fence_U[i_FenceUpListIndex];
     }
 
     /// <summary>
@@ -385,16 +385,16 @@ public class Isometric_MapRenderer : MonoBehaviour
     /// </summary>
     /// <param name="c_FenceUpCode"></param>
     /// <returns></returns>
-    public GameObject Get_GameObject_Fence_Up(char c_FenceUpCode)
+    public GameObject Get_GameObject_Fence_U(char c_FenceUpCode)
     {
         if (c_FenceUpCode == Get_EmtyCode())
             return null;
 
-        for (int i = 0; i < Get_CountList_Fence_Up(); i++)
+        for (int i = 0; i < Get_CountList_Fence_U(); i++)
         {
-            if (Get_SingleCode_Fence_Up(i) == c_FenceUpCode)
+            if (Get_SingleCode_Fence_U(i) == c_FenceUpCode)
             {
-                return Get_GameObject_Fence_Up(i);
+                return Get_GameObject_Fence_U(i);
             }
         }
         Debug.LogError("Get_GameObject_Fence_Up: Not Found Code!");
@@ -406,14 +406,14 @@ public class Isometric_MapRenderer : MonoBehaviour
     /// </summary>
     /// <param name="i_FenceUpListIndex"></param>
     /// <returns></returns>
-    public char Get_SingleCode_Fence_Up(int i_FenceUpListIndex)
+    public char Get_SingleCode_Fence_U(int i_FenceUpListIndex)
     {
-        if (i_FenceUpListIndex < 0 || i_FenceUpListIndex >= Get_CountList_Fence_Up())
+        if (i_FenceUpListIndex < 0 || i_FenceUpListIndex >= Get_CountList_Fence_U())
         {
             Debug.LogError("Get_SingleCode_Fence_Up: Out Index of List Fence_Up!");
             return Get_EmtyCode();
         }
-        return l_Fence_Up[i_FenceUpListIndex].GetComponent<Isometric_Single>().Get_SingleCode();
+        return l_Fence_U[i_FenceUpListIndex].GetComponent<Isometric_Single>().Get_SingleCode();
     }
 
     #endregion
@@ -424,11 +424,11 @@ public class Isometric_MapRenderer : MonoBehaviour
     /// Get Count List of Fence_Down
     /// </summary>
     /// <returns></returns>
-    public int Get_CountList_Fence_Down()
+    public int Get_CountList_Fence_D()
     {
-        if (l_Fence_Down.Count == l_Fence_Down.Count)
+        if (l_Fence_D.Count == l_Fence_D.Count)
         {
-            return l_Fence_Down.Count;
+            return l_Fence_D.Count;
         }
         Debug.LogError("Get_CountList_Fence_Down: Both List not same Count!");
         return 0;
@@ -439,14 +439,14 @@ public class Isometric_MapRenderer : MonoBehaviour
     /// </summary>
     /// <param name="i_FenceDownListIndex"></param>
     /// <returns></returns>
-    public GameObject Get_GameObject_Fence_Down(int i_FenceDownListIndex)
+    public GameObject Get_GameObject_Fence_D(int i_FenceDownListIndex)
     {
-        if (i_FenceDownListIndex < 0 || i_FenceDownListIndex >= Get_CountList_Fence_Down())
+        if (i_FenceDownListIndex < 0 || i_FenceDownListIndex >= Get_CountList_Fence_D())
         {
             Debug.LogError("Get_GameObject_Fence_Down: Out Index of List Fence_Down!");
             return null;
         }
-        return l_Fence_Down[i_FenceDownListIndex];
+        return l_Fence_D[i_FenceDownListIndex];
     }
 
     /// <summary>
@@ -454,16 +454,16 @@ public class Isometric_MapRenderer : MonoBehaviour
     /// </summary>
     /// <param name="c_FenceUpCode"></param>
     /// <returns></returns>
-    public GameObject Get_GameObject_Fence_Down(char c_FenceDownCode)
+    public GameObject Get_GameObject_Fence_D(char c_FenceDownCode)
     {
         if (c_FenceDownCode == Get_EmtyCode())
             return null;
 
-        for (int i = 0; i < Get_CountList_Fence_Down(); i++)
+        for (int i = 0; i < Get_CountList_Fence_D(); i++)
         {
-            if (Get_SingleCode_Fence_Down(i) == c_FenceDownCode)
+            if (Get_SingleCode_Fence_D(i) == c_FenceDownCode)
             {
-                return Get_GameObject_Fence_Down(i);
+                return Get_GameObject_Fence_D(i);
             }
         }
         Debug.LogError("Get_GameObject_Fence_Down: Not Found Code!");
@@ -475,14 +475,14 @@ public class Isometric_MapRenderer : MonoBehaviour
     /// </summary>
     /// <param name="i_FenceDownListIndex"></param>
     /// <returns></returns>
-    public char Get_SingleCode_Fence_Down(int i_FenceDownListIndex)
+    public char Get_SingleCode_Fence_D(int i_FenceDownListIndex)
     {
-        if (i_FenceDownListIndex < 0 || i_FenceDownListIndex >= Get_CountList_Fence_Down())
+        if (i_FenceDownListIndex < 0 || i_FenceDownListIndex >= Get_CountList_Fence_D())
         {
             Debug.LogError("Get_SingleCode_Fence_Down: Out Index of List Fence_Down!");
             return Get_EmtyCode();
         }
-        return l_Fence_Down[i_FenceDownListIndex].GetComponent<Isometric_Single>().Get_SingleCode();
+        return l_Fence_D[i_FenceDownListIndex].GetComponent<Isometric_Single>().Get_SingleCode();
     }
 
     #endregion
@@ -493,11 +493,11 @@ public class Isometric_MapRenderer : MonoBehaviour
     /// Get Count List of Fence_Left
     /// </summary>
     /// <returns></returns>
-    public int Get_CountList_Fence_Left()
+    public int Get_CountList_Fence_L()
     {
-        if (l_Fence_Left.Count == l_Fence_Left.Count)
+        if (l_Fence_L.Count == l_Fence_L.Count)
         {
-            return l_Fence_Left.Count;
+            return l_Fence_L.Count;
         }
         Debug.LogError("Get_CountList_Fence_Left: Both List not same Count!");
         return 0;
@@ -508,14 +508,14 @@ public class Isometric_MapRenderer : MonoBehaviour
     /// </summary>
     /// <param name="i_FenceLeftListIndex"></param>
     /// <returns></returns>
-    public GameObject Get_GameObject_Fence_Left(int i_FenceLeftListIndex)
+    public GameObject Get_GameObject_Fence_L(int i_FenceLeftListIndex)
     {
-        if (i_FenceLeftListIndex < 0 || i_FenceLeftListIndex >= Get_CountList_Fence_Left())
+        if (i_FenceLeftListIndex < 0 || i_FenceLeftListIndex >= Get_CountList_Fence_L())
         {
             Debug.LogError("Get_GameObject_Fence_Left: Out Index of List Fence_Left!");
             return null;
         }
-        return l_Fence_Left[i_FenceLeftListIndex];
+        return l_Fence_L[i_FenceLeftListIndex];
     }
 
     /// <summary>
@@ -523,16 +523,16 @@ public class Isometric_MapRenderer : MonoBehaviour
     /// </summary>
     /// <param name="c_FenceUpCode"></param>
     /// <returns></returns>
-    public GameObject Get_GameObject_Fence_Left(char c_FenceLeftCode)
+    public GameObject Get_GameObject_Fence_L(char c_FenceLeftCode)
     {
         if (c_FenceLeftCode == Get_EmtyCode())
             return null;
 
-        for (int i = 0; i < Get_CountList_Fence_Left(); i++)
+        for (int i = 0; i < Get_CountList_Fence_L(); i++)
         {
-            if (Get_SingleCode_Fence_Left(i) == c_FenceLeftCode)
+            if (Get_SingleCode_Fence_L(i) == c_FenceLeftCode)
             {
-                return Get_GameObject_Fence_Left(i);
+                return Get_GameObject_Fence_L(i);
             }
         }
         Debug.LogError("Get_GameObject_Fence_Left: Not Found Code!");
@@ -544,14 +544,14 @@ public class Isometric_MapRenderer : MonoBehaviour
     /// </summary>
     /// <param name="i_FenceLeftListIndex"></param>
     /// <returns></returns>
-    public char Get_SingleCode_Fence_Left(int i_FenceLeftListIndex)
+    public char Get_SingleCode_Fence_L(int i_FenceLeftListIndex)
     {
-        if (i_FenceLeftListIndex < 0 || i_FenceLeftListIndex >= Get_CountList_Fence_Left())
+        if (i_FenceLeftListIndex < 0 || i_FenceLeftListIndex >= Get_CountList_Fence_L())
         {
             Debug.LogError("Get_SingleCode_Fence_Left: Out Index of List Fence_Left!");
             return Get_EmtyCode();
         }
-        return l_Fence_Left[i_FenceLeftListIndex].GetComponent<Isometric_Single>().Get_SingleCode();
+        return l_Fence_L[i_FenceLeftListIndex].GetComponent<Isometric_Single>().Get_SingleCode();
     }
 
     #endregion
@@ -562,11 +562,11 @@ public class Isometric_MapRenderer : MonoBehaviour
     /// Get Count List of Fence_Right
     /// </summary>
     /// <returns></returns>
-    public int Get_CountList_Fence_Right()
+    public int Get_CountList_Fence_R()
     {
-        if (l_Fence_Right.Count == l_Fence_Right.Count)
+        if (l_Fence_R.Count == l_Fence_R.Count)
         {
-            return l_Fence_Right.Count;
+            return l_Fence_R.Count;
         }
         Debug.LogError("Get_CountList_Fence_Right: Both List not same Count!");
         return 0;
@@ -577,14 +577,14 @@ public class Isometric_MapRenderer : MonoBehaviour
     /// </summary>
     /// <param name="i_FenceRightListIndex"></param>
     /// <returns></returns>
-    public GameObject Get_GameObject_Fence_Right(int i_FenceRightListIndex)
+    public GameObject Get_GameObject_Fence_R(int i_FenceRightListIndex)
     {
-        if (i_FenceRightListIndex < 0 || i_FenceRightListIndex >= Get_CountList_Fence_Right())
+        if (i_FenceRightListIndex < 0 || i_FenceRightListIndex >= Get_CountList_Fence_R())
         {
             Debug.LogError("Get_GameObject_Fence_Right: Out Index of List Fence_Right!");
             return null;
         }
-        return l_Fence_Right[i_FenceRightListIndex];
+        return l_Fence_R[i_FenceRightListIndex];
     }
 
     /// <summary>
@@ -592,16 +592,16 @@ public class Isometric_MapRenderer : MonoBehaviour
     /// </summary>
     /// <param name="c_FenceUpCode"></param>
     /// <returns></returns>
-    public GameObject Get_GameObject_Fence_Right(char c_FenceRightCode)
+    public GameObject Get_GameObject_Fence_R(char c_FenceRightCode)
     {
         if (c_FenceRightCode == Get_EmtyCode())
             return null;
 
-        for (int i = 0; i < Get_CountList_Fence_Right(); i++)
+        for (int i = 0; i < Get_CountList_Fence_R(); i++)
         {
             if (Get_SingleCode_Fence_Right(i) == c_FenceRightCode)
             {
-                return Get_GameObject_Fence_Right(i);
+                return Get_GameObject_Fence_R(i);
             }
         }
         Debug.LogError("Get_GameObject_Fence_Right: Not Found Code!");
@@ -615,12 +615,12 @@ public class Isometric_MapRenderer : MonoBehaviour
     /// <returns></returns>
     public char Get_SingleCode_Fence_Right(int i_FenceRightListIndex)
     {
-        if (i_FenceRightListIndex < 0 || i_FenceRightListIndex >= Get_CountList_Fence_Right())
+        if (i_FenceRightListIndex < 0 || i_FenceRightListIndex >= Get_CountList_Fence_R())
         {
             Debug.LogError("Get_SingleCode_Fence_Right: Out Index of List Fence_Right!");
             return Get_EmtyCode();
         }
-        return l_Fence_Right[i_FenceRightListIndex].GetComponent<Isometric_Single>().Get_SingleCode();
+        return l_Fence_R[i_FenceRightListIndex].GetComponent<Isometric_Single>().Get_SingleCode();
     }
 
     #endregion

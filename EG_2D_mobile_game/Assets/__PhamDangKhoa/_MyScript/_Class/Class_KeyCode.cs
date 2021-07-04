@@ -251,18 +251,52 @@ public class Class_KeyCode
 
     #region Key Simple
 
-    public string Get_KeyCode_SimpleChar(KeyCode k_Key)
+    /// <summary>
+    /// Convert 'KeyCode.toString' to 'SimpleString'
+    /// </summary>
+    /// <param name="k_Key"></param>
+    /// <returns></returns>
+    public string Get_KeyCode_Simple(KeyCode k_Key)
     {
+        //Key [ ]
         if (k_Key == KeyCode.LeftBracket)
             return "[";
         if (k_Key == KeyCode.RightBracket)
             return "]";
+        //Key { }
+        if (k_Key == KeyCode.LeftCurlyBracket)
+            return "{";
+        if (k_Key == KeyCode.RightCurlyBracket)
+            return "}";
+        //Key ( )
+        if (k_Key == KeyCode.LeftParen)
+            return "(";
+        if (k_Key == KeyCode.RightParen)
+            return ")";
+        //Key Shift
+        if (k_Key == KeyCode.LeftShift)
+            return "L-Shift";
+        if (k_Key == KeyCode.RightShift)
+            return "R-Shift";
+        //Key Alt
+        if (k_Key == KeyCode.LeftAlt)
+            return "L-Alt";
+        if (k_Key == KeyCode.RightAlt)
+            return "R-Alt";
+        //Key Page
+        if (k_Key == KeyCode.PageUp)
+            return "Page-U";
+        if (k_Key == KeyCode.PageDown)
+            return "Page-D";
+        //Key Another
         if (k_Key == KeyCode.Escape)
             return "Esc";
         if (k_Key == KeyCode.Return)
             return "Enter";
         if (k_Key == KeyCode.Delete)
             return "Del";
+        if (k_Key == KeyCode.Backspace)
+            return "B-Space";
         return k_Key.ToString();
     }
 

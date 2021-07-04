@@ -47,7 +47,6 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -72,7 +71,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 3582016080741333151, guid: d467b3801f99cda45bacd8dc2f88b529, type: 3}
+  m_Sprite: {fileID: 3582016080741333151, guid: d467b3801f99cda45bacd8dc2f88b529,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -95,8 +95,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88b51ca1839d85a47a182808b3636847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  s_Tag: IsometricMap
+  g_MapManager: {fileID: 0}
   v2_Pos: {x: 0, y: 0}
+  i_Floor: 0
   v2_Offset: {x: 0, y: 0}
+  v2_Centre: {x: 0, y: 0}
   b_isObject: 0
-  f_Centre: 0.3
+  f_Centre: 0
   f_Depth: 0
+  c_SingleCode: 65

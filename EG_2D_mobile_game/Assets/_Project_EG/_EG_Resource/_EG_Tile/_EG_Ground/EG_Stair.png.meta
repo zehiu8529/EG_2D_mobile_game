@@ -1,10 +1,19 @@
 fileFormatVersion: 2
-guid: 3162467fbecc8a14982c22781a2e9b50
+guid: c579809e66c437a49800ba20b5caffa2
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1901446020532504529
-    second: Spawm_Isometric_0
+      213: 6507108658397103726
+    second: EG_Stair_0
+  - first:
+      213: 2759533603027182115
+    second: EG_Stair_1
+  - first:
+      213: -6117691662901087496
+    second: EG_Stair_2
+  - first:
+      213: -8392045574547962863
+    second: EG_Stair_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -26,7 +35,6 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
-  vTOnly: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -58,12 +66,9 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
-  flipbookRows: 1
-  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
-  ignorePngGamma: 0
   applyGammaDecoding: 0
   platformSettings:
   - serializedVersion: 3
@@ -118,22 +123,85 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Spawm_Isometric_0
+      name: EG_Stair_0
       rect:
         serializedVersion: 2
         x: 5
         y: 5
         width: 64
         height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1d78b65d41b436a10800000000000000
-      internalID: 1901446020532504529
+      spriteID: e66c0a249d4ed4a50800000000000000
+      internalID: 6507108658397103726
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EG_Stair_1
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 5
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 322603af035db4620800000000000000
+      internalID: 2759533603027182115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EG_Stair_2
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 5
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f2796378d7991ba0800000000000000
+      internalID: -6117691662901087496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EG_Stair_3
+      rect:
+        serializedVersion: 2
+        x: 212
+        y: 5
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1140e2e4307798b80800000000000000
+      internalID: -8392045574547962863
       vertices: []
       indices: 
       edges: []
@@ -141,7 +209,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 4c277df0b94f2814d8fd53957080eed2
+    spriteID: b0e7653aa02c22440813a955fccabd76
     internalID: 0
     vertices: []
     indices: 

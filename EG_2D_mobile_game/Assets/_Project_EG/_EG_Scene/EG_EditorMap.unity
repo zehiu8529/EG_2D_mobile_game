@@ -160,10 +160,13 @@ MonoBehaviour:
   k_Right: 275
   k_Edit: 13
   k_Remove: 127
-  k_Layer: 9
-  k_Next: 93
-  k_Back: 91
-  k_Spawm: 278
+  k_Layer_Next: 280
+  k_Layer_Back: 281
+  k_Square_Next: 93
+  k_Square_Back: 91
+  k_Floor_Up: 278
+  k_Floor_Down: 279
+  k_Spawm: 9
   k_Open_Normal: 286
   k_Open_Temp: 287
   k_New: 290
@@ -184,12 +187,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 13449614}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.3, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_Father: {fileID: 634855601}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &13449617
 MonoBehaviour:
@@ -205,11 +208,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   s_Tag: IsometricMap
   g_MapManager: {fileID: 0}
-  v2_PosOnMap: {x: 0, y: 0}
-  v2_OffsetOnMap: {x: 0, y: 0}
-  v2_CentreOnSquare: {x: 0, y: 0}
-  b_isObject: 1
-  f_Centre: 1.3
+  v2_Pos: {x: 0, y: 0}
+  i_Floor: 0
+  v2_Offset: {x: 0, y: 0}
+  v2_Centre: {x: 0, y: 0}
+  b_onGround: 1
+  f_Centre: 0
   f_Depth: 0
   c_SingleCode: 65
 --- !u!212 &13449618
@@ -251,7 +255,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 8751161495075782339, guid: 908deeee7c9fb254982c35a7c835ee21,
+  m_Sprite: {fileID: -494558350686636362, guid: 3162467fbecc8a14982c22781a2e9b50,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -702,12 +706,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 116772158}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 1.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_Father: {fileID: 634855601}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &116772161
 SpriteRenderer:
@@ -774,11 +778,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   s_Tag: IsometricMap
   g_MapManager: {fileID: 0}
-  v2_PosOnMap: {x: 0, y: 0}
-  v2_OffsetOnMap: {x: 0, y: 0}
-  v2_CentreOnSquare: {x: 0, y: 0}
-  b_isObject: 1
-  f_Centre: 1.3
+  v2_Pos: {x: 0, y: 0}
+  i_Floor: 0
+  v2_Offset: {x: 0, y: 0}
+  v2_Centre: {x: 0, y: 0}
+  b_onGround: 1
+  f_Centre: 0.3
   f_Depth: 0
   c_SingleCode: 65
 --- !u!114 &116772163
@@ -1668,9 +1673,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 634855600}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.9995518, z: -9}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 13449616}
+  - {fileID: 116772160}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1688,7 +1695,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   s_Tag: IsometricMap
   v2_Offset: {x: 0, y: 0}
-  b_StartGenerate: 0
 --- !u!114 &634855604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1706,6 +1712,10 @@ MonoBehaviour:
   - {fileID: 2105299799677455540, guid: 35c003c6c4456bd4f8056085c24b451b, type: 3}
   - {fileID: 7735754569224289513, guid: 098a894f0a5c6814ca81800f222f037a, type: 3}
   - {fileID: 8680859505868499736, guid: f77d5fd050c210b45af4684a51be4805, type: 3}
+  - {fileID: 651364459886309644, guid: dd533b40811213b48aad13811d5b1931, type: 3}
+  - {fileID: 3186468488396178752, guid: ab79fe4fa46456b4aaadf6d170a9c8b6, type: 3}
+  - {fileID: 8555918917784625976, guid: 595483bdbc8c6be469eb64cdeee19fc4, type: 3}
+  - {fileID: 5788759573677310219, guid: c198b704f27781d41b8eeebb77a8cc79, type: 3}
   l_Object:
   - {fileID: 4460797128710157806, guid: 9149e6bc29cce9a428402b6b24a8bdef, type: 3}
   - {fileID: 3385430312957717841, guid: af6aa17eeb942214284dfa92ed659d4b, type: 3}
@@ -1714,13 +1724,13 @@ MonoBehaviour:
   - {fileID: 5786968988204015352, guid: fbda9acae48b03f4798676433c741742, type: 3}
   - {fileID: 1555752416678142943, guid: 41928973c3c920444beb724913a184d8, type: 3}
   - {fileID: 2568581412078353803, guid: 8847a9b664a31484fa3bbcac9b60345d, type: 3}
-  l_Fence_Up:
+  l_Fence_U:
   - {fileID: 2386243090200919498, guid: 3ec54d6c510fc544dbfbd5d7bc5bf305, type: 3}
-  l_Fence_Down:
+  l_Fence_D:
   - {fileID: 9001288590841572552, guid: 7f9d2951d8e863345830a6fbdaed7b63, type: 3}
-  l_Fence_Left:
+  l_Fence_L:
   - {fileID: 9187171674658127747, guid: 4a9112bc5dde1684dba62ef4e5e6e4df, type: 3}
-  l_Fence_Right:
+  l_Fence_R:
   - {fileID: 7353951143779803940, guid: e2fe148196cf04b4d9ef9708fc78acf1, type: 3}
 --- !u!114 &634855605
 MonoBehaviour:
@@ -1736,10 +1746,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   s_MapCode_Ground: 
   s_MapCode_Object: 
-  s_MapCode_Fence_Up: 
-  s_MapCode_Fence_Down: 
-  s_MapCode_Fence_Left: 
-  s_MapCode_Fence_Right: 
+  s_MapCode_Fence_U: 
+  s_MapCode_Fence_D: 
+  s_MapCode_Fence_L: 
+  s_MapCode_Fence_R: 
+  s_MapCode_Floor: 
+  l2_MapCode_Under: []
   v2_MapCode_Size: {x: 0, y: 0}
   l_SpawmPoint: []
 --- !u!1 &700887579
@@ -3205,7 +3217,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1233936798}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -200}
+  m_LocalPosition: {x: 0, y: 1, z: -200}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
