@@ -4697,6 +4697,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   s_Tag: IsometricMap
   v2_Offset: {x: 0, y: 0}
+  f_ConstDepth: 9
 --- !u!114 &974773405
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4746,13 +4747,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b4cba5ef4eb2ba4aba219fe778444c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  s_MapCode_Ground: AAAAA~AaA~bBbAAAAALaAaLBbBAAAAA~AaA~bBbAAAAA~aAa~~D~AAAAA~AaAaAaAAAAAA~aAaAaAaAAAAA~AaAaAaAAAAAA~~~~~~A~AAAAA~BbBbBbBA~~~A~bBbBbBbA~~~ALBbBbBbBA~~~A~bBbBbBbAAAAA~BbBbBbB
+  s_MapCode_Ground: AAAAAaAaABbBbAAAAALa~aLBbBAAAAAAA~ABbBbAAAAA~a~a~BDBAAAAA~AaAaAaAAAAAA~aAa~~~aAAAAA~AaAaAaAAAAAA~~~~~~B~AAAAA~BbBbBbBA~~~ABbBbBbBbA~~~ALBbBbBbBA~~~ABbBbBbBbAAAAA~BbBbBbB
   s_MapCode_Object: ~~~~~~~~~~~~~~~~~~~~~~~~1~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~4~5~6~~~~~~~~~~~~~~~~~~~~~3~2~7~~~~~~~~~~~~~~
-  s_MapCode_Fence_U: UUUUU~UUU~UUU~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~UU~U~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~UUUUU~U~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~UUU~~~~~~~~~
-  s_MapCode_Fence_D: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~D~D~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~DDDDD~D~~~~~~~~~~~~~~DDD~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~DDDDD~DDDDDDD
-  s_MapCode_Fence_L: L~~~~~L~~~L~~L~~~~~~~~~~~~L~~~~~L~~~L~~L~~~~~L~~~~~~L~~~~~L~~~~~~L~~~~~L~~~~~~L~~~~~L~~~~~~L~~~~~~~~~~L~L~~~~~L~~~~~~L~~~L~L~~~~~~L~~~L~~~~~~~~L~~~L~L~~~~~~L~~~~~L~~~~~~
-  s_MapCode_Fence_R: ~~~~R~~~R~~~R~~~~~~~~~~~~R~~~~R~~~R~~~R~~~~R~~~R~~~~~~~~R~~~~~~~R~~~~R~~~~~~~R~~~~R~~~~~~~R~~~~R~~~~~~R~~~~~R~~~~~~~RR~~~R~~~~~~~RR~~~~~~~~~~~RR~~~R~~~~~~~R~~~~R~~~~~~~R
-  s_MapCode_Floor: 0000001111222000001111222200000011112220000001111121000000111111100000011111110000001111111000000000001000000011111110000001111111000001111111100000011111110000001111111
+  s_MapCode_Fence_U: UUUUUUUUUUUUU~~~~~U~~~~~~~~~~~~U~~~U~~~~~~~~~~~~~~~~~~~~~~~U~U~~~~~~~~~~~~UUU~~~~~~~~~~UUU~~~~~~~~~~~~~~~~~~~~UUUUU~U~~~~~U~~~~~~~~~~~~~~~~~~~~~~~~~U~~~~~~~~UUU~~~~~~~~~
+  s_MapCode_Fence_D: ~~~~~~~D~D~~~~~~~~~~~~~~~~~~~~~D~~~D~~~~~~~~~~~~~D~D~~~~~~~~~DDD~~~~~~~~~~~~~~~~~~~~DDDDD~D~~~~~~~~~~~~~~DDD~~~~~~~~~~~~~~D~~~~~~~~~~~~~~~~~~~~~~~~~D~~~~~~~DDDDD~DDDDDDD
+  s_MapCode_Fence_L: L~~~~L~~~L~~~L~~~~~~~L~~~~L~~~~L~~LL~~~L~~~~~L~L~L~LL~~~~~L~~~~~~L~~~~~L~~~~~LL~~~~~L~~~~~~L~~~~~~~~~~L~L~~~~~L~~~~~~L~~~LL~~~~~~~L~~~L~~~~~~~~L~~~LL~~~~~~~L~~~~~L~~~~~~
+  s_MapCode_Fence_R: ~~~~~~~~~~~~R~~~~~~R~~~~~R~~~~~~R~~~~~R~~~~R~R~R~R~R~~~~R~~~~~~~R~~~~R~~~R~~~R~~~~R~~~~~~~R~~~~R~~~~~~R~~~~~R~~~~~~~RR~~~~~~~~~~~RR~~~~~~~~~~~RR~~~~~~~~~~~R~~~~R~~~~~~~R
+  s_MapCode_Floor: 0000011112222000001111222200000111122220000001111222000000111111100000011111110000001111111000000000001000000011111110000011111111000001111111100000111111110000001111111
   l2_MapCode_Under: []
   v2_MapCode_Size: {x: 13, y: 13}
   l_SpawmPoint:

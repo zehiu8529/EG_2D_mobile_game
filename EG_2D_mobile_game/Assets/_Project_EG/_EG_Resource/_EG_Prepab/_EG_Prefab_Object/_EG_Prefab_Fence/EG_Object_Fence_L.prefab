@@ -98,10 +98,12 @@ MonoBehaviour:
   s_Tag: IsometricMap
   g_MapManager: {fileID: 0}
   v2_Pos: {x: 0, y: 0}
-  i_Floor: 0
+  f_Floor: 0
   v2_Offset: {x: 0, y: 0}
+  f_ConstDepth: 9
+  b_isStair: 0
   v2_Centre: {x: 0, y: 0}
   b_onGround: 1
   f_Centre: 0
-  f_Depth: -0.9
+  f_Depth: -0.5
   c_SingleCode: 76

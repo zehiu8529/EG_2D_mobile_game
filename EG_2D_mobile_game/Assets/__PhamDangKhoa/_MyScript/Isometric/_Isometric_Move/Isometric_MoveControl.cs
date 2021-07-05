@@ -620,6 +620,18 @@ public class Isometric_MoveControl : MonoBehaviour
 
     private void Set_Move_Floor()
     {
+        if(cl_MapManager_MapManager == null)
+        {
+            return;
+        }
+        else
+        {
+            if(cl_MapManager_MapManager.Get_GameObject_Ground(v2_PosMoveTo) == null)
+            {
+                return;
+            }
+        }
+
         float f_FloorMoveTo = 
             (cl_MapManager_MapManager.Get_GameObject_Ground(v2_PosMoveTo).GetComponent<Isometric_Single>().Get_isStair()) ? 
             cl_MapManager_MapManager.Get_GameObject_Ground(v2_PosMoveTo).GetComponent<Isometric_Single>().Get_Isometric_Floor() - 0.5f :
