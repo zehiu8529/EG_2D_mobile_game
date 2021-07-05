@@ -45,6 +45,9 @@ public class Isometric_Single : MonoBehaviour
     [SerializeField]
     private Vector2 v2_Offset = new Vector2(0, 0);
 
+    [SerializeField]
+    private float f_ConstDepth = 9;
+
     /// <summary>
     /// Check if this Isometric is STAIR
     /// </summary>
@@ -76,10 +79,10 @@ public class Isometric_Single : MonoBehaviour
     /// Depth Z of Isometric
     /// </summary>
     /// <remarks>
-    /// If Isometric is FENCE, set | U=0.9f ; D=-0.9f ; L=-0.9f ; R=0.9f | in Unity Editor Inspector
+    /// If Isometric is FENCE, set | U=0.5f ; D=-0.5f ; L=-0.5f ; R=0.5f | in Unity Editor Inspector
     /// </remarks>
     [SerializeField]
-    [Range(-1,1)]
+    [Range(-1f,1f)]
     private float f_Depth = 0;
 
     /// <summary>
@@ -137,16 +140,16 @@ public class Isometric_Single : MonoBehaviour
         {
             if (cl_MapManager != null)
             {
-                v3_Pos = cl_Vector.Get_Isometric_FixedDepth(
+                v3_Pos = cl_Vector.Get_Isometric_FixedDepth_OnGround(
                     v2_Pos + v2_Offset,
                     f_Floor,
                     f_Depth, 
-                    f_Centre, 
-                    cl_MapString.Get_MapSize());
+                    f_Centre,
+                    f_ConstDepth);
             }
             else
             {
-                v3_Pos = cl_Vector.Get_Isometric_FixedDepth(
+                v3_Pos = cl_Vector.Get_Isometric_FixedDepth_OnGround(
                     v2_Pos + v2_Offset, 
                     f_Depth, 
                     f_Centre);
@@ -156,28 +159,29 @@ public class Isometric_Single : MonoBehaviour
         {
             if (cl_MapManager != null)
             {
-                v3_Pos = cl_Vector.Get_Isometric_FixedDepth(
+                v3_Pos = cl_Vector.Get_Isometric_FixedDepth_Ground(
                     v2_Pos + v2_Offset,
                     f_Floor,
-                    cl_MapString.Get_MapSize());
+                    f_ConstDepth);
             }
             else
             {
-                v3_Pos = cl_Vector.Get_Isometric_FixedDepth(
+                v3_Pos = cl_Vector.Get_Isometric_FixedDepth_Ground(
                     v2_Pos + v2_Offset);
             }
         }
 
-        Vector3 v3_Transform = cl_Vector.Get_Isometric_TransformPosition(v3_Pos);
-        v3_Transform += new Vector3(v2_Centre.x, v2_Centre.y, 0);
-        v3_Transform.y += f_Floor;
+        Vector3 v3_Transform = cl_Vector.Get_Isometric_TransformPosition(
+            this.v3_Pos, 
+            this.v2_Centre, 
+            this.f_Floor);
 
         this.transform.position = v3_Transform;
     }
 
     #endregion
 
-    #region Pos and Floor
+    #region Pos
 
     /// <summary>
     /// Set Pos for this Isometric
@@ -201,6 +205,19 @@ public class Isometric_Single : MonoBehaviour
     }
 
     /// <summary>
+    /// Get Pos of this Isometric
+    /// </summary>
+    /// <returns></returns>
+    public Vector2 Get_Isometric_Pos()
+    {
+        return v2_Pos;
+    }
+
+    #endregion
+
+    #region Floor
+
+    /// <summary>
     /// Set Floor for this Isometric
     /// </summary>
     /// <param name="f_Floor"></param>
@@ -212,43 +229,26 @@ public class Isometric_Single : MonoBehaviour
     }
 
     /// <summary>
-    /// Set Pos and Floor for this Isometric
-    /// </summary>
-    /// <param name="v2_Pos">Dir X is [UP;DOWN] and Dir Y [LEFT;RIGHT]</param>
-    public void Set_Isometric(Vector2 v2_Pos, int i_Floor)
-    {
-        this.v2_Pos = v2_Pos;
-        this.f_Floor = i_Floor;
-
-        Set_Isometric_Transform();
-    }
-
-    /// <summary>
-    /// Set Pos and Floor for this Isometric
-    /// </summary>
-    /// <param name="f_Pos_x">Dir X is [UP;DOWN]</param>
-    /// <param name="f_Pos_y">Dir Y [LEFT;RIGHT]</param>
-    public void Set_Isometric(float f_Pos_x, float f_Pos_y, int i_Floor)
-    {
-        Set_Isometric(new Vector2(f_Pos_x, f_Pos_y), i_Floor);
-    }
-
-    /// <summary>
-    /// Get Pos of this Isometric
-    /// </summary>
-    /// <returns></returns>
-    public Vector2 Get_Isometric_Pos()
-    {
-        return v2_Pos;
-    }
-
-    /// <summary>
     /// Get Floor of this Isometric
     /// </summary>
     /// <returns></returns>
     public float Get_Isometric_Floor()
     {
         return this.f_Floor;
+    }
+
+    #endregion
+
+    #region Const Depth
+
+    public void Set_Isometric_ConstDepth(float f_ConstDepth)
+    {
+        this.f_ConstDepth = f_ConstDepth;
+    }
+
+    public float Get_Isometric_ConstDepth()
+    {
+        return this.f_ConstDepth;
     }
 
     #endregion
@@ -280,21 +280,23 @@ public class Isometric_Single : MonoBehaviour
     #region On Ground
 
     /// <summary>
-    /// Set On-Ground check for this Isometric
-    /// </summary>
-    /// <returns></returns>
-    public bool Get_onGround()
-    {
-        return b_onGround;
-    }
-
-    /// <summary>
     /// Get On-Ground check for this Isometric
     /// </summary>
     /// <param name="b_onGround"></param>
     public void Set_onGround(bool b_onGround)
     {
         this.b_onGround = b_onGround;
+
+        Set_Isometric_Transform();
+    }
+
+    /// <summary>
+    /// Set On-Ground check for this Isometric
+    /// </summary>
+    /// <returns></returns>
+    public bool Get_onGround()
+    {
+        return b_onGround;
     }
 
     #endregion
@@ -308,6 +310,25 @@ public class Isometric_Single : MonoBehaviour
     public bool Get_isStair()
     {
         return this.b_isStair;
+    }
+
+    #endregion
+
+    #region All Isometric Varible
+
+    /// <summary>
+    /// Set Pos, Floor, Const-Depth, Offset and On-Ground for this Isometric
+    /// </summary>
+    /// <param name="v2_Pos">Dir X is [UP;DOWN] and Dir Y [LEFT;RIGHT]</param>
+    public void Set_Isometric(Vector2 v2_Pos, float f_Floor, float f_ConstDepth, Vector2 v2_Offset, bool b_onGround)
+    {
+        this.v2_Pos = v2_Pos;
+        this.f_Floor = f_Floor;
+        this.f_ConstDepth = f_ConstDepth;
+        this.v2_Offset = v2_Offset;
+        this.b_onGround = b_onGround;
+
+        Set_Isometric_Transform();
     }
 
     #endregion

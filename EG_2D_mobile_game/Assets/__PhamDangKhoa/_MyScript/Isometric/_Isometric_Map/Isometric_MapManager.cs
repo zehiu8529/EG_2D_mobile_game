@@ -33,9 +33,12 @@ public class Isometric_MapManager : MonoBehaviour
     /// <summary>
     /// Pos Offset for Map (With Offset(0,0), Start in Isometric Square(0,0))
     /// </summary>
-    [Header("Offset")]
+    [Header("Isometric On-Map")]
     [SerializeField]
     private Vector2 v2_Offset = new Vector2();
+
+    [SerializeField]
+    private float f_ConstDepth = 9;
 
     #endregion
 
@@ -464,7 +467,7 @@ public class Isometric_MapManager : MonoBehaviour
     /// </summary>
     /// <param name="v2_Pos">Dir X is [UP;DOWN] and Dir Y [LEFT;RIGHT]</param>
     /// <param name="c_GroundCode"></param>
-    public void Set_MatrixCode_Ground(Vector2Int v2_Pos, char c_GroundCode)
+    public void Set_MatrixCode_Ground(Vector2Int v2_Pos, char c_GroundCode, char c_FloorCode)
     {
         if (!Get_Check_InsideMap(v2_Pos))
             return;
@@ -478,9 +481,9 @@ public class Isometric_MapManager : MonoBehaviour
 
         GameObject g_Prefab = cl_MapRenderer.Get_GameObject_Ground(c_GroundCode);
         
-        l2_Map_Ground[v2_Pos.x][v2_Pos.y] = Set_GameObject_Create(v2_Pos, g_Prefab, false);
+        l2_Map_Ground[v2_Pos.x][v2_Pos.y] = Set_GameObject_Create(v2_Pos, g_Prefab, c_FloorCode, false);
 
-        Set_Floor_Ground(v2_Pos);
+        //Set_Floor_Ground(v2_Pos);
     }
 
     /// <summary>
@@ -503,6 +506,9 @@ public class Isometric_MapManager : MonoBehaviour
     /// <returns></returns>
     public GameObject Get_GameObject_Ground(Vector2Int v2_Pos)
     {
+        if (!Get_Check_InsideMap(v2_Pos))
+            return null;
+
         return l2_Map_Ground[v2_Pos.x][v2_Pos.y];
     }
 
@@ -536,7 +542,10 @@ public class Isometric_MapManager : MonoBehaviour
             {
                 i_CodeIndex++;
 
-                Set_MatrixCode_Ground(new Vector2Int(i, j), cl_MapString.Get_MapCode_Ground()[i_CodeIndex]);
+                Set_MatrixCode_Ground(
+                    new Vector2Int(i, j), 
+                    cl_MapString.Get_MapCode_Ground()[i_CodeIndex],
+                    cl_MapString.Get_MapCode_Floor()[i_CodeIndex]);
             }
         }
     }
@@ -552,7 +561,7 @@ public class Isometric_MapManager : MonoBehaviour
     /// </summary>
     /// <param name="v2_Pos">Dir X is [UP;DOWN] and Dir Y [LEFT;RIGHT]</param>
     /// <param name="c_ObjectCode"></param>
-    public void Set_MatrixCode_Object(Vector2Int v2_Pos, char c_ObjectCode)
+    public void Set_MatrixCode_Object(Vector2Int v2_Pos, char c_ObjectCode, char c_FloorCode)
     {
         if (!Get_Check_InsideMap(v2_Pos))
             return;
@@ -566,9 +575,9 @@ public class Isometric_MapManager : MonoBehaviour
 
         GameObject g_Prefab = cl_MapRenderer.Get_GameObject_Object(c_ObjectCode);
         
-        l2_Map_Object[v2_Pos.x][v2_Pos.y] = Set_GameObject_Create(v2_Pos, g_Prefab, true);
+        l2_Map_Object[v2_Pos.x][v2_Pos.y] = Set_GameObject_Create(v2_Pos, g_Prefab, c_FloorCode, true);
 
-        Set_Floor_Object(v2_Pos);
+        //Set_Floor_Object(v2_Pos);
     }
 
     /// <summary>
@@ -591,6 +600,9 @@ public class Isometric_MapManager : MonoBehaviour
     /// <returns></returns>
     public GameObject Get_GameObject_Object(Vector2Int v2_Pos)
     {
+        if (!Get_Check_InsideMap(v2_Pos))
+            return null;
+
         return l2_Map_Object[v2_Pos.x][v2_Pos.y];
     }
 
@@ -624,7 +636,10 @@ public class Isometric_MapManager : MonoBehaviour
             {
                 i_CodeIndex++;
 
-                Set_MatrixCode_Object(new Vector2Int(i, j), cl_MapString.Get_MapCode_Object()[i_CodeIndex]);
+                Set_MatrixCode_Object(
+                    new Vector2Int(i, j), 
+                    cl_MapString.Get_MapCode_Object()[i_CodeIndex],
+                    cl_MapString.Get_MapCode_Floor()[i_CodeIndex]);
             }
         }
     }
@@ -640,7 +655,7 @@ public class Isometric_MapManager : MonoBehaviour
     /// </summary>
     /// <param name="v2_Pos">Dir X is [UP;DOWN] and Dir Y [LEFT;RIGHT]</param>
     /// <param name="c_FenceUpCode"></param>
-    public void Set_MatrixCode_Fence_U(Vector2Int v2_Pos, char c_FenceUpCode)
+    public void Set_MatrixCode_Fence_U(Vector2Int v2_Pos, char c_FenceUpCode, char c_FloorCode)
     {
         if (!Get_Check_InsideMap(v2_Pos))
             return;
@@ -654,9 +669,9 @@ public class Isometric_MapManager : MonoBehaviour
 
         GameObject g_Prefab = cl_MapRenderer.Get_GameObject_Fence_U(c_FenceUpCode);
         
-        l2_Map_FenceU[v2_Pos.x][v2_Pos.y] = Set_GameObject_Create(v2_Pos, g_Prefab, true);
+        l2_Map_FenceU[v2_Pos.x][v2_Pos.y] = Set_GameObject_Create(v2_Pos, g_Prefab, c_FloorCode, true);
 
-        Set_Floor_Fence_U(v2_Pos);
+        //Set_Floor_Fence_U(v2_Pos);
     }
 
     /// <summary>
@@ -679,6 +694,9 @@ public class Isometric_MapManager : MonoBehaviour
     /// <returns></returns>
     public GameObject Get_GameObject_Fence_U(Vector2Int v2_Pos)
     {
+        if (!Get_Check_InsideMap(v2_Pos))
+            return null;
+
         return l2_Map_FenceU[v2_Pos.x][v2_Pos.y];
     }
 
@@ -712,7 +730,10 @@ public class Isometric_MapManager : MonoBehaviour
             {
                 i_CodeIndex++;
 
-                Set_MatrixCode_Fence_U(new Vector2Int(i, j), cl_MapString.Get_MapCode_Fence_U()[i_CodeIndex]);
+                Set_MatrixCode_Fence_U(
+                    new Vector2Int(i, j), 
+                    cl_MapString.Get_MapCode_Fence_U()[i_CodeIndex],
+                    cl_MapString.Get_MapCode_Floor()[i_CodeIndex]);
             }
         }
     }
@@ -728,7 +749,7 @@ public class Isometric_MapManager : MonoBehaviour
     /// </summary>
     /// <param name="v2_Pos">Dir X is [UP;DOWN] and Dir Y [LEFT;RIGHT]</param>
     /// <param name="c_FenceDownCode"></param>
-    public void Set_MatrixCode_Fence_D(Vector2Int v2_Pos, char c_FenceDownCode)
+    public void Set_MatrixCode_Fence_D(Vector2Int v2_Pos, char c_FenceDownCode, char c_FloorCode)
     {
         if (!Get_Check_InsideMap(v2_Pos))
             return;
@@ -742,9 +763,9 @@ public class Isometric_MapManager : MonoBehaviour
 
         GameObject g_Prefab = cl_MapRenderer.Get_GameObject_Fence_D(c_FenceDownCode);
         
-        l2_Map_FenceD[v2_Pos.x][v2_Pos.y] = Set_GameObject_Create(v2_Pos, g_Prefab, true);
+        l2_Map_FenceD[v2_Pos.x][v2_Pos.y] = Set_GameObject_Create(v2_Pos, g_Prefab, c_FloorCode, true);
 
-        Set_Floor_Fence_D(v2_Pos);
+        //Set_Floor_Fence_D(v2_Pos);
     }
 
     /// <summary>
@@ -767,6 +788,9 @@ public class Isometric_MapManager : MonoBehaviour
     /// <returns></returns>
     public GameObject Get_GameObject_Fence_D(Vector2Int v2_Pos)
     {
+        if (!Get_Check_InsideMap(v2_Pos))
+            return null;
+
         return l2_Map_FenceD[v2_Pos.x][v2_Pos.y];
     }
 
@@ -800,7 +824,10 @@ public class Isometric_MapManager : MonoBehaviour
             {
                 i_CodeIndex++;
 
-                Set_MatrixCode_Fence_D(new Vector2Int(i, j), cl_MapString.Get_MapCode_Fence_D()[i_CodeIndex]);
+                Set_MatrixCode_Fence_D(
+                    new Vector2Int(i, j), 
+                    cl_MapString.Get_MapCode_Fence_D()[i_CodeIndex],
+                    cl_MapString.Get_MapCode_Floor()[i_CodeIndex]);
             }
         }
     }
@@ -816,7 +843,7 @@ public class Isometric_MapManager : MonoBehaviour
     /// </summary>
     /// <param name="v2_Pos">Dir X is [UP;DOWN] and Dir Y [LEFT;RIGHT]</param>
     /// <param name="c_FenceLeftCode"></param>
-    public void Set_MatrixCode_Fence_L(Vector2Int v2_Pos, char c_FenceLeftCode)
+    public void Set_MatrixCode_Fence_L(Vector2Int v2_Pos, char c_FenceLeftCode, char c_FloorCode)
     {
         if (!Get_Check_InsideMap(v2_Pos))
             return;
@@ -830,9 +857,9 @@ public class Isometric_MapManager : MonoBehaviour
 
         GameObject g_Prefab = cl_MapRenderer.Get_GameObject_Fence_L(c_FenceLeftCode);
         
-        l2_Map_FenceL[v2_Pos.x][v2_Pos.y] = Set_GameObject_Create(v2_Pos, g_Prefab, true);
+        l2_Map_FenceL[v2_Pos.x][v2_Pos.y] = Set_GameObject_Create(v2_Pos, g_Prefab, c_FloorCode, true);
 
-        Set_Floor_Fence_L(v2_Pos);
+        //Set_Floor_Fence_L(v2_Pos);
     }
 
     /// <summary>
@@ -855,6 +882,9 @@ public class Isometric_MapManager : MonoBehaviour
     /// <returns></returns>
     public GameObject Get_GameObject_Fence_L(Vector2Int v2_Pos)
     {
+        if (!Get_Check_InsideMap(v2_Pos))
+            return null;
+
         return l2_Map_FenceL[v2_Pos.x][v2_Pos.y];
     }
 
@@ -888,7 +918,10 @@ public class Isometric_MapManager : MonoBehaviour
             {
                 i_CodeIndex++;
 
-                Set_MatrixCode_Fence_L(new Vector2Int(i, j), cl_MapString.Get_MapCode_Fence_L()[i_CodeIndex]);
+                Set_MatrixCode_Fence_L(
+                    new Vector2Int(i, j), 
+                    cl_MapString.Get_MapCode_Fence_L()[i_CodeIndex],
+                    cl_MapString.Get_MapCode_Floor()[i_CodeIndex]);
             }
         }
     }
@@ -904,7 +937,7 @@ public class Isometric_MapManager : MonoBehaviour
     /// </summary>
     /// <param name="v2_Pos">Dir X is [UP;DOWN] and Dir Y [LEFT;RIGHT]</param>
     /// <param name="c_FenceRightCode"></param>
-    public void Set_MatrixCode_Fence_R(Vector2Int v2_Pos, char c_FenceRightCode)
+    public void Set_MatrixCode_Fence_R(Vector2Int v2_Pos, char c_FenceRightCode, char c_FloorCode)
     {
         if (!Get_Check_InsideMap(v2_Pos))
             return;
@@ -918,9 +951,9 @@ public class Isometric_MapManager : MonoBehaviour
 
         GameObject g_Prefab = cl_MapRenderer.Get_GameObject_Fence_R(c_FenceRightCode);
         
-        l2_Map_FenceR[v2_Pos.x][v2_Pos.y] = Set_GameObject_Create(v2_Pos, g_Prefab, true);
+        l2_Map_FenceR[v2_Pos.x][v2_Pos.y] = Set_GameObject_Create(v2_Pos, g_Prefab, c_FloorCode, true);
 
-        Set_Floor_Fence_R(v2_Pos);
+        //Set_Floor_Fence_R(v2_Pos);
     }
 
     /// <summary>
@@ -943,6 +976,9 @@ public class Isometric_MapManager : MonoBehaviour
     /// <returns></returns>
     public GameObject Get_GameObject_Fence_R(Vector2Int v2_Pos)
     {
+        if (!Get_Check_InsideMap(v2_Pos))
+            return null;
+
         return l2_Map_FenceR[v2_Pos.x][v2_Pos.y];
     }
 
@@ -976,7 +1012,10 @@ public class Isometric_MapManager : MonoBehaviour
             {
                 i_CodeIndex++;
 
-                Set_MatrixCode_Fence_R(new Vector2Int(i, j), cl_MapString.Get_MapCode_Fence_R()[i_CodeIndex]);
+                Set_MatrixCode_Fence_R(
+                    new Vector2Int(i, j), 
+                    cl_MapString.Get_MapCode_Fence_R()[i_CodeIndex],
+                    cl_MapString.Get_MapCode_Floor()[i_CodeIndex]);
             }
         }
     }
@@ -992,28 +1031,28 @@ public class Isometric_MapManager : MonoBehaviour
     /// </summary>
     /// <param name="v2_Pos.x">Dir UP and DOWN</param>
     /// <param name="v2_Pos.y">Dir LEFT and RIGHT</param>
-    /// <param name="i_Floor"></param>
-    public void Set_MaxtrixCode_Floor(Vector2Int v2_Pos, int i_Floor)
+    /// <param name="i_FloorChance"></param>
+    public void Set_MaxtrixCode_Floor(Vector2Int v2_Pos, int i_FloorChance)
     {
         if (!Get_Check_InsideMap(v2_Pos))
             return;
 
-        char i_FloorChance = cl_MapString.Get_Floor(i_Floor);
+        char c_FloorChance = cl_MapString.Get_Floor(i_FloorChance);
 
-        if (l2_Map_FloorCode[v2_Pos.x][v2_Pos.y] == i_FloorChance)
+        if (l2_Map_FloorCode[v2_Pos.x][v2_Pos.y] == c_FloorChance)
             return;
 
-        l2_Map_FloorCode[v2_Pos.x][v2_Pos.y] = i_FloorChance;
+        l2_Map_FloorCode[v2_Pos.x][v2_Pos.y] = c_FloorChance;
 
         //Primary
-        Set_Floor_Ground(v2_Pos, i_Floor);
-        Set_Floor_Object(v2_Pos, i_Floor);
+        Set_Floor_Ground(v2_Pos, i_FloorChance);
+        Set_Floor_Object(v2_Pos, i_FloorChance);
 
         //Fence
-        Set_Floor_Fence_U(v2_Pos, i_Floor);
-        Set_Floor_Fence_D(v2_Pos, i_Floor);
-        Set_Floor_Fence_L(v2_Pos, i_Floor);
-        Set_Floor_Fence_R(v2_Pos, i_Floor);
+        Set_Floor_Fence_U(v2_Pos, i_FloorChance);
+        Set_Floor_Fence_D(v2_Pos, i_FloorChance);
+        Set_Floor_Fence_L(v2_Pos, i_FloorChance);
+        Set_Floor_Fence_R(v2_Pos, i_FloorChance);
     }
 
     /// <summary>
@@ -1343,7 +1382,7 @@ public class Isometric_MapManager : MonoBehaviour
     /// <param name="v2_Pos">Dir X is [UP;DOWN] and Dir Y [LEFT;RIGHT]</param>
     /// <param name="g_Prefab"></param>
     /// <param name="b_isObject"></param>
-    private GameObject Set_GameObject_Create(Vector2Int v2_Pos, GameObject g_Prefab, bool b_isObject)
+    private GameObject Set_GameObject_Create(Vector2Int v2_Pos, GameObject g_Prefab, char c_Floor, bool b_onGround)
     {
         if (g_Prefab == null)
         {
@@ -1353,9 +1392,19 @@ public class Isometric_MapManager : MonoBehaviour
 
         GameObject g_GameObject = cl_Object.Set_Prepab_Create(g_Prefab, transform);
 
-        g_GameObject.GetComponent<Isometric_Single>().Set_Isometric_Pos(v2_Pos);
-        g_GameObject.GetComponent<Isometric_Single>().Set_Isometric_Offset(v2_Offset);
-        g_GameObject.GetComponent<Isometric_Single>().Set_onGround(b_isObject);
+        //g_GameObject.GetComponent<Isometric_Single>().Set_Isometric_Pos(v2_Pos);
+        //g_GameObject.GetComponent<Isometric_Single>().Set_Isometric_Offset(v2_Offset);
+        //g_GameObject.GetComponent<Isometric_Single>().Set_onGround(b_isObject);
+
+        int i_Floor = cl_MapString.Get_Floor(c_Floor);
+
+        g_GameObject.GetComponent<Isometric_Single>().Set_Isometric(
+            v2_Pos,
+            i_Floor,
+            this.f_ConstDepth,
+            this.v2_Offset,
+            b_onGround);
+
         g_GameObject.SetActive(true);
 
         return g_GameObject;

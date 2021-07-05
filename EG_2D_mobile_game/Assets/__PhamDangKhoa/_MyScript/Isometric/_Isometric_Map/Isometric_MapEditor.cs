@@ -618,27 +618,45 @@ public class Isometric_MapEditor : MonoBehaviour
         {
             case 0:
                 //Ground
-                cl_MapManager_MapManager.Set_MatrixCode_Ground(v2_Current, cl_MapManager_Renderer.Get_SingleCode_Ground(i_Choice));
+                cl_MapManager_MapManager.Set_MatrixCode_Ground(
+                    v2_Current, 
+                    cl_MapManager_Renderer.Get_SingleCode_Ground(i_Choice),
+                    cl_MapManager_MapManager.Get_MatrixCode_Floor(v2_Current));
                 break;
             case 1:
                 //Object
-                cl_MapManager_MapManager.Set_MatrixCode_Object(v2_Current, cl_MapManager_Renderer.Get_SingleCode_Object(i_Choice));
+                cl_MapManager_MapManager.Set_MatrixCode_Object(
+                    v2_Current, 
+                    cl_MapManager_Renderer.Get_SingleCode_Object(i_Choice),
+                    cl_MapManager_MapManager.Get_MatrixCode_Floor(v2_Current));
                 break;
             case 2:
                 //Fence
-                cl_MapManager_MapManager.Set_MatrixCode_Fence_U(v2_Current, cl_MapManager_Renderer.Get_SingleCode_Fence_U(i_Choice));
+                cl_MapManager_MapManager.Set_MatrixCode_Fence_U(
+                    v2_Current, 
+                    cl_MapManager_Renderer.Get_SingleCode_Fence_U(i_Choice),
+                    cl_MapManager_MapManager.Get_MatrixCode_Floor(v2_Current));
                 break;
             case 3:
                 //Fence
-                cl_MapManager_MapManager.Set_MatrixCode_Fence_D(v2_Current, cl_MapManager_Renderer.Get_SingleCode_Fence_D(i_Choice));
+                cl_MapManager_MapManager.Set_MatrixCode_Fence_D(
+                    v2_Current,
+                    cl_MapManager_Renderer.Get_SingleCode_Fence_D(i_Choice),
+                    cl_MapManager_MapManager.Get_MatrixCode_Floor(v2_Current));
                 break;
             case 4:
                 //Fence
-                cl_MapManager_MapManager.Set_MatrixCode_Fence_L(v2_Current, cl_MapManager_Renderer.Get_SingleCode_Fence_L(i_Choice));
+                cl_MapManager_MapManager.Set_MatrixCode_Fence_L(
+                    v2_Current, 
+                    cl_MapManager_Renderer.Get_SingleCode_Fence_L(i_Choice),
+                    cl_MapManager_MapManager.Get_MatrixCode_Floor(v2_Current));
                 break;
             case 5:
                 //Fence
-                cl_MapManager_MapManager.Set_MatrixCode_Fence_R(v2_Current, cl_MapManager_Renderer.Get_SingleCode_Fence_Right(i_Choice));
+                cl_MapManager_MapManager.Set_MatrixCode_Fence_R(
+                    v2_Current, 
+                    cl_MapManager_Renderer.Get_SingleCode_Fence_Right(i_Choice),
+                    cl_MapManager_MapManager.Get_MatrixCode_Floor(v2_Current));
                 break;
         }
 
@@ -656,27 +674,45 @@ public class Isometric_MapEditor : MonoBehaviour
         {
             case 0:
                 //Ground
-                cl_MapManager_MapManager.Set_MatrixCode_Ground(v2_Current, cl_MapManager_Renderer.Get_EmtyCode());
+                cl_MapManager_MapManager.Set_MatrixCode_Ground(
+                    v2_Current, 
+                    cl_MapManager_Renderer.Get_EmtyCode(),
+                    cl_MapManager_MapManager.Get_MatrixCode_Floor(v2_Current));
                 break;
             case 1:
                 //Object
-                cl_MapManager_MapManager.Set_MatrixCode_Object(v2_Current, cl_MapManager_Renderer.Get_EmtyCode());
+                cl_MapManager_MapManager.Set_MatrixCode_Object(
+                    v2_Current, 
+                    cl_MapManager_Renderer.Get_EmtyCode(),
+                    cl_MapManager_MapManager.Get_MatrixCode_Floor(v2_Current));
                 break;
             case 2:
                 //Fence
-                cl_MapManager_MapManager.Set_MatrixCode_Fence_U(v2_Current, cl_MapManager_Renderer.Get_EmtyCode());
+                cl_MapManager_MapManager.Set_MatrixCode_Fence_U(
+                    v2_Current, 
+                    cl_MapManager_Renderer.Get_EmtyCode(),
+                    cl_MapManager_MapManager.Get_MatrixCode_Floor(v2_Current));
                 break;
             case 3:
                 //Fence
-                cl_MapManager_MapManager.Set_MatrixCode_Fence_D(v2_Current, cl_MapManager_Renderer.Get_EmtyCode());
+                cl_MapManager_MapManager.Set_MatrixCode_Fence_D(
+                    v2_Current, 
+                    cl_MapManager_Renderer.Get_EmtyCode(),
+                    cl_MapManager_MapManager.Get_MatrixCode_Floor(v2_Current));
                 break;
             case 4:
                 //Fence
-                cl_MapManager_MapManager.Set_MatrixCode_Fence_L(v2_Current, cl_MapManager_Renderer.Get_EmtyCode());
+                cl_MapManager_MapManager.Set_MatrixCode_Fence_L(
+                    v2_Current, 
+                    cl_MapManager_Renderer.Get_EmtyCode(),
+                    cl_MapManager_MapManager.Get_MatrixCode_Floor(v2_Current));
                 break;
             case 5:
                 //Fence
-                cl_MapManager_MapManager.Set_MatrixCode_Fence_R(v2_Current, cl_MapManager_Renderer.Get_EmtyCode());
+                cl_MapManager_MapManager.Set_MatrixCode_Fence_R(
+                    v2_Current, 
+                    cl_MapManager_Renderer.Get_EmtyCode(),
+                    cl_MapManager_MapManager.Get_MatrixCode_Floor(v2_Current));
                 break;
         }
 
