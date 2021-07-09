@@ -72,7 +72,7 @@ public class TextTimer : MonoBehaviour
   
 
 
-
+    //fix lỗi lần 2
 
 
     //public void AddTime(float seconds)
