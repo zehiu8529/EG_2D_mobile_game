@@ -92,7 +92,7 @@ public class EG_SocketManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //Set_Auto_FixPos();
+        Set_Auto_FixPos();
     }
 
     /// <summary>
