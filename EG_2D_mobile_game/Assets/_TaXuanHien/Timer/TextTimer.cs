@@ -16,7 +16,7 @@ public class TextTimer : MonoBehaviour
 
     public GameObject Lose;
     //public Slider slider;
-
+    public GameObject Setting;
     public void Update()
     {
         if (isActive)
@@ -37,50 +37,19 @@ public class TextTimer : MonoBehaviour
         if ((int)timer <= 0 )
         {
             Lose.SetActive(true);
+            Setting.SetActive(false);
             isActive = !isActive;
         }
     }
 
-  
-    //public void StartTimer()
-    //{
-    //    StartTimer(0);
-    //}
-
     public void StartTimer(float seconds)
     {
-        //StartCoroutine(LoandTimer());
+    
         isActive = true;
         timer = seconds;
         UpdateText();
     }
 
-
-    //public IEnumerator LoandTimer ()
-    //{
-        
-    //    timer = starttimer ;
-    //    do
-    //    {
-    //        timer -= Time.deltaTime;
-    //        slider.value = timer / starttimer;
-    //        UpdateText();
-    //        yield return null;
-    //    }
-    //    while (timer > 0);
-    //}    
-  
-
-
-    //fix lỗi lần 2
-
-
-    //public void AddTime(float seconds)
-    //{
-    //    timer += seconds ;
-    //    
-    //    UpdateText();
-    //}
 
     public void PauseTimer()
     {
