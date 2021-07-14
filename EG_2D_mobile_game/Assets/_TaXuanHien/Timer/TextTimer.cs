@@ -16,7 +16,7 @@ public class TextTimer : MonoBehaviour
 
     public GameObject Lose;
     //public Slider slider;
-
+    public GameObject Setting;
     public void Update()
     {
         if (isActive)
@@ -37,6 +37,7 @@ public class TextTimer : MonoBehaviour
         if ((int)timer <= 0 )
         {
             Lose.SetActive(true);
+            Setting.SetActive(false);
             isActive = !isActive;
         }
     }

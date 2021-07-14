@@ -13,7 +13,9 @@ public class PauseMenu : MonoBehaviour
     public GameObject pauseUI;
 
     public GameObject pauseUIMenuOptions;
-
+    public AudioSource audiosrc;
+    public AudioClip kick;
+    public float Soundkick = 1f;
     private void Awake()
     {
         
@@ -29,7 +31,7 @@ public class PauseMenu : MonoBehaviour
         {
             pauseUI.SetActive(true);
             pause = !pause;
-
+            audiosrc.PlayOneShot(kick, Soundkick);
         }
         if (!pause)
         {
