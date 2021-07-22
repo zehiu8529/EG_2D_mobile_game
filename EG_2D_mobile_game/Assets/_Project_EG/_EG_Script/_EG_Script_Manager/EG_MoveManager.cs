@@ -9,8 +9,13 @@ public class EG_MoveManager : MonoBehaviour
     /// <summary>
     /// Client GameObject
     /// </summary>
+    [Header("Client Control")]
     [SerializeField]
     private Isometric_MoveControl cl_Client_MoveControl;
+
+    [Header("Craft Pannel")]
+    [SerializeField]
+    private EG_UICraft cl_UICraft;
 
     #endregion
 
@@ -52,6 +57,11 @@ public class EG_MoveManager : MonoBehaviour
             return;
         }
 
+        if (cl_UICraft.Get_CraftShow())
+        {
+            return;
+        }
+
         if (cl_Client_MoveControl.Get_CheckMove_Dir(new Class_Vector().v2_Isometric_DirUp))
         {
             Set_SendData_PosAlowMoveTo(cl_Client_MoveControl.Get_PosMoveTo_Up(), cl_Client_MoveControl.Get_FaceRight_Up());
@@ -70,6 +80,11 @@ public class EG_MoveManager : MonoBehaviour
     public void Button_Down()
     {
         if (cl_Client_MoveControl == null)
+        {
+            return;
+        }
+
+        if (cl_UICraft.Get_CraftShow())
         {
             return;
         }
@@ -96,6 +111,11 @@ public class EG_MoveManager : MonoBehaviour
             return;
         }
 
+        if (cl_UICraft.Get_CraftShow())
+        {
+            return;
+        }
+
         if (cl_Client_MoveControl.Get_CheckMove_Dir(new Class_Vector().v2_Isometric_DirLeft))
         {
             Set_SendData_PosAlowMoveTo(cl_Client_MoveControl.Get_PosMoveTo_Left(), cl_Client_MoveControl.Get_FaceRight_Left());
@@ -114,6 +134,11 @@ public class EG_MoveManager : MonoBehaviour
     public void Button_Right()
     {
         if (cl_Client_MoveControl == null)
+        {
+            return;
+        }
+
+        if (cl_UICraft.Get_CraftShow())
         {
             return;
         }

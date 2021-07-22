@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EG_ClientTable : MonoBehaviour
+public class EG_ClientTable_Item : MonoBehaviour
 {
     #region Public Varible
 
@@ -19,21 +19,9 @@ public class EG_ClientTable : MonoBehaviour
     /// <summary>
     /// Poition Red
     /// </summary>
-    [Header("Poition Get")]
+    [Header("Item Get")]
     [SerializeField]
-    private int i_Poition_Red = 0;
-
-    /// <summary>
-    /// Poition Blue
-    /// </summary>
-    [SerializeField]
-    private int i_Poition_Blue = 0;
-
-    /// <summary>
-    /// Poition Green
-    /// </summary>
-    [SerializeField]
-    private int i_Poition_Green = 0;
+    private GameObject g_ItemInside;
 
     #endregion
 
@@ -78,7 +66,7 @@ public class EG_ClientTable : MonoBehaviour
             {
                 g_SocketManager = GameObject.FindGameObjectWithTag(s_SocketManager_Tag);
 
-                if(g_SocketManager != null)
+                if (g_SocketManager != null)
                 {
                     cl_ClientManager = g_SocketManager.GetComponent<Socket_ClientManager>();
                     cl_EGSocketManager = g_SocketManager.GetComponent<EG_SocketManager>();
@@ -144,22 +132,18 @@ public class EG_ClientTable : MonoBehaviour
     /// <param name="i_Red"></param>
     /// <param name="i_Green"></param>
     /// <param name="i_Blue"></param>
-    public void Set_Table_Get(out int i_Red, out int i_Blue, out int i_Green)
+    public void Set_Table_Get(out GameObject g_ItemGet)
     {
         if (!Get_Table_Get_Already())
         {
             b_Get = true;
             a_Animator.SetTrigger("Take");
 
-            i_Red = this.i_Poition_Red;
-            i_Green = this.i_Poition_Green;
-            i_Blue = this.i_Poition_Blue;
+            g_ItemGet = this.g_ItemInside;
         }
         else
         {
-            i_Red = 0;
-            i_Green = 0;
-            i_Blue = 0;
+            g_ItemGet = null;
         }
     }
 

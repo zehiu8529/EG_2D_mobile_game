@@ -8,6 +8,12 @@ TextureImporter:
   - first:
       213: -8901387367547379542
     second: EG_UI_Bag_1
+  - first:
+      213: 5837330900267282916
+    second: EG_UI_Bag_2
+  - first:
+      213: 2380913059617184174
+    second: EG_UI_Bag_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -158,10 +164,52 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: EG_UI_Bag_2
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 5
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e1b7dab68d520150800000000000000
+      internalID: 5837330900267282916
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EG_UI_Bag_3
+      rect:
+        serializedVersion: 2
+        x: 212
+        y: 5
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea9129720d3ba0120800000000000000
+      internalID: 2380913059617184174
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 279a1f8f5899e8d4dbf29a61a3190c96
+    spriteID: 7185d3f84f65743418f8ebeb2dcd4149
     internalID: 0
     vertices: []
     indices: 

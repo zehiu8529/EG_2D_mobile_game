@@ -21,7 +21,7 @@ public class EG_SocketManager : MonoBehaviour
     /// <summary>
     /// Client GameObject
     /// </summary>
-    [Header("Data Get from Server")]
+    [Header("Client Control")]
     [SerializeField]
     private Isometric_MoveControl cl_Client_MoveControl;
 
@@ -45,7 +45,7 @@ public class EG_SocketManager : MonoBehaviour
 
     //Queue Push
 
-    private int i_QueuePos = (int)(0.2 / 0.02);
+    private int i_QueuePos = (int)(1.5 / 0.02);
     private int i_QueuePos_Cur = 0;
 
     //Command
@@ -199,7 +199,15 @@ public class EG_SocketManager : MonoBehaviour
         int i_x = int.Parse(l_DataGet[1]);
         int i_y = int.Parse(l_DataGet[2]);
 
-        g_MapManager.GetComponent<Isometric_MapManager>().Get_GameObject_Object(new Vector2Int(i_x, i_y)).GetComponent<EG_ClientTable>().Set_Table_Get_Aldready();
+        if (g_MapManager.GetComponent<Isometric_MapManager>().Get_GameObject_Object(new Vector2Int(i_x, i_y)).GetComponent<EG_ClientTable_Poision>() != null)
+        {
+            g_MapManager.GetComponent<Isometric_MapManager>().Get_GameObject_Object(new Vector2Int(i_x, i_y)).GetComponent<EG_ClientTable_Poision>().Set_Table_Get_Aldready();
+        }
+        else
+        if (g_MapManager.GetComponent<Isometric_MapManager>().Get_GameObject_Object(new Vector2Int(i_x, i_y)).GetComponent<EG_ClientTable_Item>() != null)
+        {
+            g_MapManager.GetComponent<Isometric_MapManager>().Get_GameObject_Object(new Vector2Int(i_x, i_y)).GetComponent<EG_ClientTable_Item>().Set_Table_Get_Aldready();
+        }
     }
 
     #endregion
@@ -217,7 +225,7 @@ public class EG_SocketManager : MonoBehaviour
     {
         if (cl_ClientManager.Get_Socket_Start())
         {
-            if (cl_Client_MoveControl != null) 
+            if (cl_Client_MoveControl != null)
             {
                 if (i_QueuePos_Cur > 0)
                 {

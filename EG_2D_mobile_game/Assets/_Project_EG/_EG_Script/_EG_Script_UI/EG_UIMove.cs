@@ -7,26 +7,11 @@ public class EG_UIMove : MonoBehaviour
 {
     #region Public Varible
 
-    /// <summary>
-    /// Tag for other Isometric Map Manager
-    /// </summary>
     [Header("Isometric Map Tag")]
-    [SerializeField]
-    private string s_MapManager_Tag = "IsometricMap";
-
-    /// <summary>
-    /// Map Manager
-    /// </summary>
     [SerializeField]
     private Isometric_MapManager cl_MapManager;
 
-    /// <summary>
-    /// Tag for other Isometric Map Manager
-    /// </summary>
     [Header("Client Manager Tag")]
-    [SerializeField]
-    private string s_SocketManager_Tag = "ClientManager";
-
     [SerializeField]
     private Socket_ClientManager cl_ClientManager;
 
@@ -70,25 +55,16 @@ public class EG_UIMove : MonoBehaviour
     [SerializeField]
     private Sprite s_Sample_Get;
 
+    [SerializeField]
+    private Sprite s_Sample_Craft;
+
     #endregion
+
+    private EG_UICraft cl_UICraft;
 
     private void Start()
     {
-        if (cl_MapManager == null)
-        {
-            if (s_MapManager_Tag != "")
-            {
-                cl_MapManager = GameObject.FindGameObjectWithTag(s_MapManager_Tag).GetComponent<Isometric_MapManager>();
-            }
-        }
-
-        if (cl_ClientManager == null)
-        {
-            if (s_SocketManager_Tag != "")
-            {
-                cl_ClientManager = GameObject.FindGameObjectWithTag(s_SocketManager_Tag).GetComponent<Socket_ClientManager>();
-            }
-        }
+        cl_UICraft = GetComponent<EG_UICraft>();
     }
 
     private void Update()
@@ -127,6 +103,11 @@ public class EG_UIMove : MonoBehaviour
 
     private void Set_MoveUI_Up()
     {
+        if (cl_UICraft.Get_CraftShow())
+        {
+            i_Button_Up.GetComponent<Image>().sprite = s_Sample_Nope;
+        }
+        else
         if (!cl_ClientControl.Get_CheckMove_Dir_InsideMap(new Class_Vector().v2_Isometric_DirUp))
         {
             i_Button_Up.GetComponent<Image>().sprite = s_Sample_Nope;
@@ -139,13 +120,36 @@ public class EG_UIMove : MonoBehaviour
         else
         if (!cl_ClientControl.Get_CheckMove_Dir_Object(new Class_Vector().v2_Isometric_DirUp)) 
         {
-            if (!cl_MapManager.Get_GameObject_Object(cl_ClientControl.Get_PosMoveTo_Up()).GetComponent<EG_ClientTable>().Get_Table_Get_Already())
+            //Poision
+            if (cl_MapManager.Get_GameObject_Object(cl_ClientControl.Get_PosMoveTo_Up()).GetComponent<EG_ClientTable_Poision>() != null)
             {
-                i_Button_Up.GetComponent<Image>().sprite = s_Sample_Get;
+                if (!cl_MapManager.Get_GameObject_Object(cl_ClientControl.Get_PosMoveTo_Up()).GetComponent<EG_ClientTable_Poision>().Get_Table_Get_Already())
+                {
+                    i_Button_Up.GetComponent<Image>().sprite = s_Sample_Get;
+                }
+                else
+                {
+                    i_Button_Up.GetComponent<Image>().sprite = s_Sample_Nope;
+                }
             }
             else
+            //Item
+            if (cl_MapManager.Get_GameObject_Object(cl_ClientControl.Get_PosMoveTo_Up()).GetComponent<EG_ClientTable_Item>() != null)
             {
-                i_Button_Up.GetComponent<Image>().sprite = s_Sample_Nope;
+                if (!cl_MapManager.Get_GameObject_Object(cl_ClientControl.Get_PosMoveTo_Up()).GetComponent<EG_ClientTable_Item>().Get_Table_Get_Already())
+                {
+                    i_Button_Up.GetComponent<Image>().sprite = s_Sample_Get;
+                }
+                else
+                {
+                    i_Button_Up.GetComponent<Image>().sprite = s_Sample_Nope;
+                }
+            }
+            else
+            //Craft
+            if (cl_MapManager.Get_GameObject_Object(cl_ClientControl.Get_PosMoveTo_Up()).GetComponent<EG_ClientTable_Craft>() != null)
+            {
+                i_Button_Up.GetComponent<Image>().sprite = s_Sample_Craft;
             }
         }
         else
@@ -156,6 +160,11 @@ public class EG_UIMove : MonoBehaviour
 
     private void Set_MoveUI_Down()
     {
+        if (cl_UICraft.Get_CraftShow())
+        {
+            i_Button_Down.GetComponent<Image>().sprite = s_Sample_Nope;
+        }
+        else
         if (!cl_ClientControl.Get_CheckMove_Dir_InsideMap(new Class_Vector().v2_Isometric_DirDown))
         {
             i_Button_Down.GetComponent<Image>().sprite = s_Sample_Nope;
@@ -168,13 +177,36 @@ public class EG_UIMove : MonoBehaviour
         else
         if (!cl_ClientControl.Get_CheckMove_Dir_Object(new Class_Vector().v2_Isometric_DirDown))
         {
-            if (!cl_MapManager.Get_GameObject_Object(cl_ClientControl.Get_PosMoveTo_Down()).GetComponent<EG_ClientTable>().Get_Table_Get_Already())
+            //Poision
+            if (cl_MapManager.Get_GameObject_Object(cl_ClientControl.Get_PosMoveTo_Down()).GetComponent<EG_ClientTable_Poision>() != null)
             {
-                i_Button_Down.GetComponent<Image>().sprite = s_Sample_Get;
+                if (!cl_MapManager.Get_GameObject_Object(cl_ClientControl.Get_PosMoveTo_Down()).GetComponent<EG_ClientTable_Poision>().Get_Table_Get_Already())
+                {
+                    i_Button_Down.GetComponent<Image>().sprite = s_Sample_Get;
+                }
+                else
+                {
+                    i_Button_Down.GetComponent<Image>().sprite = s_Sample_Nope;
+                }
             }
             else
+            //Item
+            if (cl_MapManager.Get_GameObject_Object(cl_ClientControl.Get_PosMoveTo_Down()).GetComponent<EG_ClientTable_Item>() != null)
             {
-                i_Button_Down.GetComponent<Image>().sprite = s_Sample_Nope;
+                if (!cl_MapManager.Get_GameObject_Object(cl_ClientControl.Get_PosMoveTo_Down()).GetComponent<EG_ClientTable_Item>().Get_Table_Get_Already())
+                {
+                    i_Button_Down.GetComponent<Image>().sprite = s_Sample_Get;
+                }
+                else
+                {
+                    i_Button_Down.GetComponent<Image>().sprite = s_Sample_Nope;
+                }
+            }
+            else
+            //Craft
+            if (cl_MapManager.Get_GameObject_Object(cl_ClientControl.Get_PosMoveTo_Down()).GetComponent<EG_ClientTable_Craft>() != null)
+            {
+                i_Button_Down.GetComponent<Image>().sprite = s_Sample_Craft;
             }
         }
         else
@@ -185,6 +217,11 @@ public class EG_UIMove : MonoBehaviour
 
     private void Set_MoveUI_Left()
     {
+        if (cl_UICraft.Get_CraftShow())
+        {
+            i_Button_Left.GetComponent<Image>().sprite = s_Sample_Nope;
+        }
+        else
         if (!cl_ClientControl.Get_CheckMove_Dir_InsideMap(new Class_Vector().v2_Isometric_DirLeft))
         {
             i_Button_Left.GetComponent<Image>().sprite = s_Sample_Nope;
@@ -197,13 +234,36 @@ public class EG_UIMove : MonoBehaviour
         else
         if (!cl_ClientControl.Get_CheckMove_Dir_Object(new Class_Vector().v2_Isometric_DirLeft))
         {
-            if (!cl_MapManager.Get_GameObject_Object(cl_ClientControl.Get_PosMoveTo_Left()).GetComponent<EG_ClientTable>().Get_Table_Get_Already())
+            //Poision
+            if (cl_MapManager.Get_GameObject_Object(cl_ClientControl.Get_PosMoveTo_Left()).GetComponent<EG_ClientTable_Poision>() != null)
             {
-                i_Button_Left.GetComponent<Image>().sprite = s_Sample_Get;
+                if (!cl_MapManager.Get_GameObject_Object(cl_ClientControl.Get_PosMoveTo_Left()).GetComponent<EG_ClientTable_Poision>().Get_Table_Get_Already())
+                {
+                    i_Button_Left.GetComponent<Image>().sprite = s_Sample_Get;
+                }
+                else
+                {
+                    i_Button_Left.GetComponent<Image>().sprite = s_Sample_Nope;
+                }
             }
             else
+            //Item
+            if (cl_MapManager.Get_GameObject_Object(cl_ClientControl.Get_PosMoveTo_Left()).GetComponent<EG_ClientTable_Item>() != null)
             {
-                i_Button_Left.GetComponent<Image>().sprite = s_Sample_Nope;
+                if (!cl_MapManager.Get_GameObject_Object(cl_ClientControl.Get_PosMoveTo_Left()).GetComponent<EG_ClientTable_Item>().Get_Table_Get_Already())
+                {
+                    i_Button_Left.GetComponent<Image>().sprite = s_Sample_Get;
+                }
+                else
+                {
+                    i_Button_Left.GetComponent<Image>().sprite = s_Sample_Nope;
+                }
+            }
+            else
+            //Craft
+            if (cl_MapManager.Get_GameObject_Object(cl_ClientControl.Get_PosMoveTo_Left()).GetComponent<EG_ClientTable_Craft>() != null)
+            {
+                i_Button_Left.GetComponent<Image>().sprite = s_Sample_Craft;
             }
         }
         else
@@ -214,6 +274,11 @@ public class EG_UIMove : MonoBehaviour
 
     private void Set_MoveUI_Right()
     {
+        if (cl_UICraft.Get_CraftShow())
+        {
+            i_Button_Right.GetComponent<Image>().sprite = s_Sample_Nope;
+        }
+        else
         if (!cl_ClientControl.Get_CheckMove_Dir_InsideMap(new Class_Vector().v2_Isometric_DirRight))
         {
             i_Button_Right.GetComponent<Image>().sprite = s_Sample_Nope;
@@ -226,13 +291,36 @@ public class EG_UIMove : MonoBehaviour
         else
         if (!cl_ClientControl.Get_CheckMove_Dir_Object(new Class_Vector().v2_Isometric_DirRight))
         {
-            if (!cl_MapManager.Get_GameObject_Object(cl_ClientControl.Get_PosMoveTo_Right()).GetComponent<EG_ClientTable>().Get_Table_Get_Already())
+            //Poision
+            if (cl_MapManager.Get_GameObject_Object(cl_ClientControl.Get_PosMoveTo_Right()).GetComponent<EG_ClientTable_Poision>() != null)
             {
-                i_Button_Right.GetComponent<Image>().sprite = s_Sample_Get;
+                if (!cl_MapManager.Get_GameObject_Object(cl_ClientControl.Get_PosMoveTo_Right()).GetComponent<EG_ClientTable_Poision>().Get_Table_Get_Already())
+                {
+                    i_Button_Right.GetComponent<Image>().sprite = s_Sample_Get;
+                }
+                else
+                {
+                    i_Button_Right.GetComponent<Image>().sprite = s_Sample_Nope;
+                }
             }
             else
+            //Item
+            if (cl_MapManager.Get_GameObject_Object(cl_ClientControl.Get_PosMoveTo_Right()).GetComponent<EG_ClientTable_Item>() != null)
             {
-                i_Button_Right.GetComponent<Image>().sprite = s_Sample_Nope;
+                if (!cl_MapManager.Get_GameObject_Object(cl_ClientControl.Get_PosMoveTo_Right()).GetComponent<EG_ClientTable_Item>().Get_Table_Get_Already())
+                {
+                    i_Button_Right.GetComponent<Image>().sprite = s_Sample_Get;
+                }
+                else
+                {
+                    i_Button_Right.GetComponent<Image>().sprite = s_Sample_Nope;
+                }
+            }
+            else
+            //Craft
+            if (cl_MapManager.Get_GameObject_Object(cl_ClientControl.Get_PosMoveTo_Right()).GetComponent<EG_ClientTable_Craft>() != null)
+            {
+                i_Button_Right.GetComponent<Image>().sprite = s_Sample_Craft;
             }
         }
         else

@@ -52,4 +52,13 @@ public class EG_UIBag : MonoBehaviour
         b_BagPannel_Show = !b_BagPannel_Show;
     }
 
+    public void Set_BagActive()
+    {
+        if (!b_BagPannel_Show)
+        {
+            a_BagPannel.SetTrigger("Trig_Show");
+            i_Bag_Button.sprite = s_Bag_Close;
+            b_BagPannel_Show = true;
+        }
+    }
 }

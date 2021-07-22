@@ -33,7 +33,7 @@ public class TextTimer : MonoBehaviour
       //  int hours = (int)(timer / 3600);
       
         text.text = /*hours.ToString("00") + characterSpliter + */  minutes.ToString("00") + characterSpliter + seconds.ToString("00");
-        Debug.Log((int)timer);
+        //Debug.Log((int)timer);
         if ((int)timer <= 0 )
         {
             Lose.SetActive(true);

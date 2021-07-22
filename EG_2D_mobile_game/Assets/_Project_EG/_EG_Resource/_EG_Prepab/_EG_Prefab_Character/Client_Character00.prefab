@@ -126,6 +126,7 @@ MonoBehaviour:
   v2_Pos: {x: 0, y: 0}
   f_Floor: 0
   v2_Offset: {x: 0, y: 0}
+  f_ConstDepth: 9
   b_isStair: 0
   v2_Centre: {x: 0, y: 0}
   b_onGround: 1
@@ -205,6 +206,9 @@ MonoBehaviour:
   - {fileID: 5786968988204015352, guid: fbda9acae48b03f4798676433c741742, type: 3}
   - {fileID: 1555752416678142943, guid: 41928973c3c920444beb724913a184d8, type: 3}
   - {fileID: 2568581412078353803, guid: 8847a9b664a31484fa3bbcac9b60345d, type: 3}
+  - {fileID: 4038045958441197234, guid: 96efd7684de96dc489a56ce9da3123d5, type: 3}
+  - {fileID: 3946476376959583453, guid: 66040f3d59ed10c48beba0e97ce79f32, type: 3}
+  - {fileID: 6160837933555252913, guid: 76a4b88975c76d842aa96eef291b7fc8, type: 3}
 --- !u!114 &1367558902211306566
 MonoBehaviour:
   m_ObjectHideFlags: 0
